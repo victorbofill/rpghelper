@@ -1,0 +1,9 @@
+:local(.dice) {
+  .isActive {
+    background-color: red;
+  }
+
+  .results-list {
+    list-style-type: none;
+  }
+}

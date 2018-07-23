@@ -1,0 +1,19 @@
+import React, { PureComponent } from 'react';
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+class Story extends PureComponent {
+  render() {
+    return (
+      <div>
+        <main>
+          <h1>Story</h1>
+          <p>This is the story section.</p>
+        </main>
+      </div>
+    );
+  }
+}
+
+export default connect(
+)(Story);

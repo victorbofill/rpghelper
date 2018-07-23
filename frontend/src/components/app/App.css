@@ -1,0 +1,38 @@
+:local(.app) {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: 20% 80%;
+  height: 700px;
+  width: 100%;
+}
+
+:local(.content) {
+  margin-left: 1em;
+}
+
+:local(.dice) {
+  border-right: 1px solid black;
+}
+
+:local(.header) {
+  ul {
+    border-bottom: 1px solid black;
+    list-style-type: none;
+    display: flex;
+    padding-left: 0;
+  }
+
+  ul:nth-child(1) {
+    padding-left: .2em;
+  }
+
+  a, a:visited {
+    font-size: 1.5em;
+    border: 1px solid grey;
+    border-radius: 5px 5px 0 0;
+    padding: 0 1em 0 1em;
+    margin-right: .1em;
+    color: inherit;
+    text-decoration: none;
+  }
+}
