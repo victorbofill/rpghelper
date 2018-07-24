@@ -22,7 +22,7 @@ module.exports = router
       .catch(next);        
   })
   
-  .delete(':id', (req, res, next) => {
+  .delete('/:id', (req, res, next) => {
     return Note.findByIdAndRemove(req.params.id)
       .then(() => res.json({ deleted: true }))
       .catch(next);

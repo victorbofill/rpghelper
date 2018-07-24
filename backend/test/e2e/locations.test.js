@@ -52,7 +52,7 @@ let story = {
 
 let id = null;
 
-describe.only('Profile API', () => {
+describe('Profile API', () => {
   before(() => dropCollection('locations'));
   before(() => dropCollection('npcs'));
   before(() => dropCollection('stories'));
