@@ -6,10 +6,8 @@ class NPC extends PureComponent {
   render() {
     return (
       <div>
-        <main>
-          <h1>NPC</h1>
-          <p>This is the NPC section.</p>
-        </main>
+        <h1>NPC</h1>
+        <p>This is the NPC section.</p>
       </div>
     );
   }

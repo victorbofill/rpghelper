@@ -6,10 +6,8 @@ class Location extends PureComponent {
   render() {
     return (
       <div>
-        <main>
-          <h1>Location</h1>
-          <p>This is the location section.</p>
-        </main>
+        <h1>Location</h1>
+        <p>This is the location section.</p>
       </div>
     );
   }

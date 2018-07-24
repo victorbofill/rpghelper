@@ -6,10 +6,8 @@ class Story extends PureComponent {
   render() {
     return (
       <div>
-        <main>
-          <h1>Story</h1>
-          <p>This is the story section.</p>
-        </main>
+        <h1>Story</h1>
+        <p>This is the story section.</p>
       </div>
     );
   }
