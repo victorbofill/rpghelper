@@ -1,9 +1,10 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { test } from '../components/app/reducers';
+import promiseMiddelware from './promise-middleware';
+import { notes } from '../components/notes/reducers';
 
 const rootReducer = combineReducers({
-  test
+  notes
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -12,7 +13,8 @@ const store = createStore(
   rootReducer,
   composeEnhancers(
     applyMiddleware(
-      thunk
+      thunk,
+      promiseMiddelware
     )
   )
 );
