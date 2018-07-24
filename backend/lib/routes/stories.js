@@ -3,6 +3,12 @@ const Story = require('../models/Story');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
+  .post('/', (req, res, next) => {
+    Story.create(req.body)
+      .then(location => res.json(location))
+      .catch(next);
+  })
+
   .get('/', (req, res, next) => {
     Story.find()
       .lean()
@@ -17,18 +23,11 @@ module.exports = router
       .catch(next);
   })
 
-  .post('/', (req, res, next) => {
-    Story.create(req.body)
-      .then(location => res.json(location))
-      .catch(next);
-  })
-
   .put('/:id', (req, res, next) => {
     const {
       name,
       description,
       available,
-      complete,
       patron,
       reward,
       notes
@@ -38,7 +37,6 @@ module.exports = router
       name,
       description,
       available,
-      complete,
       patron,
       reward,
       notes
@@ -53,8 +51,20 @@ module.exports = router
 
   .put('/:id/unlocks', (req, res, next) => {
     return Story.findByIdAndUpdate(req.params.id, {
-      $addToSet: { unlocks: req.body }
+      $addToSet: { unlocks: req.body.id }
     }, updateOptions)
       .then(updated => res.json(updated))
-      .catch(next);        
+      .catch(next);
+  })
+
+  .put('/:id/complete', (req, res, next) => {
+    return Story.findByIdAndUpdate(req.params.id, { complete: true }, updateOptions)
+      .then(body => {
+        return Story.update(
+          { _id: { $in: body.unlocks }},
+          { $set: { available: true }}
+        );        
+      })
+      .then(updated => res.json(updated))
+      .catch(next);
   });

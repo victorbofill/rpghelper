@@ -9,6 +9,7 @@ const schema = new Schema({
   patron: String,
   reward: String,
   notes: Array,
+  type: { type: String, enum: ['event', 'job']},
   unlocks: [{type: Schema.Types.ObjectId, ref: 'Story'}]
 });
 
