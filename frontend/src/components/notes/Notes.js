@@ -49,7 +49,7 @@ class Notes extends PureComponent {
           {notes && !!notes.length ? notes.map((note, i) => (
             <Note
               key={i}
-              {...note}
+              note={note}
             />
           )) : null
           }
