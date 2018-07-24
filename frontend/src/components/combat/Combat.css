@@ -1,0 +1,15 @@
+:local(.combatantForm) {
+  input {
+    display: block;
+  }
+}
+
+:local(.combat) {
+  .left {
+    float: left;    
+  }
+
+  .right {
+    border: 1px solid black;
+  }
+}
