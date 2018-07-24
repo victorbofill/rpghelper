@@ -5,8 +5,8 @@ const schema = new Schema({
   name: String,
   disposition: String,
   stats: {
-    dr: String,
-    money: String,
+    dr: Number,
+    money: Number,
     skills: Array,
     attributes: {
       str: Number,

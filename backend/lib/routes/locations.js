@@ -49,9 +49,9 @@ module.exports = router
       .catch(next);
   })
 
-  .put('/:id/npc', (req, res, next) => {
+  .put('/:id/npcs', (req, res, next) => {
     return Location.findByIdAndUpdate(req.params.id, {
-      $addToSet: { npcs: req.body }
+      $addToSet: { npcs: req.body.id }
     }, updateOptions)
       .then(updated => res.json(updated))
       .catch(next);        
@@ -59,8 +59,8 @@ module.exports = router
 
   .put('/:id/stories', (req, res, next) => {
     return Location.findByIdAndUpdate(req.params.id, {
-      $addToSet: { storiess: req.body }
-    }, updateOptions)
+      $addToSet: { stories: req.body.id }
+    }, updateOptions) 
       .then(updated => res.json(updated))
       .catch(next);        
   });
