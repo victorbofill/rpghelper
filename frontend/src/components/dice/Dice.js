@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './Dice.css';
 
 const fillArray = [];
-for(let i = 1; i < 101; i++) {
+for(let i = 1; i < 11; i++) {
   fillArray.push(i);
 }
 
