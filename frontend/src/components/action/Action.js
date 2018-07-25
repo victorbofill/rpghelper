@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Participant from './Participant';
 import styles from './Action.css';
+import { loadParticipants, addParticipant } from './actions';
 
-export default class Action extends Component {
-
+class Action extends Component {
+  static propTypes = {
+    addParticipant: PropTypes.func,
+    loadParticipants: PropTypes.func,
+    participants: PropTypes.array
+  };
+  
   state = {
-    participants: [],
     name: '',
     dr: 0,
     apAdjust: 0,
@@ -23,23 +30,13 @@ export default class Action extends Component {
     awareness: ''
   };
 
-  addParticipant = (e) => {
+  componentDidMount() {
+    this.props.loadParticipants();
+  }
+
+  handleAddParticipant = (e) => {
     e.preventDefault();
-    this.setState(({ participants }) => {
-      participants.push({
-        dr: this.state.dr,
-        apAdjust: this.state.apAdjust,
-        str: this.state.str,
-        agi: this.state.agi,
-        end: this.state.end,
-        will: this.state.will,
-        cha: this.state.cha,
-        rea: this.state.rea,
-        per: this.state.per,
-        name: this.state.name,
-      });
-      return participants;
-    });
+    this.props.addParticipant(this.state);
   };
 
   handleChange = ({ target }) => {
@@ -80,20 +77,25 @@ export default class Action extends Component {
           <label>PER: {this.state.per}</label>
           <input defaultValue="1" id="per" onChange={this.handleChange} type="range" name="DR" min="1" max="4" />
 
-          <input type="submit" onClick={this.addParticipant} value="Add" />
+          <input type="submit" onClick={this.handleAddParticipant} value="Add" />
         </form>
 
         <div className="participants">
           <ul>
-            { this.state.participants.map((participant, i) => (
+            { this.props.participants && !!this.props.participants.length ? this.props.participants.map((participant, i) => (
               <Participant
                 key={i}
                 participant={participant}
                 participantIndex={i} />
-            ))}
+            )) : null}
           </ul>
         </div>
       </div>
     );
   }
 }
+
+export default connect(
+  state => ({ participants: state.participants }),
+  { loadParticipants, addParticipant }
+)(Action);
