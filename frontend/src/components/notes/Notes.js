@@ -40,7 +40,6 @@ class Notes extends PureComponent {
     return (
       <div>
         <h1>Notes</h1>
-        <p>This is the notes section.</p>
         <form onSubmit={this.handleSubmit}>
           <textarea name="addNoteForm" onChange={this.handleChange} value={addNoteForm} />
           <input type="submit" value="Submit" />

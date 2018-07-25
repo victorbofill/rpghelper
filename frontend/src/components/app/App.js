@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 import styles from './App.css';
 
-import Combat from '../combat/Combat';
+import Action from '../action/Action';
 import Dice from '../dice/Dice';
-import Location from '../location/Location';
+import Location from '../locations/Locations';
 import Notes from '../notes/Notes';
+import PCs from '../pcs/PCs';
 
 class App extends PureComponent {
   render() {
@@ -16,8 +17,9 @@ class App extends PureComponent {
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/location">Location</NavLink></li>
-              <li><NavLink to="/combat">Combat</NavLink></li>
+              <li><NavLink to="/locations">Location</NavLink></li>
+              <li><NavLink to="/action">Action</NavLink></li>
+              <li><NavLink to="/pcs">PCs</NavLink></li>
               <li><NavLink to="/notes">Notes</NavLink></li>
             </ul>
           </header>
@@ -29,8 +31,9 @@ class App extends PureComponent {
             <div>
               <div className={styles.content}>
                 <Switch>
-                  <Route path="/location" component={Location}/>
-                  <Route path="/combat" component={Combat}/>
+                  <Route path="/locations" component={Location}/>
+                  <Route path="/action" component={Action}/>
+                  <Route path="/pcs" component={PCs}/>
                   <Route path="/notes" component={Notes}/>
                 </Switch>
               </div>
