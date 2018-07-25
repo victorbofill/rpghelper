@@ -37,6 +37,9 @@ class Action extends Component {
   handleAddParticipant = (e) => {
     e.preventDefault();
     this.props.addParticipant(this.state);
+    setTimeout(() => {
+      localStorage.setItem('participants', (JSON.stringify(this.props.participants)));
+    }, 0);
   };
 
   handleChange = ({ target }) => {
