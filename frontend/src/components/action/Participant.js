@@ -5,6 +5,8 @@ import styles from './Action.css';
 export default class Participant extends Component {
   static propTypes = {
     participant: PropTypes.any,
+    participantIndex: PropTypes.number,
+    handleRemoveParticipant: PropTypes.func
   };
 
   state = {
@@ -20,10 +22,14 @@ export default class Participant extends Component {
   render() {
     const { dr, apAdjust, str, agi, end, will, cha, rea, per, name } = this.props.participant;
     const { hp, ap, insight, guard, disposition, subtlety, awareness } = this.state;
+    const { participantIndex } = this.props;
     return (
       <li>
         <div className={styles.participant}>
-          <h4>{name}</h4>
+          <div className="header">
+            <h4>{name}</h4>
+            <button onClick={() => this.props.handleRemoveParticipant(participantIndex)}>X</button>
+          </div>
           <div className="left-table">
             <table>
               <thead>

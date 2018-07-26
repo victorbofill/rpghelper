@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Participant from './Participant';
 import styles from './Action.css';
-import { loadParticipants, addParticipant } from './actions';
+import {
+  loadParticipants,
+  addParticipant,
+  clearParticipants,
+  removeParticipant
+} from './actions';
 
 class Action extends Component {
   static propTypes = {
     addParticipant: PropTypes.func,
     loadParticipants: PropTypes.func,
+    clearParticipants: PropTypes.func,
+    removeParticipant: PropTypes.func,
     participants: PropTypes.array
   };
   
@@ -46,6 +53,24 @@ class Action extends Component {
     this.setState({ [target.id] : target.value });
   };
 
+  handleClearParticipants = (e) => {
+    e.preventDefault();
+    if(confirm('Are you sure?')) {
+      localStorage.clear();
+      this.props.clearParticipants();
+    }
+  };
+
+  handleRemoveParticipant = (index) => {
+    const newParticipants = this.props.participants;
+    newParticipants.splice(index, 1);
+    this.props.removeParticipant(newParticipants);
+    setTimeout(() => {
+      localStorage.setItem('participants', (JSON.stringify(this.props.participants)));
+    }, 0);
+    this.forceUpdate();
+  };
+
   render() {
     return (
       <div className={styles.actionContainer}>
@@ -81,6 +106,7 @@ class Action extends Component {
           <input defaultValue="1" id="per" onChange={this.handleChange} type="range" name="DR" min="1" max="4" />
 
           <input type="submit" onClick={this.handleAddParticipant} value="Add" />
+          <input type="submit" onClick={this.handleClearParticipants} value="CLEAR" />
         </form>
 
         <div className="participants">
@@ -89,7 +115,8 @@ class Action extends Component {
               <Participant
                 key={i}
                 participant={participant}
-                participantIndex={i} />
+                participantIndex={i}
+                handleRemoveParticipant={this.handleRemoveParticipant} />
             )) : null}
           </ul>
         </div>
@@ -100,5 +127,10 @@ class Action extends Component {
 
 export default connect(
   state => ({ participants: state.participants }),
-  { loadParticipants, addParticipant }
+  {
+    loadParticipants,
+    addParticipant,
+    clearParticipants,
+    removeParticipant
+  }
 )(Action);

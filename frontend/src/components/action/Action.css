@@ -32,17 +32,27 @@
 
 :local(.participant) {
   display: flex;
-  flex-directioN: column;
+  flex-direction: column;
   margin-bottom: 1em;
   box-shadow: 5px 5px 10px;
   border: 1px solid black;
 
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   h4 {
     font-size: 1.5em;
+    display: inline-block;
     margin: 0;
     padding: 10px 10px 10px 10px;
     font-weight: bold;
-    min-width: 50%;
+  }
+
+  button {
+    height: 2em;
+    width: 2em;
   }
 
   table {
