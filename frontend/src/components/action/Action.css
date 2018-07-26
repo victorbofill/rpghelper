@@ -68,4 +68,8 @@
   td {
     text-align: center;
   }
+
+  table input {
+    width: 2em;
+  }
 }

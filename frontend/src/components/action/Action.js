@@ -116,7 +116,8 @@ class Action extends Component {
                 key={i}
                 participant={participant}
                 participantIndex={i}
-                handleRemoveParticipant={this.handleRemoveParticipant} />
+                handleRemoveParticipant={this.handleRemoveParticipant}
+              />
             )) : null}
           </ul>
         </div>
