@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 15% 85%;
 
-  .participant-form {
+  .participant-buttons {
     border-right: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     padding: 1em 1em 0 0;
   }
 
-  .participant-form input {
+  .participant-buttons button {
     padding-bottom: .5em;
     margin-bottom: .5em;
   }

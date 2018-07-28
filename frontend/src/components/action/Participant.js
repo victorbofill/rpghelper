@@ -55,6 +55,7 @@ class Participant extends PureComponent {
         <div className={styles.participant}>
           <div className="header">
             <h4>{name}</h4>
+            <p>{participantIndex}</p>
             <button onClick={() => this.props.handleRemoveParticipant(participantIndex)}>X</button>
           </div>
           <div className="left-table">
