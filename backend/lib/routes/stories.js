@@ -5,21 +5,21 @@ const { updateOptions } = require('../utils/mongoose-helpers');
 module.exports = router
   .post('/', (req, res, next) => {
     Story.create(req.body)
-      .then(location => res.json(location))
+      .then(story => res.json(story))
       .catch(next);
   })
 
   .get('/', (req, res, next) => {
     Story.find()
       .lean()
-      .then(location => res.json(location))
+      .then(story => res.json(story))
       .catch(next);
   })
 
   .get('/:id', (req, res, next) => {
     Story.findById(req.params.id)
       .lean()
-      .then(location => res.json(location))
+      .then(story => res.json(story))
       .catch(next);
   })
 

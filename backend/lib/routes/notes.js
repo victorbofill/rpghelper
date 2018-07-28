@@ -6,13 +6,13 @@ module.exports = router
   .get('/', (req, res, next) => {
     Note.find()
       .lean()
-      .then(location => res.json(location))
+      .then(note => res.json(note))
       .catch(next);
   })
 
   .post('/', (req, res, next) => {
     Note.create(req.body)
-      .then(location => res.json(location))
+      .then(note => res.json(note))
       .catch(next);
   })
 
