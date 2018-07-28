@@ -2,19 +2,4 @@
   border: 1px solid black;
   float: left;
   width: 30%;
-
-  .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  table {
-    text-align: center;
-    width: 100%;
-  }
-
-  th {
-    border-bottom: 1px solid black;
-  }
 }

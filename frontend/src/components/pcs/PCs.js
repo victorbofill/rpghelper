@@ -7,45 +7,189 @@ export default class Notes extends PureComponent {
       <div>
         <h1>PCs</h1>
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div className={styles.pc}>
-          <div className="header">
-            <h4>Name: </h4>
-            <h4>Player: </h4>
-          </div>
+          <h4>Name</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>STR</th>
+                <th>AGI</th>
+                <th>END</th>
+                <th>Will</th>
+                <th>CHA</th>
+                <th>REA</th>
+                <th>PER</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
       </div>
