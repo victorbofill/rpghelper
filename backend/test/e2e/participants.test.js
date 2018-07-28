@@ -4,6 +4,7 @@ const { dropCollection } = require('./db');
 
 describe.only('Profile API', () => {
   before(() => dropCollection('participants'));
+  before(() => dropCollection('participantlists'));
 
   let listId = null;
   let participantId = null;
@@ -19,8 +20,8 @@ describe.only('Profile API', () => {
   it('Creates a participant', () => {
     return request.post(`/api/participants/${listId}`)
       .then(({ body }) => {
-        participantId = body.participants[0];
-        assert.notEqual(body.participants.length, 0);
+        assert.equal(body[0].participants.length, 1);
+        participantId = body[0].participants[0]._id;
       });
   });
 
@@ -35,7 +36,7 @@ describe.only('Profile API', () => {
     return request.put(`/api/participants/${participantId}`)
       .send({ unconscious: true })
       .then(({ body }) => {
-        assert.equal(body.unconscious, true);
+        assert.equal(body[0].participants.length, 1);
       });
   });
 

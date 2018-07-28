@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const Participants = require('../models/Participants');
+const ParticipantList = require('../models/ParticipantList');
 const Participant = require('../models/Participant');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
   .get('/', (req, res, next) => {
-    Participants.find()
+    ParticipantList.find()
       .populate('participants')
       .lean()
       .then(participants => res.json(participants))
@@ -13,7 +13,7 @@ module.exports = router
   })
 
   .post('/', (req, res, next) => {
-    Participants.create(req.body)
+    ParticipantList.create(req.body)
       .then(participants => res.json(participants))
       .catch(next);
   })
@@ -21,22 +21,34 @@ module.exports = router
   .post('/:id', (req, res, next) => {
     Participant.create(req.body)
       .then(participant => {
-        return Participants.findByIdAndUpdate(req.params.id, {
+        return ParticipantList.findByIdAndUpdate(req.params.id, {
           $addToSet: { participants: participant._id }
         }, updateOptions);
       })
-      .then(participants => res.json(participants))
+      .then(() => {
+        ParticipantList.find()
+          .populate('participants')
+          .lean()
+          .then(participants => res.json(participants))
+          .catch(next);   
+      })
       .catch(next);
   })
 
   .put('/:id', (req, res, next) => {
     return Participant.findByIdAndUpdate(req.params.id, req.body, updateOptions)
-      .then(updated => res.json(updated))
+      .then(() => {
+        ParticipantList.find()
+          .populate('participants')
+          .lean()
+          .then(participants => res.json(participants))
+          .catch(next);   
+      })
       .catch(next);        
   })
   
   .delete('/', (req, res, next) => {
-    return Participants.findOneAndRemove()
+    return ParticipantList.findOneAndRemove()
       .then(() => res.json({ deleted: true }))
       .catch(next);
   })

@@ -5,4 +5,4 @@ const schema = new Schema({
   participants: [{ type: Schema.Types.ObjectId, ref: 'Participant' }]
 });
 
-module.exports = mongoose.model('Participants', schema);
+module.exports = mongoose.model('ParticipantList', schema);
