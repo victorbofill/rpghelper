@@ -27,8 +27,8 @@ module.exports = router
       .catch(next);
   })
 
-  .get('/:id', (req, res, next) => {
-    ParticipantList.findById(req.params.id)
+  .get('/', (req, res, next) => {
+    ParticipantList.findOne()
       .populate('participants')
       .lean()
       .then((body) => res.json({ id: body._id, participants: body.participants }))

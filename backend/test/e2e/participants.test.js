@@ -27,7 +27,7 @@ describe.only('Profile API', () => {
   });
 
   it('Retrieves the participants', () => {
-    return request.get(`/api/participants/${listId}`)
+    return request.get('/api/participants/')
       .then(({ body }) => {
         assert.ok(body.id);
         assert.equal(body.participants.length, 1);
