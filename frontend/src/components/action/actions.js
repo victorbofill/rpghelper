@@ -30,10 +30,10 @@ export function createParticipant(id) {
   };
 }
 
-export function loadParticipantList(id) {
+export function loadParticipantList() {
   return {
     type: PARTICIPANTLIST_LOAD,
-    payload: getParticipantList(id)
+    payload: getParticipantList()
   };
 }
 

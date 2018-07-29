@@ -27,7 +27,7 @@ export const postNote = note => post(`${NOTES_URL}`, note);
 
 export const postParticipantList = () => post(`${PARTICIPANTS_URL}`);
 export const postParticipant = (id, participant) => post(`${PARTICIPANTS_URL}/${id}`, participant);
-export const getParticipantList = id => get(`${PARTICIPANTS_URL}/${id}`);
+export const getParticipantList = () => get(`${PARTICIPANTS_URL}`);
 export const putParticipant = (id, participant) => put(`${PARTICIPANTS_URL}/${id}`, participant);
 export const delParticipant = (id, participant) => del(`${PARTICIPANTS_URL}/${id}`, participant);
 export const delParticipantList = id => del(`${PARTICIPANTS_URL}/${id}`);
