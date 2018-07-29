@@ -1,41 +1,59 @@
 import {
-  PARTICIPANTS_LOAD,
-  PARTICIPANT_ADD,
-  PARTICIPANTS_CLEAR,
-  PARTICIPANT_REMOVE
+  getParticipantList,
+  postParticipantList,
+  postParticipant,
+  putParticipant,
+  delParticipant,
+  delParticipantList
+} from '../../services/api';
+
+import {
+  PARTICIPANTLIST_LOAD,
+  PARTICIPANTLIST_CREATE,
+  PARTICIPANT_CREATE,
+  PARTICIPANT_UPDATE,
+  PARTICIPANT_REMOVE,
+  PARTICIPANTLIST_CLEAR,
 } from './reducers';
 
-export function loadParticipants() {
-  if(localStorage.getItem('participants')) {
-    return {
-      type: PARTICIPANTS_LOAD,
-      payload: JSON.parse(localStorage.getItem('participants'))
-    };
-  } else {
-    return {
-      type: PARTICIPANTS_LOAD,
-      payload: []
-    };
-  }
-}
-
-export function addParticipant(state) {
+export function createParticipantList() {
   return {
-    type: PARTICIPANT_ADD,
-    payload: state
+    type: PARTICIPANTLIST_CREATE,
+    payload: postParticipantList()
   };
 }
 
-export function clearParticipants() {
+export function createParticipant(id) {
   return {
-    type: PARTICIPANTS_CLEAR,
-    payload: []
+    type: PARTICIPANT_CREATE,
+    payload: postParticipant(id)
   };
 }
 
-export function removeParticipant(state) {
+export function loadParticipantList(id) {
+  return {
+    type: PARTICIPANTLIST_LOAD,
+    payload: getParticipantList(id)
+  };
+}
+
+export function updateParticipant(id, participant) {
+  return {
+    type: PARTICIPANT_UPDATE,
+    payload: putParticipant(id, participant)
+  };
+}
+
+export function deleteParticipant(id, participant) {
   return {
     type: PARTICIPANT_REMOVE,
-    payload: state
+    payload: delParticipant(id, participant)
+  };
+}
+
+export function deleteParticipantList(id) {
+  return {
+    type: PARTICIPANTLIST_CLEAR,
+    payload: delParticipantList(id)
   };
 }
