@@ -12,45 +12,51 @@ describe.only('Profile API', () => {
   it('Creates participants list', () => {
     return request.post('/api/participants/')
       .then(({ body }) => {
-        assert.ok(body._id);
-        listId = body._id;
+        assert.ok(body.id);
+        listId = body.id;
+        assert.deepEqual(body.participants, []);
       });
   });
 
   it('Creates a participant', () => {
     return request.post(`/api/participants/${listId}`)
       .then(({ body }) => {
-        assert.equal(body[0].participants.length, 1);
-        participantId = body[0].participants[0]._id;
+        assert.ok(body.id);
+        assert.equal(body.participants.length, 1);
       });
   });
 
   it('Retrieves the participants', () => {
-    return request.get('/api/participants')
+    return request.get(`/api/participants/${listId}`)
       .then(({ body }) => {
-        assert.equal(body[0].participants.length, 1);
+        assert.ok(body.id);
+        assert.equal(body.participants.length, 1);
+        participantId = body.participants[0]._id;
       });
   });
 
   it('Updates participants', () => {
-    return request.put(`/api/participants/${participantId}`)
-      .send({ unconscious: true })
+    return request.put(`/api/participants/${listId}`)
+      .send({ id: participantId, unconscious: true })
       .then(({ body }) => {
-        assert.equal(body[0].participants.length, 1);
+        assert.ok(body.id);
+        assert.equal(body.participants.length, 1);
       });
   });
 
   it('Deletes participant', () => {
-    return request.delete(`/api/participants/${participantId}`)
+    return request.delete(`/api/participants/${listId}`)
+      .send({ id: participantId })
       .then(({ body }) => {
-        assert.ok(body.deleted);
+        assert.ok(body.id);
+        assert.equal(body.participants.length, 0);
       });
   });
 
   it('Deletes participants list', () => {
-    return request.delete('/api/participants')
+    return request.delete(`/api/participants${listId}`)
       .then(({ body }) => {
-        assert.ok(body.deleted);
+        assert.deepEqual(body, {});
       });
   });
 });
