@@ -25,18 +25,29 @@ class Action extends Component {
   };
   
   componentDidMount() {
-    localStorage.getItem('participantListId') ? this.props.loadParticipantList() : this.handleCreateParticipantList();
+    if(localStorage.getItem('participantListId') && localStorage.getItem('participantListId') !== null) {
+      this.props.loadParticipantList();
+    } else this.handleCreateParticipantList();
   }
 
   handleCreateParticipantList = () => {
     if(confirm('Creating new participant list.')) {
       this.props.createParticipantList();
-      localStorage.setItem('participantListId', this.props.participantListId);
+      setTimeout(() => localStorage.setItem('participantListId', this.props.participantListId), 0);
     } else null;
   };
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.id] : target.value });
+  handleCreateParticipant = (id) => {
+    this.props.createParticipant(id);
+  };
+
+  handleRemoveParticipant = (listId, participantId) => {
+    this.props.deleteParticipant(listId, participantId);
+  };
+
+  handleRemoveParticipantList = (listId) => {
+    this.props.deleteParticipantList(listId);
+    localStorage.clear();
   };
 
   render() {
@@ -45,7 +56,8 @@ class Action extends Component {
     return (
       <div className={styles.actionContainer}>
         <div className="participant-buttons">
-          <button>Buttons will go here</button>
+          <button onClick={() => this.handleCreateParticipant(this.props.participantListId)}>Add Participant</button>
+          <button onClick={() => this.handleRemoveParticipantList(this.props.participantListId)}>Delete list</button>
         </div>
 
         <div className="participants">
@@ -53,7 +65,9 @@ class Action extends Component {
             { participants && !!participants.length ? participants.map((participant, i) => (
               <Participant
                 key={i}
-                participant={participant}
+                {...participant}
+                participantListId={this.props.participantListId}
+                handleRemoveParticipant={this.handleRemoveParticipant}
               />
             )) : null}
           </ul>

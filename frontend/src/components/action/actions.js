@@ -44,10 +44,10 @@ export function updateParticipant(id, participant) {
   };
 }
 
-export function deleteParticipant(id, participant) {
+export function deleteParticipant(listId, participantId) {
   return {
     type: PARTICIPANT_REMOVE,
-    payload: delParticipant(id, participant)
+    payload: delParticipant(listId, participantId)
   };
 }
 

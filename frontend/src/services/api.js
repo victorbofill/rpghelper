@@ -29,5 +29,5 @@ export const postParticipantList = () => post(`${PARTICIPANTS_URL}`);
 export const postParticipant = (id, participant) => post(`${PARTICIPANTS_URL}/${id}`, participant);
 export const getParticipantList = () => get(`${PARTICIPANTS_URL}`);
 export const putParticipant = (id, participant) => put(`${PARTICIPANTS_URL}/${id}`, participant);
-export const delParticipant = (id, participant) => del(`${PARTICIPANTS_URL}/${id}`, participant);
+export const delParticipant = (listId, pid) => del(`${PARTICIPANTS_URL}/${listId}/participant/${pid}`);
 export const delParticipantList = id => del(`${PARTICIPANTS_URL}/${id}`);

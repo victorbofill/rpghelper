@@ -8,6 +8,17 @@ export const PARTICIPANTLIST_CLEAR = 'PARTICIPANTLIST_CLEAR';
 export const getParticipants = state => state.participants;
 export const getParticipantListId = state => state.participantListId;
 
+export function participantListId(state = null, { type, payload }) {
+  switch(type) {
+    case PARTICIPANTLIST_CREATE:
+      return payload.id;
+    case PARTICIPANTLIST_LOAD:
+      return payload.id;
+    default:
+      return state;
+  }
+}
+
 export function participants(state = {}, { type, payload }) {
   switch(type) {
     case PARTICIPANTLIST_CREATE:
@@ -22,17 +33,6 @@ export function participants(state = {}, { type, payload }) {
       return payload;
     case PARTICIPANTLIST_CLEAR:
       return payload;
-    default:
-      return state;
-  }
-}
-
-export function participantListId(state = null, { type, payload }) {
-  switch(type) {
-    case PARTICIPANTLIST_CREATE:
-      return payload.id;
-    case PARTICIPANTLIST_LOAD:
-      return payload.id;
     default:
       return state;
   }
