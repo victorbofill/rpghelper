@@ -47,8 +47,9 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete('/:id', (req, res, next) => {
-    return Participant.findByIdAndRemove(req.body.id)
+  .delete('/:id/participant', (req, res, next) => {
+    const id = req.body.id;
+    return Participant.findByIdAndRemove(id)
       .then(() => {
         ParticipantList.findById(req.params.id)
           .populate('participants')
@@ -60,7 +61,7 @@ module.exports = router
   })
 
   .delete('/:id', (req, res, next) => {
-    return ParticipantList.findOneAndRemove(req.params.id)
+    return ParticipantList.findByIdAndRemove(req.params.id)
       .then(() => res.json({}))
       .catch(next);
   });

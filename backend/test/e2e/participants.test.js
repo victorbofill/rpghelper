@@ -45,7 +45,7 @@ describe.only('Profile API', () => {
   });
 
   it('Deletes participant', () => {
-    return request.delete(`/api/participants/${listId}`)
+    return request.delete(`/api/participants/${listId}/participant`)
       .send({ id: participantId })
       .then(({ body }) => {
         assert.ok(body.id);
@@ -54,7 +54,7 @@ describe.only('Profile API', () => {
   });
 
   it('Deletes participants list', () => {
-    return request.delete(`/api/participants${listId}`)
+    return request.delete(`/api/participants/${listId}`)
       .then(({ body }) => {
         assert.deepEqual(body, {});
       });
