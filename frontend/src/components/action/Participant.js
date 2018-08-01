@@ -37,6 +37,8 @@ class Participant extends PureComponent {
     dead: PropTypes.any
   };
 
+  state = { ...this.props };
+
   handleChange = ({ target }) => {
     this.setState({ [target.id] : target.value });
   };
@@ -74,18 +76,16 @@ class Participant extends PureComponent {
       prone,
       unconscious,
       dead  
-    } = this.props;
-
-    const id = this.props._id;
+    } = this.state;
 
     return (
       <li>
         <div className={styles.participant}>
           <div className="header">
             <h4>{name}</h4>
-            <button onClick={() => this.props.handleRemoveParticipant(this.props.participantListId, id)}>X</button>
+            <button onClick={() => this.props.handleRemoveParticipant(this.props.participantListId, this.props._id)}>X</button>
           </div>
-          <div className="left-table">
+          <div className="attributes">
             <table>
               <thead>
                 <tr>
@@ -100,19 +100,19 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td>{str}</td>
-                  <td>{agi}</td>
-                  <td>{end}</td>
-                  <td>{will}</td>
-                  <td>{cha}</td>
-                  <td>{rea}</td>
-                  <td>{per}</td>
+                  <td><input id="str" value={str} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="agi" value={agi} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="end" value={end} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="will" value={will} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="cha" value={cha} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="rea" value={rea} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="per" value={per} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div className="right-table">
+          <div className="status">
             <table>
               <thead>
                 <tr>
@@ -129,11 +129,11 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td>{apAdjust}</td>
-                  <td>{ap}</td>
-                  <td>{subtlety}</td>
-                  <td>{dr}</td>
-                  <td>{hp}</td>
+                  <td><input id="apAdjust" value={apAdjust} type="number" min="-1" max="2" onChange={this.handleChange}/></td>
+                  <td><input id="ap" value={ap} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="subtlety" value={subtlety} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="dr" value={dr} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="hp" value={hp} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td>{guard}</td>
                   <td>{disposition}</td>
                   <td>{insight}</td>
@@ -143,7 +143,7 @@ class Participant extends PureComponent {
             </table>
           </div>
 
-          <div className="status">
+          <div className="debuffs">
             <table>
               <thead>
                 <tr>
