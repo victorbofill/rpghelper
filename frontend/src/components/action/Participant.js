@@ -64,6 +64,7 @@ class Participant extends PureComponent {
 
   resetAp = () => {
     this.setState({ ap: 0 });
+    this.setState({ apAdjust: parseInt(this.state.apAdjust) });
     setTimeout(() => {
       updateParticipant(this.props.participantListId, { _id: this.state._id, ap : this.state.ap });
     }, 0);
