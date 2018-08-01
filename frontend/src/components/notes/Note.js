@@ -14,9 +14,11 @@ class Note extends PureComponent {
 
     return (
       <div className={styles.note}>
-        <h3>Note</h3>
+        <div className="header">
+          <h3>Note</h3>
+          <button onClick={() => this.props.handleDelete(_id)}>X</button>
+        </div>
         <p>{note}</p>
-        <button onClick={() => this.props.handleDelete(_id)}>X</button>
       </div>
     );
   }
