@@ -35,8 +35,8 @@ module.exports = router
       .catch(next);
   })
 
-  .put('/:id', (req, res, next) => {
-    return Participant.findByIdAndUpdate(req.body.id, req.body, updateOptions)
+  .put('/:id/participant/:pid', (req, res, next) => {
+    return Participant.findByIdAndUpdate(req.params.pid, req.body, updateOptions)
       .then(() => {
         ParticipantList.findById(req.params.id)
           .populate('participants')

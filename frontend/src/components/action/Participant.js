@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './Action.css';
+import { updateParticipant } from './actions';
 
 class Participant extends PureComponent {
   static propTypes = {
@@ -41,10 +42,31 @@ class Participant extends PureComponent {
 
   handleChange = ({ target }) => {
     this.setState({ [target.id] : target.value });
+    updateParticipant(this.props.participantListId, { _id: this.state._id, [target.id] : target.value });
   };
 
   handleCheckbox = ({ target }) => {
     this.setState({ [target.id] : target.checked });
+    updateParticipant(this.props.participantListId, { _id: this.state._id, [target.id] : target.checked });
+  };
+
+  handleApRoll = () => {
+    const ap = this.state.ap;
+    const apAdjust = this.state.apAdjust;
+    const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
+    let newAp = ap + apAdjust + random;
+    if(newAp > 20) newAp = 20;
+    this.setState({ ap: newAp });
+    setTimeout(() => {
+      updateParticipant(this.props.participantListId, { _id: this.state._id, ap : newAp });
+    }, 0);
+  };
+
+  resetAp = () => {
+    this.setState({ ap: 0 });
+    setTimeout(() => {
+      updateParticipant(this.props.participantListId, { _id: this.state._id, ap : this.state.ap });
+    }, 0);
   };
 
   render() {
@@ -82,7 +104,7 @@ class Participant extends PureComponent {
       <li>
         <div className={styles.participant}>
           <div className="header">
-            <h4>{name}</h4>
+            <input id="name" value={name} type="text" onChange={this.handleChange}/>
             <button onClick={() => this.props.handleRemoveParticipant(this.props.participantListId, this.props._id)}>X</button>
           </div>
           <div className="attributes">
@@ -130,14 +152,36 @@ class Participant extends PureComponent {
               <tbody>
                 <tr>
                   <td><input id="apAdjust" value={apAdjust} type="number" min="-1" max="2" onChange={this.handleChange}/></td>
-                  <td><input id="ap" value={ap} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="subtlety" value={subtlety} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="dr" value={dr} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="hp" value={hp} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td>
+                    <button onClick={() => this.handleApRoll(this.props.participantListId, this.props._id)}>Roll</button>
+                    <input id="ap" value={ap} type="number" min="0" max="20" onChange={this.handleChange}/>
+                    <button onClick={() => this.resetAp()}>Reset</button>
+                  </td>
+                  <td><input id="subtlety" value={subtlety} type="number" min="0" max="20" onChange={this.handleChange}/></td>
+                  <td><input id="dr" value={dr} type="number" min="0" max="12" onChange={this.handleChange}/></td>
+                  <td><input id="hp" value={hp} type="number" min="-10" max="50" onChange={this.handleChange}/></td>
                   <td>{guard}</td>
-                  <td>{disposition}</td>
-                  <td>{insight}</td>
-                  <td>{awareness}</td>
+                  <td>
+                    <select id="disposition" onChange={this.handleChange} value={disposition}>
+                      <option value="loyal">loyal</option>
+                      <option value="friend">friend</option>
+                      <option value="friendly">friendly</option>
+                      <option value="neutral">neutral</option>
+                      <option value="distrustful">distrustful</option>
+                      <option value="socially hostile">socially hostile</option>
+                      <option value="enemy">enemy</option>
+                      <option value="nemesis">nemesis</option>
+                    </select>
+                  </td>
+                  <td><input id="insight" value={insight} type="number" min="0" max="20" onChange={this.handleChange}/></td>
+                  <td>
+                    <select id="awareness" onChange={this.handleChange} value={awareness}>
+                      <option value="oblivious">oblivious</option>
+                      <option value="resting">resting</option>
+                      <option value="cautious">cautious</option>
+                      <option value="engaged">engaged</option>
+                    </select>
+                  </td>
                 </tr>
               </tbody>
             </table>

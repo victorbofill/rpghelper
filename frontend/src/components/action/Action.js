@@ -7,7 +7,6 @@ import {
   createParticipantList,
   createParticipant,
   loadParticipantList,
-  updateParticipant,
   deleteParticipant,
   deleteParticipantList
 } from './actions';
@@ -17,7 +16,6 @@ class Action extends Component {
     createParticipantList: PropTypes.func,
     createParticipant: PropTypes.func,
     loadParticipantList: PropTypes.func,
-    updateParticipant: PropTypes.func,
     deleteParticipant: PropTypes.func,
     deleteParticipantList: PropTypes.func,
     participants: PropTypes.object,
@@ -83,7 +81,6 @@ export default connect(
     loadParticipantList,
     createParticipantList,
     createParticipant,
-    updateParticipant,
     deleteParticipant,
     deleteParticipantList
   }

@@ -42,7 +42,15 @@
     justify-content: space-between;
   }
 
-  .attributes input {
+  .header input {
+    max-width: none;
+  }
+
+  .header button {
+    width: fit-content;
+  }
+
+  input {
     font-size: 1em;
     text-align: center;
   }
@@ -60,9 +68,18 @@
     width: 2em;
   }
 
+  input {
+    max-width: 3em;
+    width: fit-content;
+  }
+
   table {
     width: 100%;
     padding: 0 1em .5em 1em;
+  }
+
+  table button {
+    width: fit-content;
   }
 
   th {
@@ -72,9 +89,5 @@
 
   td {
     text-align: center;
-  }
-
-  table input {
-    width: 2em;
   }
 }

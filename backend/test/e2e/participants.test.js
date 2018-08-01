@@ -36,8 +36,8 @@ describe.only('Profile API', () => {
   });
 
   it('Updates participants', () => {
-    return request.put(`/api/participants/${listId}`)
-      .send({ id: participantId, unconscious: true })
+    return request.put(`/api/participants/${listId}/participant/${participantId}`)
+      .send({ unconscious: true })
       .then(({ body }) => {
         assert.ok(body.id);
         assert.equal(body.participants.length, 1);
@@ -45,8 +45,7 @@ describe.only('Profile API', () => {
   });
 
   it('Deletes participant', () => {
-    return request.delete(`/api/participants/${listId}/participant`)
-      .send({ id: participantId })
+    return request.delete(`/api/participants/${listId}/participant/${participantId}`)
       .then(({ body }) => {
         assert.ok(body.id);
         assert.equal(body.participants.length, 0);
