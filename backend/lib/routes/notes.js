@@ -24,6 +24,6 @@ module.exports = router
   
   .delete('/:id', (req, res, next) => {
     return Note.findByIdAndRemove(req.params.id)
-      .then(() => res.json({ deleted: true }))
+      .then((body) => res.json(body._id))
       .catch(next);
   });
