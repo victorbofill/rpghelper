@@ -8,6 +8,7 @@ import Action from '../action/Action';
 import Dice from '../dice/Dice';
 import Location from '../locations/Locations';
 import Notes from '../notes/Notes';
+import Journal from '../journal/Journal';
 
 class App extends PureComponent {
   render() {
@@ -18,6 +19,7 @@ class App extends PureComponent {
             <ul>
               <li><NavLink to="/locations">Location</NavLink></li>
               <li><NavLink to="/action">Action</NavLink></li>
+              <li><NavLink to="/journal">Journal</NavLink></li>
               <li><NavLink to="/notes">Notes</NavLink></li>
             </ul>
           </header>
@@ -32,6 +34,7 @@ class App extends PureComponent {
                   <Route path="/locations" component={Location}/>
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
+                  <Route path="/journal" component={Journal}/>
                 </Switch>
               </div>
             </div>

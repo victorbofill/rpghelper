@@ -20,11 +20,16 @@ const del = (url, data) => request(url, { method: 'DELETE' }, data);
 
 const URL = '/api';
 const NOTES_URL = `${URL}/notes`;
+const ENTRIES_URL = `${URL}/entries`;
 const PARTICIPANTS_URL = `${URL}/participants`;
 
 export const getNotes = () => get(`${NOTES_URL}`);
 export const postNote = note => post(`${NOTES_URL}`, note);
 export const delNote = (id) => del(`${NOTES_URL}/${id}`);
+
+export const getEntries = () => get(`${ENTRIES_URL}`);
+export const postEntry = entry => post(`${ENTRIES_URL}`, entry);
+export const delEntry = (id) => del(`${ENTRIES_URL}/${id}`);
 
 export const postParticipantList = () => post(`${PARTICIPANTS_URL}`);
 export const postParticipant = (id, participant) => post(`${PARTICIPANTS_URL}/${id}`, participant);

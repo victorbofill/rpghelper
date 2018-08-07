@@ -123,10 +123,10 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input id="str" value={str} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="agi" value={agi} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="end" value={end} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="will" value={will} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="str" value={str} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="agi" value={agi} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="end" value={end} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="will" value={will} type="number"resetAp min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="cha" value={cha} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="rea" value={rea} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="per" value={per} type="number" min="1" max="4" onChange={this.handleChange}/></td>
@@ -161,7 +161,7 @@ class Participant extends PureComponent {
                   <td><input id="subtlety" value={subtlety} type="number" min="0" max="20" onChange={this.handleChange}/></td>
                   <td><input id="dr" value={dr} type="number" min="0" max="12" onChange={this.handleChange}/></td>
                   <td><input id="hp" value={hp} type="number" min="-10" max="50" onChange={this.handleChange}/></td>
-                  <td>{guard}</td>
+                  <td><input id="guard" value={guard} type="number" min="0" max="20" onChange={this.handleChange}/></td>
                   <td>
                     <select id="disposition" onChange={this.handleChange} value={disposition}>
                       <option value="loyal">loyal</option>

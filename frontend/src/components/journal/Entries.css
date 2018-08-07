@@ -1,0 +1,23 @@
+:local(.entry) {
+  border: 1px solid black;
+  margin: 1em;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header h3 {
+  margin: .5em;
+}
+
+.header button {
+  height: 2em;
+  width: 2em;
+}
+
+p {
+  margin: .5em;
+}
