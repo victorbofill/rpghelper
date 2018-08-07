@@ -6,7 +6,7 @@ import styles from './App.css';
 
 import Action from '../action/Action';
 import Dice from '../dice/Dice';
-import Location from '../locations/Locations';
+import Locations from '../locations/Locations';
 import Notes from '../notes/Notes';
 import Journal from '../journal/Journal';
 
@@ -17,7 +17,7 @@ class App extends PureComponent {
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/locations">Location</NavLink></li>
+              <li><NavLink to="/locations">Locations</NavLink></li>
               <li><NavLink to="/action">Action</NavLink></li>
               <li><NavLink to="/journal">Journal</NavLink></li>
               <li><NavLink to="/notes">Notes</NavLink></li>
@@ -31,7 +31,7 @@ class App extends PureComponent {
             <div>
               <div className={styles.content}>
                 <Switch>
-                  <Route path="/locations" component={Location}/>
+                  <Route path="/locations" component={Locations}/>
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
                   <Route path="/journal" component={Journal}/>

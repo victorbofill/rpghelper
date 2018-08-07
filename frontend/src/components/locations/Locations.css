@@ -1,0 +1,33 @@
+:local(.header) {
+  ul {
+    border-bottom: 1px solid black;
+    list-style-type: none;
+    display: flex;
+    padding-left: 0;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  a, a:visited {
+    border: 1px solid grey;
+    border-radius: 5px 5px 0 0;
+    color: inherit;
+    font-size: 1.5em;
+    margin-right: .1em;
+    padding: 0 1em 0 1em;
+    text-decoration: none;
+  }
+}
+
+:local(.NPC) {
+  display: flex;
+  flex-direction: column;
+
+  .stats {
+    border: 1px solid red;
+  }
+
+  .stories {
+    border: 1px solid green;
+  }
+}

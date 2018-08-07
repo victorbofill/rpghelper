@@ -2,17 +2,17 @@ import React, { PureComponent } from 'react';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Location from './Location';
+import NPC from './NPC';
 import styles from './Locations.css';
 
-class Locations extends PureComponent {
+class NPCs extends PureComponent {
   render() {
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/location">Location</NavLink></li>
+              <li><NavLink to="/NPC">NPC</NavLink></li>
             </ul>
           </header>
 
@@ -20,7 +20,7 @@ class Locations extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  <Route path="/location" component={Location}/>
+                  <Route path="/NPC" component={NPC}/>
                 </Switch>
               </div>
             </div>
@@ -32,4 +32,4 @@ class Locations extends PureComponent {
 }
 
 export default connect(
-)(Locations);
+)(NPCs);
