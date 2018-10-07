@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
@@ -35,6 +35,7 @@ class App extends PureComponent {
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
                   <Route path="/journal" component={Journal}/>
+                  <Redirect to="/" />
                 </Switch>
               </div>
             </div>

@@ -3,6 +3,7 @@ const request = require('./request');
 const { dropCollection } = require('./db');
 
 let location = {
+  url: 'macs',
   name: 'Mac\'s',
   description: 'A bar',
   finances: {

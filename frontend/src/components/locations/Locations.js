@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Location from './Location';
@@ -8,36 +8,6 @@ import { loadLocations } from './actions';
 import { getLocations } from './reducers';
 
 import styles from './Locations.css';
-
-class NavigationLink extends PureComponent {
-  static propTypes = {
-    locationName: PropTypes.string,
-    location: PropTypes.object
-  };
-
-  render() {
-    const { locationName } = this.props;
-
-    return (
-      <li><NavLink to={`/${locationName}`}>Location</NavLink></li>
-    );
-  }
-}
-
-class LocationRoute extends PureComponent {
-  static propTypes = {
-    location: PropTypes.object
-  };
-
-  render() {
-    const { location } = this.props;
-    const { name } = location;
-
-    return (
-      <Route path={`/${name}`} render={props => <Location {...props} location={location}/>} />
-    );
-  }
-}
 
 class Locations extends PureComponent {
 
@@ -47,8 +17,7 @@ class Locations extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadLocations()
-      .then(() => getLocations());
+    this.props.loadLocations();
   }
 
   render() {
@@ -62,7 +31,7 @@ class Locations extends PureComponent {
               {locations && 
                 locations.map(location => {
                   return (
-                    <LocationRoute key={location} location={location} />
+                    <li key={location.url}><NavLink to={`/locations/${location.url}`}>{`${location.name}`}</NavLink></li>
                   );
                 })
               }
@@ -73,10 +42,10 @@ class Locations extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  {locations && 
+                  {locations &&
                     locations.map(location => {
                       return (
-                        <NavigationLink key={location} location={location} locationName={location.name}/>
+                        <Route key={location.url} path={`/locations/${location.url}`} render={props => <Location {...props} location={location} />} />
                       );
                     })
                   }

@@ -29,6 +29,7 @@ module.exports = router
 
   .put('/:id', (req, res, next) => {
     const {
+      url,
       name,
       description,
       finances,
@@ -36,6 +37,7 @@ module.exports = router
     } = req.body;
 
     const update = {
+      url,
       name,
       description,
       finances,
