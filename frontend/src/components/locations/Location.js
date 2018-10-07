@@ -20,7 +20,7 @@ class Location extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  <Route path="/NPCs" component={NPCs}/>
+                  <Route exact path="/NPCs" component={NPCs}/>
                 </Switch>
               </div>
             </div>

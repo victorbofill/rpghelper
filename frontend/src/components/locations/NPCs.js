@@ -20,7 +20,7 @@ class NPCs extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  <Route path="/NPC" component={NPC}/>
+                  <Route exact path="/NPC" component={NPC}/>
                 </Switch>
               </div>
             </div>

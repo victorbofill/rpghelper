@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import styles from './App.css';
 
 import Action from '../action/Action';
 import Dice from '../dice/Dice';
 import Locations from '../locations/Locations';
 import Notes from '../notes/Notes';
 import Journal from '../journal/Journal';
+
+import styles from './App.css';
 
 class App extends PureComponent {
   render() {
