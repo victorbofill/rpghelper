@@ -6,7 +6,6 @@ import styles from './Locations.css';
 
 export default class NPCs extends PureComponent {
   static propTypes = {
-    locationObject: PropTypes.object,
     npcs: PropTypes.array,
     match: PropTypes.object
   };
