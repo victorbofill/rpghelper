@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Sublocation from './Sublocation';
 import styles from './Sublocations.css';
 
-class Sublocations extends PureComponent {
+export default class Sublocations extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
     sublocations: PropTypes.array
@@ -50,6 +49,3 @@ class Sublocations extends PureComponent {
     );
   }
 }
-
-export default connect(
-)(Sublocations);
