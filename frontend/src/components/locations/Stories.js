@@ -22,7 +22,7 @@ class Stories extends PureComponent {
             {stories &&
                 stories.map(story => {
                   return (
-                    <li key={story.id}><NavLink to={`${path}/${story.id}`}>{`${story.name}`}</NavLink></li>
+                    <li key={story._id}><NavLink to={`${path}/${story._id}`}>{`${story.name}`}</NavLink></li>
                   );
                 })
             }
@@ -35,7 +35,7 @@ class Stories extends PureComponent {
                   {stories &&
                     stories.map(story => {
                       return (
-                        <Route key={story.id} path={`${path}/${story.id}`} render={props => <Story {...props} story={story} />} />
+                        <Route key={story._id} path={`${path}/${story._id}`} render={props => <Story {...props} story={story} />} />
                       );
                     })
                   }

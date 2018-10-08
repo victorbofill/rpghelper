@@ -22,7 +22,7 @@ export default class NPCs extends PureComponent {
               {npcs &&
                 npcs.map(npc => {
                   return (
-                    <li key={npc.id}><NavLink to={`${path}/${npc.name}`}>{`${npc.name}`}</NavLink></li>
+                    <li key={npc._id}><NavLink to={`${path}/${npc.url}`}>{`${npc.name}`}</NavLink></li>
                   );
                 })
               }
@@ -36,7 +36,7 @@ export default class NPCs extends PureComponent {
                   {npcs &&
                     npcs.map(npc => {
                       return (
-                        <Route key={npc.id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} />} />
+                        <Route key={npc._id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} />} />
                       );
                     })
                   }

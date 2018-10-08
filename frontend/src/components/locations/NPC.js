@@ -1,12 +1,28 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styles from './Locations.css';
 
-class NPC extends PureComponent {
+import { delNPC } from '../../services/api';
+
+export default class NPC extends PureComponent {
+
+  static propTypes = {
+    npc: PropTypes.object
+  };
+
+  deleteNPC = () => {
+    delNPC(this.props.npc._id)
+      .then(res => console.log('response', res));
+  };
+
   render() {
+    const { deleteNPC } = this;
+
     return (
       <div className={styles.NPC}>
+        <fieldset>
+          <button type="button" onClick={deleteNPC}>X</button>
+        </fieldset>
         <div className={'stats'}>
           <h1>Stats</h1>
           <p>This is where stats will go.</p>
@@ -20,6 +36,3 @@ class NPC extends PureComponent {
     );
   }
 }
-
-export default connect(
-)(NPC);

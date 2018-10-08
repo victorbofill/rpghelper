@@ -22,7 +22,7 @@ export default class Sublocations extends PureComponent {
               {sublocations &&
                 sublocations.map(sublocation => {
                   return (
-                    <li key={sublocation.id}><NavLink to={`${path}/${sublocation.name}`}>{`${sublocation.name}`}</NavLink></li>
+                    <li key={sublocation._id}><NavLink to={`${path}/${sublocation.name}`}>{`${sublocation.name}`}</NavLink></li>
                   );
                 })
               }
@@ -36,7 +36,7 @@ export default class Sublocations extends PureComponent {
                   {sublocations &&
                     sublocations.map(sublocation => {
                       return (
-                        <Route key={sublocation.id} path={`${path}/${sublocation.url}`} render={props => <Sublocation {...props} sublocation={sublocation} />} />
+                        <Route key={sublocation._id} path={`${path}/${sublocation.url}`} render={props => <Sublocation {...props} sublocation={sublocation} />} />
                       );
                     })
                   }

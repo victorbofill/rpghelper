@@ -38,8 +38,8 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete(':id', (req, res, next) => {
+  .delete('/:id', (req, res, next) => {
     return NPC.findByIdAndRemove(req.params.id)
-      .then(() => res.json({ deleted: true }))
+      .then(data => res.json(data))
       .catch(next);
   });
