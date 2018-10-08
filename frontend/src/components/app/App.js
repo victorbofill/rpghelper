@@ -1,17 +1,39 @@
 import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Action from '../action/Action';
 import Dice from '../dice/Dice';
 import Locations from '../locations/Locations';
+import { loadLocations } from '../locations/actions';
+import { getLocations } from '../locations/reducers';
 import Notes from '../notes/Notes';
 import Journal from '../journal/Journal';
 
 import styles from './App.css';
 
-class App extends PureComponent {
+class Test extends PureComponent {
   render() {
+
+    return (
+      <h1>Test</h1>
+    );
+  }
+}
+class App extends PureComponent {
+  static propTypes = {
+    loadLocations: PropTypes.func,
+    locations: PropTypes.array
+  };
+
+  componentDidMount() {
+    this.props.loadLocations();
+  }
+
+  render() {
+    const { locations } = this.props;
+
     return (
       <Router>
         <div>
@@ -31,11 +53,13 @@ class App extends PureComponent {
             <div>
               <div className={styles.content}>
                 <Switch>
-                  <Route path="/locations" component={Locations}/>
+                  {locations &&
+                    <Route path={'/locations'} render={(props) => <Locations { ...props } locations={locations} />} />
+                  }
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
                   <Route path="/journal" component={Journal}/>
-                  <Redirect to="/" />
+                  <Redirect from='/*/*' to='/' />
                 </Switch>
               </div>
             </div>
@@ -47,4 +71,10 @@ class App extends PureComponent {
 }
 
 export default connect(
+  state => ({
+    locations: getLocations(state)
+  }),
+  {
+    loadLocations
+  }
 )(App);

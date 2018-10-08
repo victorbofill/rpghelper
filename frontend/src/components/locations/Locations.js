@@ -1,24 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Location from './Location';
-import { loadLocations } from './actions';
-import { getLocations } from './reducers';
 
 import styles from './Locations.css';
 
 class Locations extends PureComponent {
 
   static propTypes = {
-    loadLocations: PropTypes.func,
     locations: PropTypes.array
   };
-
-  componentDidMount() {
-    this.props.loadLocations();
-  }
 
   render() {
     const { locations } = this.props;
@@ -60,10 +53,4 @@ class Locations extends PureComponent {
 }
 
 export default connect(
-  state => ({
-    locations: getLocations(state)
-  }),
-  {
-    loadLocations
-  }
 )(Locations);
