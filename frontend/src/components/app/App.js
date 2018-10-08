@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
