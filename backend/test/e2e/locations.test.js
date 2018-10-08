@@ -22,6 +22,7 @@ let location = {
 };
 
 let npc = {
+  url: 'macguffin',
   name: 'MacGuffin',
   disposition: 'Friendly',
   stats: {
