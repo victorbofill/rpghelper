@@ -54,13 +54,12 @@ let story = {
 
 let id = null;
 
-describe.only('Profile API', () => {
+describe('Profile API', () => {
   before(() => dropCollection('locations'));
   before(() => dropCollection('npcs'));
   before(() => dropCollection('stories'));
 
   before(() => {
-    console.log('npc: ', npc);
     return request.post('/api/npcs')
       .send(npc)
       .then(({ body }) => npc.id = body._id);
