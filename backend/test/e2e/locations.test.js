@@ -22,7 +22,7 @@ let location = {
 };
 
 let npc = {
-  url: 'test',
+  url: 'macguffin',
   name: 'MacGuffin',
   disposition: 'Friendly',
   stats: {
@@ -63,8 +63,7 @@ describe.only('Profile API', () => {
     console.log('npc: ', npc);
     return request.post('/api/npcs')
       .send(npc)
-      .then(body => console.log('body: ', body.body));
-    // .then(({ body }) => npc.id = body._id);
+      .then(({ body }) => npc.id = body._id);
   });
 
   before(() => {
