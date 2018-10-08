@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Location from './Location';
 
 import styles from './Locations.css';
 
-class Locations extends PureComponent {
+export default class Locations extends PureComponent {
 
   static propTypes = {
     locations: PropTypes.array
@@ -52,6 +51,3 @@ class Locations extends PureComponent {
     );
   }
 }
-
-export default connect(
-)(Locations);
