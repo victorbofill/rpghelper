@@ -37,9 +37,9 @@ class Locations extends PureComponent {
               <div>
                 <Switch>
                   {locations &&
-                    locations.map(location => {
+                    locations.map(locationObject => {
                       return (
-                        <Route key={location.url} path={`${path}/${location.url}`} render={props => <Location {...props} location={location} />} />
+                        <Route key={locationObject.url} path={`${path}/${locationObject.url}`} render={props => <Location {...props} locationObject={locationObject} />} />
                       );
                     })
                   }

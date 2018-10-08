@@ -1,26 +1,18 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import NPCs from './NPCs';
-import styles from './Locations.css';
+import Sublocation from './Sublocation';
+import styles from './Sublocations.css';
 
-class Location extends PureComponent {
-  static propTypes = {
-    locationObject: PropTypes.object
-  };
-
-  componentDidMount() {
-    console.log('location: ', this.props.locationObject);
-  }
-
+class Sublocations extends PureComponent {
   render() {
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/NPCs">NPCs</NavLink></li>
+              <li><NavLink to="/sublocation">Sublocation</NavLink></li>
             </ul>
           </header>
 
@@ -28,7 +20,7 @@ class Location extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  <Route exact path="/NPCs" component={NPCs}/>
+                  <Route exact path="/sublocation" component={Sublocation}/>
                 </Switch>
               </div>
             </div>
@@ -40,4 +32,4 @@ class Location extends PureComponent {
 }
 
 export default connect(
-)(Location);
+)(Sublocations);
