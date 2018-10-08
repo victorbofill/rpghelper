@@ -14,7 +14,8 @@ class Locations extends PureComponent {
   };
 
   render() {
-    const { locations } = this.props;
+    const { locations, match } = this.props;
+    const { path } = match;
 
     return (
       <Router>
@@ -24,7 +25,7 @@ class Locations extends PureComponent {
               {locations && 
                 locations.map(location => {
                   return (
-                    <li key={location.url}><NavLink to={`/locations/${location.url}`}>{`${location.name}`}</NavLink></li>
+                    <li key={location.url}><NavLink to={`${path}/${location.url}`}>{`${location.name}`}</NavLink></li>
                   );
                 })
               }
@@ -38,7 +39,7 @@ class Locations extends PureComponent {
                   {locations &&
                     locations.map(location => {
                       return (
-                        <Route key={location.url} path={`/locations/${location.url}`} render={props => <Location {...props} location={location} />} />
+                        <Route key={location.url} path={`${path}/${location.url}`} render={props => <Location {...props} location={location} />} />
                       );
                     })
                   }

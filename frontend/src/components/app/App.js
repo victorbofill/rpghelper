@@ -13,14 +13,6 @@ import Journal from '../journal/Journal';
 
 import styles from './App.css';
 
-class Test extends PureComponent {
-  render() {
-
-    return (
-      <h1>Test</h1>
-    );
-  }
-}
 class App extends PureComponent {
   static propTypes = {
     loadLocations: PropTypes.func,
@@ -59,7 +51,6 @@ class App extends PureComponent {
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
                   <Route path="/journal" component={Journal}/>
-                  <Redirect from='/*/*' to='/' />
                 </Switch>
               </div>
             </div>
