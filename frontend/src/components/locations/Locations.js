@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 
 import Location from './Location';
+import { postLocation } from '../../services/api';
 
 import styles from './Locations.css';
 
@@ -12,9 +13,26 @@ export default class Locations extends PureComponent {
     locations: PropTypes.array
   };
 
+  handleAddLocation = () => {
+    const newLocation = {
+      url: 'newlocation',
+      name: 'New Location',
+      description: 'Enter description',
+      finances: {
+        assets: 0,
+        income: 0,
+        overhead: 0,
+        profit: 0
+      }
+    };
+
+    postLocation(newLocation);
+  };
+
   render() {
     const { locations, match } = this.props;
     const { path } = match;
+    const { handleAddLocation } = this;
 
     return (
       <Router>
@@ -28,6 +46,7 @@ export default class Locations extends PureComponent {
                   );
                 })
               }
+              <li onClick={handleAddLocation}>+</li>
             </ul>
           </header>
 

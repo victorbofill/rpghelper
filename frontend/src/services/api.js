@@ -26,6 +26,9 @@ const LOCATIONS_URL = `${URL}/locations`;
 const NPCS_URL = `${URL}/npcs`;
 
 export const getLocations = () => get(`${LOCATIONS_URL}`);
+export const postLocation = location => post(`${LOCATIONS_URL}`, location);
+export const delLocation = id => del(`${LOCATIONS_URL}/${id}`);
+export const putLocation = (id, location) => put(`${LOCATIONS_URL}/${id}`, location);
 
 export const delNPC = (id) => del(`${NPCS_URL}/${id}`);
 

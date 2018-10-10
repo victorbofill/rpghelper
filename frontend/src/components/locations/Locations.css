@@ -8,13 +8,16 @@
     width: 100%;
   }
 
-  a, a:visited {
+  li {
     border: 1px solid grey;
     border-radius: 5px 5px 0 0;
-    color: inherit;
     font-size: 1.5em;
     margin-right: .1em;
     padding: 0 1em 0 1em;
+  }
+
+  a, a:visited {
+    color: inherit;
     text-decoration: none;
   }
 }

@@ -32,16 +32,14 @@ module.exports = router
       url,
       name,
       description,
-      finances,
-      sublocations
+      finances
     } = req.body;
 
     const update = {
       url,
       name,
       description,
-      finances,
-      sublocations
+      finances
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
@@ -51,6 +49,12 @@ module.exports = router
       .catch(next);
   })
 
+  .delete('/:id', (req, res, next) => {
+    return Location.findByIdAndRemove(req.params.id)
+      .then(data => res.send(data))
+      .catch(next);
+  })
+ 
   .put('/:id/npcs', (req, res, next) => {
     return Location.findByIdAndUpdate(req.params.id, {
       $addToSet: { npcs: req.body.id }
