@@ -19,7 +19,24 @@ export default class NPCs extends PureComponent {
     const { _id } = locationObject;
 
     const npc = {
-      name: 'name'
+      url: 'newnpc',
+      name: 'New NPC',
+      disposition: 'Disposition',
+      stats: {
+        dr: 1,
+        money: 1,
+        skills: [],
+        attributes: {
+          str: 1,
+          agi: 1,
+          end: 1,
+          will: 1,
+          cha: 1,
+          rea: 1,
+          per: 1
+        }
+      },
+      notes: []
     };
 
     postNPC(_id, npc);
