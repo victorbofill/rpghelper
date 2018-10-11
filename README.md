@@ -1,13 +1,15 @@
 # Overview
 
-Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization, logging in, or security as I'm running it just for myself locally on my own system. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts. My next project is going to be re-writing how the app pulls data from the database, and how the routes return data; things things in particular are sort of a mess right now.
+Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization, logging in, or security as I'm running it just for myself locally on my own system. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts.
 
-Take a look at tabbing in the Locations component. Routes are generated ad hoc, so you can direct the app to nested tabs with the URL.
+Currently I'm just working my way through basic functionality before pollishing everything up.
 
-The Action component doesn't make nearly the use of React that it could; I'll be re-writing that.
+Take a look at tabbing in the Locations component. Routes are generated ad hoc, so you can direct the app to nested tabs written by the app itself upon loading.
 
-Most BE routes are written, but few are utilized so far. That's my next step.
+The Action component doesn't make nearly the use of React that it could, and the rest of the app needs to be plugged into Redux; I'll be refactoring all of that once basic functionality is all complete.
 
-BE testing is written, though I haven't updated it for some time. I'll take a look at that some time.
+How the server returns data is sort of a mess. In most cases it does its work and then just returns the entire database. I'll be re-working that.
+
+BE testing was written, though I haven't updated it for some time and it's not passing. I'll re-do that some time...
 
 I have done next to no design; that will come last.
