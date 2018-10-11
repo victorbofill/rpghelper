@@ -77,18 +77,30 @@ module.exports = router
 
   .post('/:id/npcs', (req, res, next) => {
     NPC.create(req.body)
-      .then(location => res.json(location))
+      .then(npc => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $addToSet: { npcs: npc._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
+      .then(res => res.json(res))
+      .catch(err => res.send(err));
+  })
+
+  .delete('/:id/npcs/:npcId', (req, res, next) => {
+    return NPC.findByIdAndRemove(req.params.npcId)
+      .then(data => res.json(data))
       .catch(next);
   })
 
   .get('/:id/npcs', (req, res, next) => {
     NPC.find()
       .lean()
-      .then(location => res.json(location))
+      .then(npc => res.json(npc))
       .catch(next);
   })
 
-  .put('/:id/npcs/:id', (req, res, next) => {
+  .put('/:id/npcs/:npcId', (req, res, next) => {
     const {
       name,
       disposition,
@@ -105,15 +117,9 @@ module.exports = router
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return NPC.findByIdAndUpdate(req.params.id, update, updateOptions)
+    return NPC.findByIdAndUpdate(req.params.npcId, update, updateOptions)
       .then(updated => res.json(updated))
       .catch(next);        
-  })
-
-  .delete('/:id/npc/:id', (req, res, next) => {
-    return NPC.findByIdAndRemove(req.params.id)
-      .then(data => res.json(data))
-      .catch(next);
   })
 
 // STORY ROUTES
@@ -131,14 +137,14 @@ module.exports = router
       .catch(next);
   })
 
-  .get('/:id/stories/:id', (req, res, next) => {
-    Story.findById(req.params.id)
+  .get('/:id/stories/:storyId', (req, res, next) => {
+    Story.findById(req.params.storyId)
       .lean()
       .then(story => res.json(story))
       .catch(next);
   })
 
-  .put('/:id/stories/:id', (req, res, next) => {
+  .put('/:id/stories/:storyId', (req, res, next) => {
     const {
       name,
       description,
@@ -159,7 +165,7 @@ module.exports = router
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return Story.findByIdAndUpdate(req.params.id, update, updateOptions)
+    return Story.findByIdAndUpdate(req.params.storyId, update, updateOptions)
       .then(updated => res.json(updated))
       .catch(next);
   });

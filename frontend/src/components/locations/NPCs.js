@@ -16,19 +16,19 @@ export default class NPCs extends PureComponent {
 
   handleAddNPC = () => {
     const { locationObject } = this.props;
-    const { url } = locationObject;
+    const { _id } = locationObject;
 
     const npc = {
       name: 'name'
     };
 
-    postNPC(url, npc);
+    postNPC(_id, npc);
   };
 
   render() {
-    const { match, npcs } = this.props;
+    const { match, npcs, locationObject } = this.props;
     const { path } = match;
-    const { handleAddNPC } = this;
+    const { handleAddNPC, handleDeleteNPC } = this;
 
     return (
       <Router>
@@ -43,6 +43,7 @@ export default class NPCs extends PureComponent {
                 })
               }
               <li onClick={handleAddNPC}>+</li>
+              <li onClick={handleDeleteNPC}>-</li>
             </ul>
           </header>
 
@@ -53,7 +54,7 @@ export default class NPCs extends PureComponent {
                   {npcs &&
                     npcs.map(npc => {
                       return (
-                        <Route key={npc._id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} />} />
+                        <Route key={npc._id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} locationObject={locationObject} />} />
                       );
                     })
                   }

@@ -7,12 +7,12 @@ import { delNPC } from '../../services/api';
 export default class NPC extends PureComponent {
 
   static propTypes = {
-    npc: PropTypes.object
+    npc: PropTypes.object,
+    locationObject: PropTypes.object
   };
 
   deleteNPC = () => {
-    delNPC(this.props.npc._id)
-      .then(res => console.log('response', res));
+    delNPC(this.props.locationObject.url, this.props.npc._id);
   };
 
   render() {
