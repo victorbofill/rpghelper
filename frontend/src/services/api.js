@@ -31,6 +31,7 @@ export const putLocation = (id, location) => put(`${LOCATIONS_URL}/${id}`, locat
 
 export const postNPC = (id, npc) => post(`${LOCATIONS_URL}/${id}/npcs`, npc);
 export const delNPC = (id, npcId) => del(`${LOCATIONS_URL}/${id}/npcs/${npcId}`);
+export const putNPC = (id, npcId, npc) => put(`${LOCATIONS_URL}/${id}/npcs/${npcId}`, npc);
 
 export const delStory = (id) => del(`${LOCATIONS_URL}/${id}/stories`);
 

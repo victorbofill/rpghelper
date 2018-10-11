@@ -108,17 +108,17 @@ module.exports = router
 
   .put('/:id/npcs/:npcId', (req, res, next) => {
     const {
+      url,
       name,
       disposition,
-      stats,
-      notes
+      stats
     } = req.body;
 
     const update = {
+      url,
       name,
       disposition,
-      stats,
-      notes
+      stats
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});

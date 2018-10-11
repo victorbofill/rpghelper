@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Locations.css';
 
-import { delNPC } from '../../services/api';
+import { delNPC, putNPC } from '../../services/api';
 
 export default class NPC extends PureComponent {
 
@@ -26,7 +26,35 @@ export default class NPC extends PureComponent {
     per: ''
   };
 
-  deleteNPC = () => {
+  handleChange = ({ target }) => {
+    this.setState({ [target.name] : [target.value] });
+  };
+
+  handleUpdateNPC = () => {
+    const { _id } = this.props.locationObject;
+    const { _id: npcId } = this.props.npc;
+    const { url, name, disposition, dr, money, str, agi, end, will, cha, rea, per } = this.state;
+    const stats = {
+      dr: parseInt(dr),
+      money: parseInt(money),
+      attributes: {
+        str: parseInt(str),
+        agi: parseInt(agi),
+        end: parseInt(end),
+        will: parseInt(will),
+        cha: parseInt(cha),
+        rea: parseInt(rea),
+        per: parseInt(per)
+      }
+    };
+
+    const updatedNPC = { url, name, disposition, stats };
+
+    putNPC(_id, npcId, updatedNPC)
+      .catch(err => console.log(err));
+  };
+
+  handleDeleteNPC = () => {
     if(confirm('Are you sure?')) {
       const { _id } = this.props.locationObject;
       const { _id: npcId } = this.props.npc;
@@ -36,19 +64,16 @@ export default class NPC extends PureComponent {
     }
   };
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name] : [target.value] });
-  };
-
   render() {
-    const { deleteNPC, handleChange } = this;
+    const { handleChange, handleUpdateNPC, handleDeleteNPC } = this;
     const { npc } = this.props;
     const { url, name, disposition, dr, money, str, agi, end, will, cha, rea, per } = this.state;
 
     return (
       <div className={styles.NPC}>
         <fieldset>
-          <button type="button" onClick={deleteNPC}>Delete</button>
+          <button type="button" onClick={handleDeleteNPC}>Delete</button>
+          <button type="button" onClick={handleUpdateNPC}>Update</button>
         </fieldset>
         <fieldset>
           <label>URL: </label>
@@ -72,8 +97,6 @@ export default class NPC extends PureComponent {
           <label>AGI: </label>
           <input name="agi" onChange={handleChange} value={agi} placeholder={npc.stats.attributes.agi} type="text"/>
           <label>END: </label>
-          <input name="agi" onChange={handleChange} value={agi} placeholder={npc.stats.attributes.agi} type="text"/>
-          <label>END: </label>
           <input name="end" onChange={handleChange} value={end} placeholder={npc.stats.attributes.end} type="text"/>
           <label>WILL: </label>
           <input name="will" onChange={handleChange} value={will} placeholder={npc.stats.attributes.will} type="text"/>
@@ -82,7 +105,7 @@ export default class NPC extends PureComponent {
           <label>REA: </label>
           <input name="rea" onChange={handleChange} value={rea} placeholder={npc.stats.attributes.rea} type="text"/>
           <label>PER: </label>
-          <input name="PER" onChange={handleChange} value={per} placeholder={npc.stats.attributes.PER} type="text"/>
+          <input name="per" onChange={handleChange} value={per} placeholder={npc.stats.attributes.PER} type="text"/>
         </fieldset>
       </div>
     );
