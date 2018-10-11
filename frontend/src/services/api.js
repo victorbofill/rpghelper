@@ -23,17 +23,16 @@ const NOTES_URL = `${URL}/notes`;
 const ENTRIES_URL = `${URL}/entries`;
 const PARTICIPANTS_URL = `${URL}/participants`;
 const LOCATIONS_URL = `${URL}/locations`;
-const NPCS_URL = `${LOCATIONS_URL}/npcs`;
-const STORIES_URL = `${LOCATIONS_URL}/stories`;
 
 export const getLocations = () => get(`${LOCATIONS_URL}`);
 export const postLocation = location => post(`${LOCATIONS_URL}`, location);
 export const delLocation = id => del(`${LOCATIONS_URL}/${id}`);
 export const putLocation = (id, location) => put(`${LOCATIONS_URL}/${id}`, location);
 
-export const delNPC = (id) => del(`${NPCS_URL}/${id}`);
+export const postNPC = (id, npc) => post(`${LOCATIONS_URL}/${id}/npcs`, npc);
+export const delNPC = (id, npcId) => del(`${LOCATIONS_URL}/${id}/npcs/${npcId}`);
 
-export const delStory = (id) => del(`${STORIES_URL}/${id}`);
+export const delStory = (id) => del(`${LOCATIONS_URL}/${id}/stories`);
 
 export const getNotes = () => get(`${NOTES_URL}`);
 export const postNote = note => post(`${NOTES_URL}`, note);

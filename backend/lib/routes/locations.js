@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const Location = require('../models/Location');
+const NPC = require('../models/NPC');
+const Story = require('../models/Story');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
@@ -69,4 +71,95 @@ module.exports = router
     }, updateOptions) 
       .then(updated => res.json(updated))
       .catch(next);        
+  })
+
+// NPC ROUTES
+
+  .post('/:id/npcs', (req, res, next) => {
+    NPC.create(req.body)
+      .then(location => res.json(location))
+      .catch(next);
+  })
+
+  .get('/:id/npcs', (req, res, next) => {
+    NPC.find()
+      .lean()
+      .then(location => res.json(location))
+      .catch(next);
+  })
+
+  .put('/:id/npcs/:id', (req, res, next) => {
+    const {
+      name,
+      disposition,
+      stats,
+      notes
+    } = req.body;
+
+    const update = {
+      name,
+      disposition,
+      stats,
+      notes
+    };
+
+    Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
+
+    return NPC.findByIdAndUpdate(req.params.id, update, updateOptions)
+      .then(updated => res.json(updated))
+      .catch(next);        
+  })
+
+  .delete('/:id/npc/:id', (req, res, next) => {
+    return NPC.findByIdAndRemove(req.params.id)
+      .then(data => res.json(data))
+      .catch(next);
+  })
+
+// STORY ROUTES
+
+  .post('/:id/stories', (req, res, next) => {
+    Story.create(req.body)
+      .then(story => res.json(story))
+      .catch(next);
+  })
+
+  .get('/:id/stories', (req, res, next) => {
+    Story.find()
+      .lean()
+      .then(story => res.json(story))
+      .catch(next);
+  })
+
+  .get('/:id/stories/:id', (req, res, next) => {
+    Story.findById(req.params.id)
+      .lean()
+      .then(story => res.json(story))
+      .catch(next);
+  })
+
+  .put('/:id/stories/:id', (req, res, next) => {
+    const {
+      name,
+      description,
+      available,
+      patron,
+      reward,
+      notes
+    } = req.body;
+
+    const update = {
+      name,
+      description,
+      available,
+      patron,
+      reward,
+      notes
+    };
+
+    Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
+
+    return Story.findByIdAndUpdate(req.params.id, update, updateOptions)
+      .then(updated => res.json(updated))
+      .catch(next);
   });

@@ -1,18 +1,34 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+
 import NPC from './NPC';
+import { postNPC } from '../../services/api';
+
 import styles from './Locations.css';
 
 export default class NPCs extends PureComponent {
   static propTypes = {
+    match: PropTypes.object,
     npcs: PropTypes.array,
-    match: PropTypes.object
+    locationObject: PropTypes.object
+  };
+
+  handleAddNPC = () => {
+    const { locationObject } = this.props;
+    const { url } = locationObject;
+
+    const npc = {
+      name: 'name'
+    };
+
+    postNPC(url, npc);
   };
 
   render() {
     const { match, npcs } = this.props;
     const { path } = match;
+    const { handleAddNPC } = this;
 
     return (
       <Router>
@@ -26,6 +42,7 @@ export default class NPCs extends PureComponent {
                   );
                 })
               }
+              <li onClick={handleAddNPC}>+</li>
             </ul>
           </header>
 

@@ -45,7 +45,7 @@ export default class Location extends PureComponent {
               <div>
                 <Switch>
                   <Route exact path={`${path}/details`} render={() => <LocationDetails location={locationObject} />}/>
-                  <Route exact path={`${path}/npcs`} render={props => <NPCs { ...props } npcs={npcs} />}/>
+                  <Route exact path={`${path}/npcs`} render={props => <NPCs { ...props } locationObject={locationObject} npcs={npcs} />}/>
                   <Route exact path={`${path}/stories`} render={props => <Stories { ...props } stories={stories} />}/>
                   <Route exact path={`${path}/sublocations`} render={props => <Sublocations { ...props } sublocations={sublocations} />}/>
                 </Switch>
