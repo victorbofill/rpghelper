@@ -12,7 +12,11 @@ export default class NPC extends PureComponent {
   };
 
   deleteNPC = () => {
-    delNPC(this.props.locationObject.url, this.props.npc._id);
+    const { _id } = this.props.locationObject;
+    const { _id: npcId } = this.props.npc;
+
+    delNPC(_id, npcId)
+      .catch(err => console.log(err));
   };
 
   render() {

@@ -75,7 +75,7 @@ module.exports = router
 
 // NPC ROUTES
 
-  .post('/:id/npcs', (req, res, next) => {
+  .post('/:id/npcs', (req, res) => {
     NPC.create(req.body)
       .then(npc => {
         return Location.findByIdAndUpdate(req.params.id, {
@@ -87,10 +87,16 @@ module.exports = router
       .catch(err => res.send(err));
   })
 
-  .delete('/:id/npcs/:npcId', (req, res, next) => {
+  .delete('/:id/npcs/:npcId', (req, res) => {
     return NPC.findByIdAndRemove(req.params.npcId)
-      .then(data => res.json(data))
-      .catch(next);
+      .then(removed => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $pull: { npcs: removed._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
+      .then(() => res.json({ deleted : true }))
+      .catch(err => res.send(err));
   })
 
   .get('/:id/npcs', (req, res, next) => {
