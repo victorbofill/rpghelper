@@ -123,10 +123,10 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input id="str" value={str} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="agi" value={agi} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="end" value={end} type="number" mresetApin="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="will" value={will} type="number"resetAp min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="str" value={str} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="agi" value={agi} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="end" value={end} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input id="will" value={will} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="cha" value={cha} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="rea" value={rea} type="number" min="1" max="4" onChange={this.handleChange}/></td>
                   <td><input id="per" value={per} type="number" min="1" max="4" onChange={this.handleChange}/></td>
