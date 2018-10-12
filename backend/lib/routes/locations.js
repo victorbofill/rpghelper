@@ -132,8 +132,26 @@ module.exports = router
 
   .post('/:id/stories', (req, res, next) => {
     Story.create(req.body)
+      .then(story => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $addToSet: { stories: story._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
       .then(story => res.json(story))
       .catch(next);
+  })
+
+  .delete('/:id/stories/:storyId', (req, res) => {
+    return Story.findByIdAndRemove(req.params.storyId)
+      .then(removed => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $pull: { stories: removed._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
+      .then(() => res.json({ deleted : true }))
+      .catch(err => res.send(err));
   })
 
   .get('/:id/stories', (req, res, next) => {

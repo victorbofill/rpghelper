@@ -34,3 +34,16 @@
     border: 1px solid green;
   }
 }
+
+:local(.Story) {
+  display: flex;
+  flex-direction: column;
+
+  .stats {
+    border: 1px solid red;
+  }
+
+  .stories {
+    border: 1px solid green;
+  }
+}
