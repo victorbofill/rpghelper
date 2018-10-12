@@ -1,17 +1,35 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+
 import Sublocation from './Sublocation';
-import styles from './Sublocations.css';
+import { postSublocation } from '../../services/api';
+
+import styles from './Locations.css';
 
 export default class Sublocations extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
-    sublocations: PropTypes.array
+    sublocations: PropTypes.array,
+    locationObject: PropTypes.object
+  };
+
+  handleAddSublocation = () => {
+    const { _id } = this.props.locationObject;
+    
+    const sublocation = {
+      url: 'basement',
+      name: 'The basement',
+      description: 'The basement is dark.',
+    };
+
+    postSublocation(_id, sublocation)
+      .catch(err => console.log(err));
   };
 
   render() {
-    const { match, sublocations } = this.props;
+    const { match, sublocations, locationObject } = this.props;
+    const { handleAddSublocation } = this;
     const { path } = match;
 
     return (
@@ -19,13 +37,14 @@ export default class Sublocations extends PureComponent {
         <div>
           <header className={styles.header}>
             <ul>
-              {sublocations &&
+              {sublocations && (sublocations[0] !== null) &&
                 sublocations.map(sublocation => {
                   return (
-                    <li key={sublocation._id}><NavLink to={`${path}/${sublocation.name}`}>{`${sublocation.name}`}</NavLink></li>
+                    <li key={sublocation._id}><NavLink to={`${path}/${sublocation.url}`}>{`${sublocation.name}`}</NavLink></li>
                   );
                 })
               }
+              <li onClick={handleAddSublocation}>+</li>
             </ul>
           </header>
 
@@ -33,10 +52,10 @@ export default class Sublocations extends PureComponent {
             <div>
               <div>
                 <Switch>
-                  {sublocations &&
+                  {sublocations && (sublocations[0] !== null) &&
                     sublocations.map(sublocation => {
                       return (
-                        <Route key={sublocation._id} path={`${path}/${sublocation.url}`} render={props => <Sublocation {...props} sublocation={sublocation} />} />
+                        <Route key={sublocation._id} path={`${path}/${sublocation.url}`} render={props => <Sublocation {...props} locationObject={locationObject} sublocation={sublocation} />} />
                       );
                     })
                   }

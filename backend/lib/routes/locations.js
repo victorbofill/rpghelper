@@ -1,8 +1,10 @@
 const router = require('express').Router();
+const { updateOptions } = require('../utils/mongoose-helpers');
+
 const Location = require('../models/Location');
 const NPC = require('../models/NPC');
 const Story = require('../models/Story');
-const { updateOptions } = require('../utils/mongoose-helpers');
+const Sublocation = require('../models/Sublocation');
 
 module.exports = router
   .get('/', (req, res, next) => {
@@ -10,6 +12,7 @@ module.exports = router
       .lean()
       .populate('npcs')
       .populate('stories')
+      .populate('sublocations')
       .then(location => res.json(location))
       .catch(next);
   })
@@ -19,6 +22,7 @@ module.exports = router
       .lean()
       .populate('npcs')
       .populate('stories')
+      .populate('sublocations')
       .then(location => res.json(location))
       .catch(next);
   })
@@ -161,14 +165,14 @@ module.exports = router
       .catch(next);
   })
 
-  .get('/:id/stories/:storyId', (req, res, next) => {
+  .get('/:id/stories/:storyId', (req, res) => {
     Story.findById(req.params.storyId)
       .lean()
       .then(story => res.json(story))
-      .catch(next);
+      .catch(err => res.send(err));
   })
 
-  .put('/:id/stories/:storyId', (req, res, next) => {
+  .put('/:id/stories/:storyId', (req, res) => {
     const {
       name,
       description,
@@ -191,5 +195,31 @@ module.exports = router
 
     return Story.findByIdAndUpdate(req.params.storyId, update, updateOptions)
       .then(updated => res.json(updated))
-      .catch(next);
+      .catch(err => res.send(err));
+  })
+
+// SUBLOCATION ROUTES
+  .post('/:id/sublocations', (req, res) => {
+    Sublocation.create(req.body)
+      .then(sublocation => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $addToSet: { sublocations: sublocation._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
+      .then(sublocation => res.send(sublocation))
+      .catch(err => res.send(err));
+  })
+
+  .delete('/:id/sublocations/:sublocationId', (req, res) => {
+    return Sublocation.findByIdAndRemove(req.params.sublocationId)
+      .then(removed => {
+        return Location.findByIdAndUpdate(req.params.id, {
+          $pull: { sublocations: removed._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
+      .then(() => res.send({ deleted : true }))
+      .catch(err => res.send(err));
   });
+

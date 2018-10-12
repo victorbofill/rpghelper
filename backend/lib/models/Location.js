@@ -11,11 +11,7 @@ const schema = new Schema({
     overhead: Number,
     profit: Number
   },
-  sublocations: [{
-    name: String,
-    description: String,
-    active: Boolean
-  }],
+  sublocations: [{type: Schema.Types.ObjectId, ref: 'Sublocation'}],
   npcs: [{type: Schema.Types.ObjectId, ref: 'NPC'}],
   stories: [{type: Schema.Types.ObjectId, ref: 'Story'}],
 });

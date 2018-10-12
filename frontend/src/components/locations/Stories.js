@@ -45,7 +45,7 @@ class Stories extends PureComponent {
               {stories && (stories[0] !== null) &&
                   stories.map(story => {
                     return (
-                      <li key={story._id}><NavLink to={`${path}/${story._id}`}>{`${story.name}`}</NavLink></li>
+                      <li key={story._id}><NavLink to={`${path}/${story.url}`}>{`${story.name}`}</NavLink></li>
                     );
                   })
               }
@@ -60,7 +60,7 @@ class Stories extends PureComponent {
                   {stories && (stories[0] !== null) &&
                     stories.map(story => {
                       return (
-                        <Route key={story._id} path={`${path}/${story._id}`} render={props => <Story {...props} story={story} locationObject={locationObject}/>} />
+                        <Route key={story._id} path={`${path}/${story.url}`} render={props => <Story {...props} story={story} locationObject={locationObject}/>} />
                       );
                     })
                   }
