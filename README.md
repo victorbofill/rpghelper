@@ -2,7 +2,7 @@
 
 Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization, logging in, or security as I'm running it just for myself locally on my own system. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts.
 
-Currently I'm just working my way through basic functionality before pollishing everything up.
+Currently I'm just working my way through basic functionality before polishing everything up.
 
 Take a look at tabbing in the Locations component. Routes are generated ad hoc, so you can direct the app to nested tabs written by the app itself upon loading.
 
