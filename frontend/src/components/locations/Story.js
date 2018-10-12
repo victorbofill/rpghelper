@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import { delStory } from '../../services/api';
 
-import styles from './Stories.css';
-
 class Story extends PureComponent {
   static propTypes = {
     locationObject: PropTypes.object,
@@ -21,12 +19,16 @@ class Story extends PureComponent {
   };
 
   render() {
+    const { story } = this.props;
+    const { name, description, reward } = story;
     const { handleDeleteStory } = this;
 
     return (
       <div>
-        <h1 className={styles.story}>Story</h1>
-        <h2 onClick={handleDeleteStory}>-</h2>
+        <h3 onClick={handleDeleteStory}>-</h3>
+        <h1>{name}</h1>
+        <p>{description}</p>
+        <p>{reward}</p>
       </div>
     );
   }

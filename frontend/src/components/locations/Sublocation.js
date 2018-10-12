@@ -25,8 +25,8 @@ class Sublocation extends PureComponent {
 
     return (
       <div>
+        <h3 onClick={handleDeleteSublocation}>-</h3>
         <h1 className={styles.sublocation}>{name}</h1>
-        <h2 onClick={handleDeleteSublocation}>-</h2>
         <p>{description}</p>
       </div>
     );
