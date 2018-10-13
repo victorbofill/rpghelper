@@ -19,13 +19,8 @@ class Stories extends PureComponent {
     const { _id } = this.props.locationObject;
     
     const story = {
-      url: 'bar1',
-      name: 'It Always Starts In A Bar',
-      description: 'This is a description.',
-      available: true,
-      complete: false,
-      reward: 'Some gold',
-      notes: [],
+      url: 'newstory',
+      name: 'New Story'
     };
 
     postStory(_id, story)
