@@ -30,10 +30,10 @@ export default class Location extends PureComponent {
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to={`${path}/details`}>Details</NavLink></li>
-              <li><NavLink to={`${path}/npcs`}>NPCs</NavLink></li>
-              <li><NavLink to={`${path}/stories`}>Stories</NavLink></li>
-              <li><NavLink to={`${path}/sublocations`}>Sublocations</NavLink></li>
+              <NavLink to={`${path}/details`}> <li>Details</li></NavLink>
+              <NavLink to={`${path}/npcs`}> <li>NPCs</li></NavLink>
+              <NavLink to={`${path}/stories`}> <li>Stories</li></NavLink>
+              <NavLink to={`${path}/sublocations`}> <li>Sublocations</li></NavLink>
               <li onClick={handleRemoveLocation}>-</li>
             </ul>
           </header>

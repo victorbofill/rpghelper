@@ -40,7 +40,7 @@ export default class Locations extends PureComponent {
               {locations && 
                 locations.map(location => {
                   return (
-                    <li key={location._id}><NavLink to={`${path}/${location.url}`}>{`${location.name}`}</NavLink></li>
+                    <NavLink key={location._id} to={`${path}/${location.url}`}><li>{`${location.name}`}</li></NavLink>
                   );
                 })
               }

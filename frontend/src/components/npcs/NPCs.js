@@ -50,7 +50,7 @@ export default class NPCs extends PureComponent {
               {npcs && (npcs[0] !== null) &&
                 npcs.map(npc => {
                   return (
-                    <li key={npc._id}><NavLink to={`${path}/${npc.url}`}>{`${npc.name}`}</NavLink></li>
+                    <NavLink key={npc._id} to={`${path}/${npc.url}`}><li>{`${npc.name}`}</li></NavLink>
                   );
                 })
               }
