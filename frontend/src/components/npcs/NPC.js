@@ -66,35 +66,43 @@ export default class NPC extends PureComponent {
 
         {!editing &&
         <Fragment>
-          <main>
-            <h3>URL: </h3>
-            <p>{npc.url}</p>
+          <article>
             <h3>Name: </h3>
             <p>{npc.name}</p>
             <h3>Relationship: </h3>
             <p>{npc.relationship}</p>
-          </main>
-          <main>
+          </article>
+          <article>
+            <h3>Attributes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>STR:</th>
+                  <th>AGI:</th>
+                  <th>END:</th>
+                  <th>WILL:</th>
+                  <th>CHA:</th>
+                  <th>REA:</th>
+                  <th>PER:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{npc.str}</td>
+                  <td>{npc.agi}</td>
+                  <td>{npc.end}</td>
+                  <td>{npc.will}</td>
+                  <td>{npc.cha}</td>
+                  <td>{npc.rea}</td>
+                  <td>{npc.per}</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+          <article>
             <h3>Money: </h3>
             <p>{npc.money}</p>
-          </main>
-          <main>
-            <h3>Attributes</h3>
-            <h3>STR: </h3>
-            <p>{npc.str}</p>
-            <h3>AGI: </h3>
-            <p>{npc.agi}</p>
-            <h3>END: </h3>
-            <p>{npc.end}</p>
-            <h3>WILL: </h3>
-            <p>{npc.will}</p>
-            <h3>CHA: </h3>
-            <p>{npc.cha}</p>
-            <h3>REA: </h3>
-            <p>{npc.rea}</p>
-            <h3>PER: </h3>
-            <p>{npc.per}</p>
-          </main>
+          </article>
         </Fragment>
         }
 
