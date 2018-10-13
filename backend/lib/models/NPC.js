@@ -4,22 +4,17 @@ const { Schema } = mongoose;
 const schema = new Schema({
   url: String,
   name: String,
-  disposition: String,
-  stats: {
-    dr: Number,
-    money: Number,
-    skills: Array,
-    attributes: {
-      str: Number,
-      agi: Number,
-      end: Number,
-      will: Number,
-      cha: Number,
-      rea: Number,
-      per: Number
-    }
-  },
-  notes: Array
+  relationship: String,
+  money: Number,
+  str: Number,
+  agi: Number,
+  end: Number,
+  will: Number,
+  cha: Number,
+  rea: Number,
+  per: Number,
+  notes: Array,
+  skills: Array
 });
 
 module.exports = mongoose.model('NPC', schema);

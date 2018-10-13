@@ -10,12 +10,16 @@ app.use(express.json());
 const entries = require('./routes/entries');
 const locations = require('./routes/locations');
 const notes = require('./routes/notes');
+const npcs = require('./routes/npcs');
 const participants = require('./routes/participants');
+const stories = require('./routes/stories');
 
-app.use('/api/locations', locations);
 app.use('/api/entries', entries);
+app.use('/api/locations', locations);
 app.use('/api/notes', notes);
+app.use('/api/npcs', npcs);
 app.use('/api/participants', participants);
+app.use('/api/stories', stories);
 
 app.use((req, res) => {
   res.sendFile('index.html', { root: './public'} );
