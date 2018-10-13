@@ -5,33 +5,33 @@ const Story = require('../models/Story');
 const Chapter = require('../models/Chapter');
 
 module.exports = router
-  .post('/:id/stories', (req, res, next) => {
+  .post('/', (req, res, next) => {
     Story.create(req.body)
       .then(story => res.json(story))
       .catch(next);
   })
 
-  .delete('/:id/stories/:storyId', (req, res) => {
-    return Story.findByIdAndRemove(req.params.storyId)
+  .delete('/:id', (req, res) => {
+    return Story.findByIdAndRemove(req.params.id)
       .then(() => res.json({ deleted : true }))
       .catch(err => res.send(err));
   })
 
-  .get('/:id/stories', (req, res, next) => {
+  .get('/', (req, res, next) => {
     Story.find()
       .lean()
       .then(story => res.json(story))
       .catch(next);
   })
 
-  .get('/:id/stories/:storyId', (req, res) => {
+  .get('/:id', (req, res) => {
     Story.findById(req.params.storyId)
       .lean()
       .then(story => res.json(story))
       .catch(err => res.send(err));
   })
 
-  .put('/:id/stories/:storyId', (req, res) => {
+  .put('/:id', (req, res) => {
     const {
       name,
       description,
@@ -58,7 +58,7 @@ module.exports = router
   })
 
 // CHAPTER ROUTES
-  .post('/:id/stories/:storyId/chapters', (req, res, next) => {
+  .post('/:id/chapters', (req, res, next) => {
     Chapter.create(req.body)
       .then(chapter => {
         return Story.findByIdAndUpdate(req.params.storyId, {
@@ -70,15 +70,8 @@ module.exports = router
       .catch(next);
   })
 
-  .delete('/:id/stories/:storyId', (req, res) => {
-    return Story.findByIdAndRemove(req.params.storyId)
+  .delete('/:id/chapters/:chapterId', (req, res) => {
+    return Story.findByIdAndRemove(req.params.chapterId)
       .then(() => res.json({ deleted : true }))
       .catch(err => res.send(err));
-  })
-
-  .get('/:id/stories', (req, res, next) => {
-    Story.find()
-      .lean()
-      .then(story => res.json(story))
-      .catch(next);
   });
