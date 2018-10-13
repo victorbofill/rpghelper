@@ -50,7 +50,6 @@ export default class LocationDetails extends PureComponent {
   render() {
     const { handleChange, handleUpdateLocation, handleToggleEdit } = this;
     const { location } = this.props;
-    console.log(location);
     const { description, url, name, assets, income, overhead, profit } = location;
     const { editDescription, editUrl, editName, editAssets, editIncome, editOverhead, editProfit, editing } = this.state;
 
