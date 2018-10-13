@@ -1,10 +1,6 @@
-import {
-  getLocations
-} from '../../services/api';
+import { getLocations } from '../../services/api';
 
-import {
-  LOCATIONS_LOAD
-} from './reducers';
+import { LOCATIONS_LOAD } from './reducers';
 
 export function loadLocations() {
   return {

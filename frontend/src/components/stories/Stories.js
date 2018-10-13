@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import Story from './Story';
+import { loadStories } from './actions';
+import { getStories } from './reducers';
 import { postStory } from '../../services/api';
 
 import styles from './Stories.css';
@@ -14,6 +16,10 @@ class Stories extends PureComponent {
     stories: PropTypes.array,
     locationObject: PropTypes.object
   };
+
+  componentDidMount() {
+    this.props.loadStories();
+  }
 
   handleAddStory = () => {
     const story = {
@@ -68,4 +74,9 @@ class Stories extends PureComponent {
 }
 
 export default connect(
+  state => ({
+    stories: getStories(state)
+  }), {
+    loadStories
+  }
 )(Stories);
