@@ -7,7 +7,7 @@ const Chapter = require('../models/Chapter');
 module.exports = router
   .post('/', (req, res, next) => {
     Story.create(req.body)
-      .then(story => res.json(story))
+      .then(story => res.send(story))
       .catch(next);
   })
 

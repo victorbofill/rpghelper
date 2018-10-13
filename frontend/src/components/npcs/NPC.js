@@ -53,13 +53,10 @@ export default class NPC extends PureComponent {
   };
 
   handleDeleteNPC = () => {
-    if(confirm('Are you sure?')) {
-      const { _id } = this.props.locationObject;
-      const { _id: npcId } = this.props.npc;
-  
-      delNPC(_id, npcId)
-        .catch(err => console.log(err));
-    }
+    const { _id } = this.props.locationObject;
+    const { _id: npcId } = this.props.npc;
+    
+    if(confirm('Are you sure?')) delNPC(_id, npcId);
   };
 
   render() {
@@ -91,19 +88,19 @@ export default class NPC extends PureComponent {
         <fieldset>
           <h3>Attributes</h3>
           <label>STR: </label>
-          <input name="str" onChange={handleChange} value={str} placeholder={npc.stats.attributes.str} type="text"/>
+          <input name="str" onChange={handleChange} value={str} placeholder={npc.str} type="text"/>
           <label>AGI: </label>
-          <input name="agi" onChange={handleChange} value={agi} placeholder={npc.stats.attributes.agi} type="text"/>
+          <input name="agi" onChange={handleChange} value={agi} placeholder={npc.agi} type="text"/>
           <label>END: </label>
-          <input name="end" onChange={handleChange} value={end} placeholder={npc.stats.attributes.end} type="text"/>
+          <input name="end" onChange={handleChange} value={end} placeholder={npc.end} type="text"/>
           <label>WILL: </label>
-          <input name="will" onChange={handleChange} value={will} placeholder={npc.stats.attributes.will} type="text"/>
+          <input name="will" onChange={handleChange} value={will} placeholder={npc.will} type="text"/>
           <label>CHA: </label>
-          <input name="cha" onChange={handleChange} value={cha} placeholder={npc.stats.attributes.cha} type="text"/>
+          <input name="cha" onChange={handleChange} value={cha} placeholder={npc.cha} type="text"/>
           <label>REA: </label>
-          <input name="rea" onChange={handleChange} value={rea} placeholder={npc.stats.attributes.rea} type="text"/>
+          <input name="rea" onChange={handleChange} value={rea} placeholder={npc.rea} type="text"/>
           <label>PER: </label>
-          <input name="per" onChange={handleChange} value={per} placeholder={npc.stats.attributes.PER} type="text"/>
+          <input name="per" onChange={handleChange} value={per} placeholder={npc.PER} type="text"/>
         </fieldset>
       </div>
     );

@@ -19,8 +19,7 @@ class Story extends PureComponent {
     const { _id: storyId } = this.props.story;
     const { _id } = this.props.locationObject;
     
-    delStory(_id, storyId)
-      .catch(err => console.log(err));
+    if(confirm('Are you sure?')) delStory(_id, storyId);
   };
 
   handleAddChapter = () => {

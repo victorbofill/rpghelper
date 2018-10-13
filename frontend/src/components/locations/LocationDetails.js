@@ -44,7 +44,6 @@ export default class LocationDetails extends PureComponent {
   render() {
     const { handleChange, handleUpdateLocation } = this;
     const { location } = this.props;
-    const { finances } = location;
     const { description, url, name, assets, income, overhead, profit } = this.state;
 
     return (
@@ -63,13 +62,13 @@ export default class LocationDetails extends PureComponent {
           <fieldset>
             <p>Finances</p>
             <label>Assets: </label>
-            <input name="assets" onChange={handleChange} value={assets} placeholder={finances.assets || 0} type="text" />
+            <input name="assets" onChange={handleChange} value={assets} placeholder={assets || 0} type="text" />
             <label>Income: </label>
-            <input name="income" onChange={handleChange} value={income} placeholder={finances.income || 0} type="text" />
+            <input name="income" onChange={handleChange} value={income} placeholder={income || 0} type="text" />
             <label>Overhead: </label>
-            <input name="overhead" onChange={handleChange} value={overhead} placeholder={finances.overhead || 0} type="text" />
+            <input name="overhead" onChange={handleChange} value={overhead} placeholder={overhead || 0} type="text" />
             <label>Profit: </label>
-            <input name="profit" onChange={handleChange} value={profit} placeholder={finances.profit || 0} type="text" />
+            <input name="profit" onChange={handleChange} value={profit} placeholder={profit || 0} type="text" />
           </fieldset>
           <input type="button" onClick={handleUpdateLocation} value="Submit Update" />
         </main>

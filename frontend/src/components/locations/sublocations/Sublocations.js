@@ -18,9 +18,9 @@ export default class Sublocations extends PureComponent {
     const { _id } = this.props.locationObject;
     
     const sublocation = {
-      url: 'basement',
-      name: 'The basement',
-      description: 'The basement is dark.',
+      url: 'newsublocation',
+      name: 'New Sublocation',
+      description: 'description',
     };
 
     postSublocation(_id, sublocation)

@@ -16,14 +16,12 @@ class Stories extends PureComponent {
   };
 
   handleAddStory = () => {
-    const { _id } = this.props.locationObject;
-    
     const story = {
       url: 'newstory',
       name: 'New Story'
     };
 
-    postStory(_id, story)
+    postStory(story)
       .catch(err => console.log(err));
   };
 

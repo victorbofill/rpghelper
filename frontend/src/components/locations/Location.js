@@ -16,9 +16,7 @@ export default class Location extends PureComponent {
   };
 
   handleRemoveLocation = () => {
-    if(confirm('Are you sure?')) {
-      delLocation(this.props.locationObject._id);
-    }
+    if(confirm('Are you sure?')) delLocation(this.props.locationObject._id);
   };
 
   render() {

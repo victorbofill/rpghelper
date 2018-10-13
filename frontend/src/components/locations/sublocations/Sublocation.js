@@ -15,8 +15,8 @@ class Sublocation extends PureComponent {
   handleDeleteSublocation = () => {
     const { _id } = this.props.locationObject;
     const { _id: sublocationId } = this.props.sublocation;
-
-    delSublocation(_id, sublocationId);
+    
+    if(confirm('Are you sure?')) delSublocation(_id, sublocationId);
   };
 
   render() {
@@ -25,7 +25,7 @@ class Sublocation extends PureComponent {
 
     return (
       <div>
-        <h3 onClick={handleDeleteSublocation}>-</h3>
+        <button onClick={handleDeleteSublocation}>Delete Sublocation</button>
         <h1 className={styles.sublocation}>{name}</h1>
         <p>{description}</p>
       </div>
