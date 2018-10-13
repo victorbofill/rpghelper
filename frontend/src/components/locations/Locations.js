@@ -1,17 +1,25 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Location from './Location';
+import { loadLocations } from './actions';
+import { getLocations } from './reducers';
 import { postLocation } from '../../services/api';
 
 import styles from './Locations.css';
 
-export default class Locations extends PureComponent {
+class Locations extends PureComponent {
 
   static propTypes = {
+    match: PropTypes.object,
     locations: PropTypes.array
   };
+
+  componentDidMount() {
+    this.props.loadLocations();
+  }
 
   handleAddLocation = () => {
     const newLocation = {
@@ -68,3 +76,11 @@ export default class Locations extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => ({
+    locations: getLocations(state)
+  }), {
+    loadLocations
+  }
+)(Locations);

@@ -1,31 +1,16 @@
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import Action from '../action/Action';
 import Dice from '../dice/Dice';
 import Locations from '../locations/Locations';
-import { loadLocations } from '../locations/actions';
-import { getLocations } from '../locations/reducers';
+import Action from '../action/Action';
 import Notes from '../notes/Notes';
 import Journal from '../journal/Journal';
 
 import styles from './App.css';
 
-class App extends PureComponent {
-  static propTypes = {
-    loadLocations: PropTypes.func,
-    locations: PropTypes.array
-  };
-
-  componentDidMount() {
-    this.props.loadLocations();
-  }
-
+export default class App extends PureComponent {
   render() {
-    const { locations } = this.props;
-
     return (
       <Router>
         <div>
@@ -45,9 +30,7 @@ class App extends PureComponent {
             <div>
               <div className={styles.content}>
                 <Switch>
-                  {locations &&
-                    <Route path={'/locations'} render={(props) => <Locations { ...props } locations={locations} />} />
-                  }
+                  <Route path={'/locations'} render={props => <Locations { ...props }/>} />
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
                   <Route path="/journal" component={Journal}/>
@@ -60,12 +43,3 @@ class App extends PureComponent {
     );
   }
 }
-
-export default connect(
-  state => ({
-    locations: getLocations(state)
-  }),
-  {
-    loadLocations
-  }
-)(App);
