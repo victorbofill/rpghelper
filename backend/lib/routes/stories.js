@@ -20,6 +20,7 @@ module.exports = router
   .get('/', (req, res, next) => {
     Story.find()
       .lean()
+      .populate('chapters')
       .then(story => res.json(story))
       .catch(next);
   })
