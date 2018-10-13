@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { delLocation } from '../../services/api';
 
-import NPCs from './NPCs';
-import Stories from './Stories';
-import Sublocations from './Sublocations';
+import NPCs from '../npcs/NPCs';
+import Stories from '../stories/Stories';
+import Sublocations from './sublocations/Sublocations';
 import LocationDetails from './LocationDetails';
 
 import styles from './Locations.css';

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { delStory } from '../../services/api';
+import { delStory } from '../../../services/api';
 
 class Story extends PureComponent {
   static propTypes = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 
 import Sublocation from './Sublocation';
-import { postSublocation } from '../../services/api';
+import { postSublocation } from '../../../services/api';
 
 import styles from './Locations.css';
 

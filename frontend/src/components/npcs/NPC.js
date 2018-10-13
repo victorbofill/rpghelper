@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import styles from './Locations.css';
 
 import { delNPC, putNPC } from '../../services/api';
+
+import styles from './NPCs.css';
 
 export default class NPC extends PureComponent {
 

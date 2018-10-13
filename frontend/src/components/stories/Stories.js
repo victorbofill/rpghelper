@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Story from './Story';
 import { postStory } from '../../services/api';
 
-import styles from './Locations.css';
+import styles from './Stories.css';
 
 class Stories extends PureComponent {
   static propTypes = {

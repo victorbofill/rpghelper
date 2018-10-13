@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import NPC from './NPC';
 import { postNPC } from '../../services/api';
 
-import styles from './Locations.css';
+import styles from './NPCs.css';
 
 export default class NPCs extends PureComponent {
   static propTypes = {
