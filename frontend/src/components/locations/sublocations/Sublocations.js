@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import Sublocation from './Sublocation';
 import { postSublocation } from '../../../services/api';
 
-import styles from './Locations.css';
+import styles from './Sublocations.css';
 
 export default class Sublocations extends PureComponent {
   static propTypes = {

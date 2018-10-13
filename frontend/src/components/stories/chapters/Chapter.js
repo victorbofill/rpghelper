@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { delStory } from '../../../services/api';
 
+
 class Story extends PureComponent {
   static propTypes = {
     locationObject: PropTypes.object,
