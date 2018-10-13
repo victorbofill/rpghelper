@@ -16,8 +16,8 @@ const stories = require('./routes/stories');
 
 app.use('/api/entries', entries);
 app.use('/api/locations', locations);
+app.use('/api/locations', npcs);
 app.use('/api/notes', notes);
-app.use('/api/npcs', npcs);
 app.use('/api/participants', participants);
 app.use('/api/stories', stories);
 

@@ -5,7 +5,7 @@ const Location = require('../models/Location');
 const NPC = require('../models/NPC');
 
 module.exports = router
-  .post('/locations/:id/npcs', (req, res) => {
+  .post('/:id/npcs', (req, res) => {
     NPC.create(req.body)
       .then(npc => {
         return Location.findByIdAndUpdate(req.params.id, {
@@ -13,11 +13,11 @@ module.exports = router
         }, updateOptions)
           .catch(err => res.send(err));
       })
-      .then(res => res.json(res))
+      .then(res => res.send(res))
       .catch(err => res.send(err));
   })
 
-  .delete('/locations/:id/npcs/:npcId', (req, res) => {
+  .delete('/:id/npcs/:npcId', (req, res) => {
     return NPC.findByIdAndRemove(req.params.npcId)
       .then(removed => {
         return Location.findByIdAndUpdate(req.params.id, {
@@ -29,14 +29,14 @@ module.exports = router
       .catch(err => res.send(err));
   })
 
-  .get('/locations/:id/npcs', (req, res, next) => {
+  .get('/:id/npcs', (req, res, next) => {
     NPC.find()
       .lean()
       .then(npc => res.json(npc))
       .catch(next);
   })
 
-  .put('/locations/:id/npcs/:npcId', (req, res, next) => {
+  .put('/:id/npcs/:npcId', (req, res, next) => {
     const {
       url,
       name,
