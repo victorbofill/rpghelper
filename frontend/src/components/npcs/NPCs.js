@@ -21,7 +21,7 @@ export default class NPCs extends PureComponent {
     const npc = {
       url: 'newnpc',
       name: 'New NPC',
-      relationship: 'neutral',
+      relationship: 'Neutral',
       money: 1,
       str: 1,
       agi: 1,
@@ -40,7 +40,7 @@ export default class NPCs extends PureComponent {
   render() {
     const { match, npcs, locationObject } = this.props;
     const { path } = match;
-    const { handleAddNPC, handleDeleteNPC } = this;
+    const { handleAddNPC } = this;
 
     return (
       <Router>
@@ -55,7 +55,6 @@ export default class NPCs extends PureComponent {
                 })
               }
               <li onClick={handleAddNPC}>+</li>
-              <li onClick={handleDeleteNPC}>-</li>
             </ul>
           </header>
 
