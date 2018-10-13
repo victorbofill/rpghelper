@@ -25,17 +25,17 @@ export default class LocationDetails extends PureComponent {
   };
 
   handleUpdateLocation = () => {
-    const { url, name, description, assets, overhead, income, profit } = this.state;
+    const { editUrl, editName, editDescription, editAssets, editOverhead, editIncome, editProfit } = this.state;
     const { location } = this.props;
 
     const updatedLocation = {
-      url: url || location.url,
-      name: name || location.name,
-      description: description || location.description,
-      assets: assets || location.finances.assets,
-      overhead: overhead || location.finances.overhead,
-      income: income || location.finances.income,
-      profit: profit || location.finances.profit
+      url: editUrl || location.url,
+      name: editName || location.name,
+      description: editDescription || location.description,
+      assets: editAssets || location.assets,
+      overhead: editOverhead || location.overhead,
+      income: editIncome || location.income,
+      profit: editProfit || location.profit
     };
 
     putLocation(location._id, updatedLocation);
@@ -60,24 +60,24 @@ export default class LocationDetails extends PureComponent {
           <main>
             <fieldset>
               <label>URL: </label>
-              <input name="url" onChange={handleChange} value={editUrl} placeholder={location.url} type="text" />
+              <input name="editUrl" onChange={handleChange} value={editUrl} placeholder={location.url} type="text" />
               <label>Name: </label>
-              <input name="name" onChange={handleChange} value={editName} placeholder={location.name} type="text" />
+              <input name="editName" onChange={handleChange} value={editName} placeholder={location.name} type="text" />
             </fieldset>
             <fieldset>
               <label>Description: </label>
-              <textarea name="description" onChange={handleChange} value={editDescription} placeholder={location.description}/>
+              <textarea name="editDescription" onChange={handleChange} value={editDescription} placeholder={location.description}/>
             </fieldset>
             <fieldset>
               <p>Finances</p>
               <label>Assets: </label>
-              <input name="assets" onChange={handleChange} value={editAssets} placeholder={assets || 0} type="text" />
+              <input name="editAssets" onChange={handleChange} value={editAssets} placeholder={assets || 0} type="text" />
               <label>Income: </label>
-              <input name="income" onChange={handleChange} value={editIncome} placeholder={income || 0} type="text" />
+              <input name="editIncome" onChange={handleChange} value={editIncome} placeholder={income || 0} type="text" />
               <label>Overhead: </label>
-              <input name="overhead" onChange={handleChange} value={editOverhead} placeholder={overhead || 0} type="text" />
+              <input name="editOverhead" onChange={handleChange} value={editOverhead} placeholder={overhead || 0} type="text" />
               <label>Profit: </label>
-              <input name="profit" onChange={handleChange} value={editProfit} placeholder={profit || 0} type="text" />
+              <input name="editProfit" onChange={handleChange} value={editProfit} placeholder={profit || 0} type="text" />
             </fieldset>
             <input type="button" onClick={handleUpdateLocation} value="Submit Update" />
           </main>
