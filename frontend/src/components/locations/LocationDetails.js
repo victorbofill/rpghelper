@@ -29,14 +29,12 @@ export default class LocationDetails extends PureComponent {
 
     const updatedLocation = {
       url: url || location.url,
-      description: description || location.description,
       name: name || location.name,
-      finances: {
-        assets: parseInt(assets) || location.finances.assets,
-        overhead: parseInt(overhead) || location.finances.overhead,
-        income: parseInt(income) || location.finances.income,
-        profit: parseInt(profit) || location.finances.profit
-      }
+      description: description || location.description,
+      assets: parseInt(assets) || location.finances.assets,
+      overhead: parseInt(overhead) || location.finances.overhead,
+      income: parseInt(income) || location.finances.income,
+      profit: parseInt(profit) || location.finances.profit
     };
 
     putLocation(location._id, updatedLocation);

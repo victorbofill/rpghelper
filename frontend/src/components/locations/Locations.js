@@ -18,12 +18,10 @@ export default class Locations extends PureComponent {
       url: 'newlocation',
       name: 'New Location',
       description: 'Enter description',
-      finances: {
-        assets: 0,
-        income: 0,
-        overhead: 0,
-        profit: 0
-      }
+      assets: 0,
+      income: 0,
+      overhead: 0,
+      profit: 0
     };
 
     postLocation(newLocation);

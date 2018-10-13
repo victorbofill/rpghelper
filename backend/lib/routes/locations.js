@@ -5,6 +5,12 @@ const Location = require('../models/Location');
 const Sublocation = require('../models/Sublocation');
 
 module.exports = router
+  .post('/', (req, res, next) => {
+    Location.create(req.body)
+      .then(location => res.json(location))
+      .catch(next);
+  })
+
   .get('/', (req, res, next) => {
     Location.find()
       .lean()
@@ -23,25 +29,25 @@ module.exports = router
       .catch(next);
   })
 
-  .post('/', (req, res, next) => {
-    Location.create(req.body)
-      .then(location => res.json(location))
-      .catch(next);
-  })
-
   .put('/:id', (req, res, next) => {
     const {
       url,
       name,
       description,
-      finances
+      assets,
+      income,
+      overhead,
+      profit
     } = req.body;
 
     const update = {
       url,
       name,
       description,
-      finances
+      assets,
+      income,
+      overhead,
+      profit
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});

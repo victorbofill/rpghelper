@@ -34,19 +34,16 @@ export default class NPC extends PureComponent {
   handleUpdateNPC = () => {
     const { _id } = this.props.locationObject;
     const { _id: npcId } = this.props.npc;
-    const { url, name, disposition, dr, money, str, agi, end, will, cha, rea, per } = this.state;
+    const { url, name, disposition, money, str, agi, end, will, cha, rea, per } = this.state;
     const stats = {
-      dr: parseInt(dr),
       money: parseInt(money),
-      attributes: {
-        str: parseInt(str),
-        agi: parseInt(agi),
-        end: parseInt(end),
-        will: parseInt(will),
-        cha: parseInt(cha),
-        rea: parseInt(rea),
-        per: parseInt(per)
-      }
+      str: parseInt(str),
+      agi: parseInt(agi),
+      end: parseInt(end),
+      will: parseInt(will),
+      cha: parseInt(cha),
+      rea: parseInt(rea),
+      per: parseInt(per)
     };
 
     const updatedNPC = { url, name, disposition, stats };

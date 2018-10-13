@@ -29,7 +29,10 @@ class Story extends PureComponent {
 
     const chapter = {
       url: 'newchapter',
-      name: 'New Chapter'
+      name: 'New Chapter',
+      description: 'description',
+      reward: 'reward',
+      status: 'unavailable'
     };
 
     postChapter(_id, storyId, chapter)
