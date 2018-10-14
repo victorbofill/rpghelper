@@ -49,13 +49,13 @@ class Story extends PureComponent {
           </div>
 
           <div className={'leftColumn'}>
+            <button onClick={handleDeleteStory}>Delete Story</button>
+            <button onClick={handleAddChapter}>Add Chapter</button>
             <ul>
-              <button onClick={handleDeleteStory}>Delete Story</button>
-              <button onClick={handleAddChapter}>Add Chapter</button>
               {chapters && (chapters[0] !== null) &&
                   chapters.map(chapter => {
                     return (
-                      <li key={chapter._id}><NavLink to={`${path}/${chapter.url}`}>{`${chapter.name}`}</NavLink></li>
+                      <NavLink key={chapter._id} to={`${path}/${chapter.url}`}><li>{`${chapter.name}`}</li></NavLink>
                     );
                   })
               }
