@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { loadLocations } from '../actions';
 import { delSublocation } from '../../../services/api';
 
 import styles from './Sublocations.css';
@@ -9,14 +10,18 @@ import styles from './Sublocations.css';
 class Sublocation extends PureComponent {
   static propTypes = {
     sublocation: PropTypes.object,
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
   handleDeleteSublocation = () => {
     const { _id } = this.props.locationObject;
     const { _id: sublocationId } = this.props.sublocation;
     
-    if(confirm('Are you sure?')) delSublocation(_id, sublocationId);
+    if(confirm('Are you sure?')) {
+      delSublocation(_id, sublocationId)
+        .then(() => this.props.loadLocations());
+    }
   };
 
   render() {
@@ -34,4 +39,6 @@ class Sublocation extends PureComponent {
 }
 
 export default connect(
+  null,
+  { loadLocations }
 )(Sublocation);

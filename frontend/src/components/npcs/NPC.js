@@ -1,18 +1,21 @@
 import React, { PureComponent, Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { loadLocations } from '../locations/actions';
 import { delNPC, putNPC } from '../../services/api';
 
 import styles from './NPCs.css';
 
-export default class NPC extends PureComponent {
+class NPC extends PureComponent {
 
   static propTypes = {
     npc: PropTypes.object,
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
-  state = {
+  defaultState = {
     url: '',
     name: '',
     relationship: '',
@@ -27,6 +30,8 @@ export default class NPC extends PureComponent {
     editing: false
   };
 
+  state = this.defaultState;
+
   handleChange = ({ target }) => {
     this.setState({ [target.name] : [target.value] });
   };
@@ -38,15 +43,20 @@ export default class NPC extends PureComponent {
 
     const updatedNPC = { url, name, relationship, money, str, agi, end, will, cha, rea, per };
 
+    this.setState(this.defaultState);
+
     putNPC(_id, npcId, updatedNPC)
-      .catch(err => console.log(err));
+      .then(() => this.props.loadLocations());
   };
 
   handleDeleteNPC = () => {
     const { _id } = this.props.locationObject;
     const { _id: npcId } = this.props.npc;
     
-    if(confirm('Are you sure?')) delNPC(_id, npcId);
+    if(confirm('Are you sure?')) {
+      delNPC(_id, npcId)
+        .then(() => this.props.loadLocations());
+    }
   };
 
   handleToggleEditing = () => {
@@ -148,3 +158,8 @@ export default class NPC extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => state,
+  { loadLocations }
+)(NPC);

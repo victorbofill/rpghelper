@@ -1,17 +1,20 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 
+import { loadLocations } from '../actions';
 import Sublocation from './Sublocation';
 import { postSublocation } from '../../../services/api';
 
 import styles from './Sublocations.css';
 
-export default class Sublocations extends PureComponent {
+class Sublocations extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
     sublocations: PropTypes.array,
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
   handleAddSublocation = () => {
@@ -24,7 +27,7 @@ export default class Sublocations extends PureComponent {
     };
 
     postSublocation(_id, sublocation)
-      .catch(err => console.log(err));
+      .then(() => this.props.loadLocations());
   };
 
   render() {
@@ -68,3 +71,8 @@ export default class Sublocations extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => state,
+  { loadLocations }
+)(Sublocations);

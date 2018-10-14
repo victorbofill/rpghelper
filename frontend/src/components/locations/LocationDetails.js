@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { putLocation } from '../../services/api';
 
-export default class LocationDetails extends PureComponent {
+import { loadLocations } from './actions';
+class LocationDetails extends PureComponent {
   static propTypes = {
-    location: PropTypes.object
+    location: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
   defaultState = {
@@ -15,7 +18,7 @@ export default class LocationDetails extends PureComponent {
     editOverhead: '',
     editIncome: '',
     editProfit: '',
-    editEditing: false
+    editing: false
   };
 
   state = this.defaultState;
@@ -38,8 +41,10 @@ export default class LocationDetails extends PureComponent {
       profit: editProfit || location.profit
     };
 
-    putLocation(location._id, updatedLocation);
     this.setState(this.defaultState);
+
+    putLocation(location._id, updatedLocation)
+      .then(() => this.props.loadLocations());
   };
 
   handleToggleEdit = () => {
@@ -111,3 +116,8 @@ export default class LocationDetails extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => state,
+  { loadLocations }
+)(LocationDetails);

@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { delLocation } from '../../services/api';
+import { loadLocations } from './actions';
 
 import NPCs from '../npcs/NPCs';
 import Sublocations from './sublocations/Sublocations';
@@ -9,13 +11,17 @@ import LocationDetails from './LocationDetails';
 
 import styles from './Locations.css';
 
-export default class Location extends PureComponent {
+class Location extends PureComponent {
   static propTypes = {
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
   handleRemoveLocation = () => {
-    if(confirm('Are you sure?')) delLocation(this.props.locationObject._id);
+    if(confirm('Are you sure?')) {
+      delLocation(this.props.locationObject._id)
+        .then(() => this.props.loadLocations());
+    }
   };
 
   render() {
@@ -52,3 +58,8 @@ export default class Location extends PureComponent {
     );
   }
 }
+
+export default connect(
+  state => state,
+  { loadLocations }
+)(Location);

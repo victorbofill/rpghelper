@@ -32,7 +32,8 @@ class Locations extends PureComponent {
       profit: '0'
     };
 
-    postLocation(newLocation);
+    postLocation(newLocation)
+      .then(() => this.props.loadLocations());
   };
 
   render() {

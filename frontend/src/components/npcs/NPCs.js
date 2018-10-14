@@ -1,17 +1,20 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 
+import { loadLocations } from '../locations/actions';
 import NPC from './NPC';
 import { postNPC } from '../../services/api';
 
 import styles from './NPCs.css';
 
-export default class NPCs extends PureComponent {
+class NPCs extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
     npcs: PropTypes.array,
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadLocations: PropTypes.func
   };
 
   handleAddNPC = () => {
@@ -34,7 +37,8 @@ export default class NPCs extends PureComponent {
       skills: []
     };
 
-    postNPC(_id, npc);
+    postNPC(_id, npc)
+      .then(() => this.props.loadLocations());
   };
 
   render() {
@@ -78,3 +82,8 @@ export default class NPCs extends PureComponent {
     );
   }
 }
+
+export default connect(
+  null,
+  { loadLocations }
+)(NPCs);
