@@ -1,8 +1,9 @@
 import React, { Fragment, PureComponent } from 'react';
-import { NavLink, Route } from 'react-router';
+import { NavLink, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Chapter from './chapters/Chapter';
 import { delStory, postChapter } from '../../services/api';
 
 import styles from './Stories.css';
@@ -10,21 +11,17 @@ import styles from './Stories.css';
 class Story extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
-    locationObject: PropTypes.object,
-    story: PropTypes.object,
-    chapters: PropTypes.array
+    story: PropTypes.object
   };
 
   handleDeleteStory = () => {
-    const { _id: storyId } = this.props.story;
-    const { _id } = this.props.locationObject;
+    const { _id } = this.props.story;
     
-    if(confirm('Are you sure?')) delStory(_id, storyId);
+    if(confirm('Are you sure?')) delStory(_id);
   };
 
   handleAddChapter = () => {
-    const { _id } = this.props.locationObject;
-    const { _id: storyId } = this.props.story;
+    const { _id } = this.props.story;
 
     const chapter = {
       url: 'newchapter',
@@ -34,7 +31,7 @@ class Story extends PureComponent {
       status: 'unavailable'
     };
 
-    postChapter(_id, storyId, chapter)
+    postChapter(_id, chapter)
       .catch(err => console.log(err));
   };
 
@@ -69,7 +66,7 @@ class Story extends PureComponent {
             {chapters && (chapters[0] !== null) &&
               chapters.map(chapter => {
                 return (
-                  <Route key={chapter._id} to={`${path}/${chapter.url}`}>{`${chapter.name}`}</Route>
+                  <Route key={chapter._id} path={`${path}/${chapter.url}`} render={props => <Chapter {...props} chapter={chapter} story={story}/>} />
                 );
               })
             }

@@ -40,9 +40,9 @@ export const delNPC = (id, npcId) => del(`${LOCATIONS_URL}/${id}/npcs/${npcId}`)
 export const getStories = () => get(`${STORIES_URL}`);
 export const postStory = story => post(`${STORIES_URL}`, story);
 export const delStory = id => del(`${STORIES_URL}/${id}`);
-export const postChapter = (id, chapter) => post(`${STORIES_URL}/${id}`, chapter);
-export const putChapter = (id, chapterId, story) => put(`${STORIES_URL}/${id}/chapters/${chapterId}`, story);
-export const delChapter = (id, chapterId) => del(`${STORIES_URL}/${id}/${chapterId}`);
+export const postChapter = (id, chapter) => post(`${STORIES_URL}/${id}/chapters`, chapter);
+export const putChapter = (id, chapterId, chapter) => put(`${STORIES_URL}/${id}/chapters/${chapterId}`, chapter);
+export const delChapter = (id, chapterId) => del(`${STORIES_URL}/${id}/chapters/${chapterId}`);
 
 export const postNote = note => post(`${NOTES_URL}`, note);
 export const getNotes = () => get(`${NOTES_URL}`);

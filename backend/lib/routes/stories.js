@@ -62,7 +62,7 @@ module.exports = router
   .post('/:id/chapters', (req, res, next) => {
     Chapter.create(req.body)
       .then(chapter => {
-        return Story.findByIdAndUpdate(req.params.storyId, {
+        return Story.findByIdAndUpdate(req.params.id, {
           $addToSet: { chapters: chapter._id }
         }, updateOptions)
           .catch(err => res.send(err));
@@ -71,8 +71,35 @@ module.exports = router
       .catch(next);
   })
 
+  .put('/:id/chapters/:chapterId', (req, res, next) => {
+    const {
+      url,
+      name,
+      description,
+      reward
+    } = req.body;
+
+    const update = {
+      url,
+      name,
+      description,
+      reward
+    };
+
+    Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
+
+    return Chapter.findByIdAndUpdate(req.params.chapterId, update, updateOptions)
+      .then(updated => res.json(updated))
+      .catch(next);
+  })
+
   .delete('/:id/chapters/:chapterId', (req, res) => {
-    return Story.findByIdAndRemove(req.params.chapterId)
-      .then(() => res.json({ deleted : true }))
+    return Chapter.findByIdAndRemove(req.params.chapterId)
+      .then(removed => {
+        return Story.findByIdAndUpdate(req.params.id, {
+          $pull: { chapters: removed._id }
+        }, updateOptions)
+          .catch(err => res.send(err));
+      })
       .catch(err => res.send(err));
   });
