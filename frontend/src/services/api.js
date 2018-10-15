@@ -32,6 +32,7 @@ export const delLocation = id => del(`${LOCATIONS_URL}/${id}`);
 
 export const postSublocation = (id, sublocation) => post(`${LOCATIONS_URL}/${id}/sublocations`, sublocation);
 export const delSublocation = (id, sublocationId) => del(`${LOCATIONS_URL}/${id}/sublocations/${sublocationId}`);
+export const putSublocation = (id, sublocationId, sublocation) => put(`${LOCATIONS_URL}/${id}/sublocations/${sublocationId}`, sublocation);
 
 export const postNPC = (id, npc) => post(`${LOCATIONS_URL}/${id}/npcs`, npc);
 export const putNPC = (id, npcId, npc) => put(`${LOCATIONS_URL}/${id}/npcs/${npcId}`, npc);

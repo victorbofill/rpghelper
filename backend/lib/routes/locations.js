@@ -94,4 +94,25 @@ module.exports = router
       })
       .then(() => res.send({ deleted : true }))
       .catch(err => res.send(err));
+  })
+
+  .put('/:id/sublocations/:sublocationId', (req, res, next) => {
+    const {
+      url,
+      name,
+      description
+    } = req.body;
+
+    const update = {
+      url,
+      name,
+      description
+    };
+
+    Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
+
+    return Sublocation.findByIdAndUpdate(req.params.sublocationId, update, updateOptions)
+      .then(updated => res.send(updated))
+      .catch(next);        
   });
+  

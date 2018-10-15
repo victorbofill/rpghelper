@@ -73,6 +73,7 @@ class NPC extends PureComponent {
     return (
       <div className={styles.NPC}>
         <button type="button" onClick={handleToggleEditing}>Edit</button>
+        <button type="button" onClick={handleDeleteNPC}>Delete</button>
 
         {!editing &&
         <Fragment>
@@ -119,7 +120,6 @@ class NPC extends PureComponent {
         {editing && 
         <Fragment>
           <fieldset>
-            <button type="button" onClick={handleDeleteNPC}>Delete</button>
             <button type="button" onClick={handleUpdateNPC}>Update</button>
           </fieldset>
           <fieldset>

@@ -40,15 +40,29 @@ module.exports = router
     const {
       url,
       name,
-      disposition,
-      stats
+      relationship,
+      money,
+      str,
+      agi,
+      end,
+      will,
+      cha,
+      rea,
+      per,
     } = req.body;
 
     const update = {
       url,
       name,
-      disposition,
-      stats
+      relationship,
+      money,
+      str,
+      agi,
+      end,
+      will,
+      cha,
+      rea,
+      per,
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
