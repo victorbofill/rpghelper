@@ -1,73 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import Participant from './Participant';
+import { getParticipants } from './reducers';
+import { loadParticipants } from './actions';
+import { postParticipant } from '../../services/api';
+
 import styles from './Action.css';
-import {
-  createParticipantList,
-  createParticipant,
-  loadParticipantList,
-  deleteParticipant,
-  deleteParticipantList
-} from './actions';
 
 class Action extends Component {
   static propTypes = {
-    createParticipantList: PropTypes.func,
-    createParticipant: PropTypes.func,
-    loadParticipantList: PropTypes.func,
-    deleteParticipant: PropTypes.func,
-    deleteParticipantList: PropTypes.func,
-    participants: PropTypes.object,
-    participantListId: PropTypes.any
+    participants: PropTypes.array,
+    loadParticipants: PropTypes.func,
   };
   
   componentDidMount() {
-    if(localStorage.getItem('participantListId') && localStorage.getItem('participantListId') !== null) {
-      this.props.loadParticipantList();
-    } else this.handleCreateParticipantList();
+    this.props.loadParticipants();
   }
 
-  handleCreateParticipantList = () => {
-    if(confirm('Creating new participant list.')) {
-      this.props.createParticipantList();
-      setTimeout(() => localStorage.setItem('participantListId', this.props.participantListId), 0);
-    } else null;
-  };
-
-  handleCreateParticipant = (id) => {
-    this.props.createParticipant(id);
-  };
-
-  handleRemoveParticipant = (listId, participantId) => {
-    this.props.deleteParticipant(listId, participantId);
-  };
-
-  handleRemoveParticipantList = (listId) => {
-    this.props.deleteParticipantList(listId);
-    localStorage.clear();
+  handleCreateParticipant = () => {
+    postParticipant()
+      .then(() => this.props.loadParticipants());
   };
 
   render() {
-    const { participants } = this.props.participants;
-  
+    const { handleCreateParticipant } = this;
+    const { participants } = this.props;
+
     return (
       <div className={styles.actionContainer}>
         <div className="participant-buttons">
-          <button onClick={() => this.handleCreateParticipant(this.props.participantListId)}>Add Participant</button>
-          <button onClick={() => this.handleRemoveParticipantList(this.props.participantListId)}>Delete list</button>
+          <button onClick={handleCreateParticipant}>Add Participant</button>
         </div>
 
         <div className="participants">
           <ul>
-            { participants && !!participants.length ? participants.map((participant, i) => (
-              <Participant
-                key={i}
-                {...participant}
-                participantListId={this.props.participantListId}
-                handleRemoveParticipant={this.handleRemoveParticipant}
-              />
-            )) : null}
+            { participants && !!participants.length &&
+              participants.map((participant, i) => (
+                <Participant
+                  key={i}
+                  participant = {participant}
+                />
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -76,12 +52,8 @@ class Action extends Component {
 }
 
 export default connect(
-  state => ({ participants: state.participants, participantListId: state.participantListId }),
-  {
-    loadParticipantList,
-    createParticipantList,
-    createParticipant,
-    deleteParticipant,
-    deleteParticipantList
-  }
+  state => ({
+    participants: getParticipants(state)
+  }), 
+  { loadParticipants }
 )(Action);

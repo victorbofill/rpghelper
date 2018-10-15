@@ -1,114 +1,66 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { delParticipant } from '../../services/api';
+import { loadParticipants } from './actions';
+
 import styles from './Action.css';
-import { updateParticipant } from './actions';
 
 class Participant extends PureComponent {
   static propTypes = {
-    handleRemoveParticipant: PropTypes.func,
-    participantListId: PropTypes.any,
-    _id: PropTypes.any, 
-    dr: PropTypes.any,
-    apAdjust: PropTypes.any,
-    str: PropTypes.any,
-    agi: PropTypes.any,
-    end: PropTypes.any,
-    will: PropTypes.any,
-    cha: PropTypes.any,
-    rea: PropTypes.any,
-    per: PropTypes.any,
-    name: PropTypes.any,
-    hp: PropTypes.any,
-    ap: PropTypes.any,
-    insight: PropTypes.any,
-    guard: PropTypes.any,
-    disposition: PropTypes.any,
-    subtlety: PropTypes.any,
-    awareness: PropTypes.any,
-    bleeding: PropTypes.any,
-    blinded: PropTypes.any,
-    burning: PropTypes.any,
-    crippled: PropTypes.any,
-    deafened: PropTypes.any,
-    afraid: PropTypes.any,
-    immobilized: PropTypes.any,
-    prone: PropTypes.any,
-    unconscious: PropTypes.any,
-    dead: PropTypes.any
+    loadParticipants: PropTypes.func,
+    participant: PropTypes.object
   };
 
-  state = { ...this.props };
+  state = { ...this.props.participant };
 
   handleChange = ({ target }) => {
-    this.setState({ [target.id] : target.value });
-    updateParticipant(this.props.participantListId, { _id: this.state._id, [target.id] : target.value });
+    this.setState({ [target.name] : target.value });
   };
 
   handleCheckbox = ({ target }) => {
-    this.setState({ [target.id] : target.checked });
-    updateParticipant(this.props.participantListId, { _id: this.state._id, [target.id] : target.checked });
+    this.setState({ [target.name] : target.checked });
   };
 
-  handleApRoll = () => {
-    const ap = this.state.ap;
-    const apAdjust = this.state.apAdjust;
-    const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
-    let newAp = ap + apAdjust + random;
-    if(newAp > 20) newAp = 20;
-    this.setState({ ap: newAp });
-    setTimeout(() => {
-      updateParticipant(this.props.participantListId, { _id: this.state._id, ap : newAp });
-    }, 0);
+  handleRemoveParticipant = () => {
+    const { _id } = this.props.participant;
+
+    delParticipant(_id)
+      .then(() => this.props.loadParticipants());
   };
 
-  resetAp = () => {
-    this.setState({ ap: 0 });
-    this.setState({ apAdjust: parseInt(this.state.apAdjust) });
-    setTimeout(() => {
-      updateParticipant(this.props.participantListId, { _id: this.state._id, ap : this.state.ap });
-    }, 0);
-  };
+  // handleApRoll = () => {
+  //   const { ap } = this.state;
+  //   const apAdjust = this.state.apAdjust;
+  //   const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
+  //   let newAp = ap + apAdjust + random;
+  //   if(newAp > 20) newAp = 20;
+  //   this.setState({ ap: newAp });
+  //   setTimeout(() => {
+  //     updateParticipant(this.props.participantListId, { _id: this.state._id, ap : newAp });
+  //   }, 0);
+  // };
+
+  // resetAp = () => {
+  //   this.setState({ ap: 0 });
+  //   this.setState({ apAdjust: parseInt(this.state.apAdjust) });
+  //   setTimeout(() => {
+  //     updateParticipant(this.props.participantListId, { _id: this.state._id, ap : this.state.ap });
+  //   }, 0);
+  // };
 
   render() {
-    const {
-      dr,
-      apAdjust,
-      str,
-      agi,
-      end,
-      will,
-      cha,
-      rea,
-      per,
-      name,
-      hp,
-      ap,
-      insight,
-      guard,
-      disposition,
-      subtlety,
-      awareness,
-      bleeding,
-      blinded,
-      burning,
-      crippled,
-      deafened,
-      afraid,
-      immobilized,
-      prone,
-      unconscious,
-      dead  
-    } = this.state;
+    const { handleRemoveParticipant, handleChange } = this;
 
     return (
       <li>
         <div className={styles.participant}>
           <div className="header">
-            <input id="name" value={name} type="text" onChange={this.handleChange}/>
-            <button onClick={() => this.props.handleRemoveParticipant(this.props.participantListId, this.props._id)}>X</button>
+            <input name="name" value={name} type="text" onChange={handleChange}/>
+            <button onClick={handleRemoveParticipant}>X</button>
           </div>
-          <div className="attributes">
+          {/* <div className="attributes">
             <table>
               <thead>
                 <tr>
@@ -123,19 +75,19 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input id="str" value={str} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="agi" value={agi} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="end" value={end} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="will" value={will} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="cha" value={cha} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="rea" value={rea} type="number" min="1" max="4" onChange={this.handleChange}/></td>
-                  <td><input id="per" value={per} type="number" min="1" max="4" onChange={this.handleChange}/></td>
+                  <td><input name="str" value={str} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="agi" value={agi} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="end" value={end} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="will" value={will} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="cha" value={cha} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="rea" value={rea} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="per" value={per} type="number" min="1" max="4" onChange={handleChange}/></td>
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
 
-          <div className="status">
+          {/* <div className="status">
             <table>
               <thead>
                 <tr>
@@ -186,9 +138,9 @@ class Participant extends PureComponent {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
 
-          <div className="debuffs">
+          {/* <div className="debuffs">
             <table>
               <thead>
                 <tr>
@@ -237,7 +189,7 @@ class Participant extends PureComponent {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </li>
     );
@@ -246,5 +198,5 @@ class Participant extends PureComponent {
 
 export default connect(
   null,
-  { }
+  { loadParticipants }
 )(Participant);
