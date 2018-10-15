@@ -19,6 +19,10 @@ class Participant extends PureComponent {
     this.setState({ [target.name] : target.value });
   };
 
+  handleNumberChange = ({ target }) => {
+    this.setState({ [target.name] : parseInt(target.value) });
+  };
+
   handleCheckbox = ({ target }) => {
     this.setState({ [target.name] : target.checked });
   };
@@ -30,28 +34,58 @@ class Participant extends PureComponent {
       .then(() => this.props.loadParticipants());
   };
 
-  // handleApRoll = () => {
-  //   const { ap } = this.state;
-  //   const apAdjust = this.state.apAdjust;
-  //   const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
-  //   let newAp = ap + apAdjust + random;
-  //   if(newAp > 20) newAp = 20;
-  //   this.setState({ ap: newAp });
-  //   setTimeout(() => {
-  //     updateParticipant(this.props.participantListId, { _id: this.state._id, ap : newAp });
-  //   }, 0);
-  // };
+  handleRollAp = () => {
+    const { ap } = this.state;
+    const { apAdjust } = this.state;
+    const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
+    let newAp = ap + apAdjust + random;
+    if(newAp > 20) newAp = 20;
 
-  // resetAp = () => {
-  //   this.setState({ ap: 0 });
-  //   this.setState({ apAdjust: parseInt(this.state.apAdjust) });
-  //   setTimeout(() => {
-  //     updateParticipant(this.props.participantListId, { _id: this.state._id, ap : this.state.ap });
-  //   }, 0);
-  // };
+    this.setState({ ap: parseInt(newAp) });
+  };
+
+  handleResetAp = () => {
+    const { apAdjust } = this.state;
+    this.setState({ apAdjust: parseInt(apAdjust) });
+    this.setState({ ap: 0 });
+  };
+
+  handleRollSubtlety = () => {
+    const { subtlety } = this.state;
+    const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
+    let newSubtlety = subtlety + random;
+    if(newSubtlety > 20) newSubtlety = 20;
+
+    this.setState({ subtlety: parseInt(newSubtlety) });
+  };  
+
+  handleResetSubtlety = () => {
+    this.setState({ subtlety: 0 });
+  };
+
+  handleRollInsight = () => {
+    const { insight } = this.state;
+    const random = (Math.floor(Math.random() * (8 - 1 + 1)) + 1);
+    let newInsight = insight + random;
+    if(newInsight > 20) newInsight = 20;
+
+    this.setState({ insight: parseInt(newInsight) });
+  };  
+
+  handleResetInsight = () => {
+    this.setState({ insight: 0 });
+  };
 
   render() {
-    const { handleRemoveParticipant, handleChange } = this;
+    const {
+      handleRemoveParticipant, handleChange, handleNumberChange, handleRollAp, handleResetAp,
+      handleRollSubtlety, handleResetSubtlety, handleRollInsight, handleResetInsight, handleCheckbox
+    } = this;
+    const {
+      str, agi, end, will, cha, rea, per,
+      apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
+      bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
+    } = this.state;
 
     return (
       <li>
@@ -60,7 +94,7 @@ class Participant extends PureComponent {
             <input name="name" value={name} type="text" onChange={handleChange}/>
             <button onClick={handleRemoveParticipant}>X</button>
           </div>
-          {/* <div className="attributes">
+          <div className="attributes">
             <table>
               <thead>
                 <tr>
@@ -75,19 +109,19 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input name="str" value={str} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="agi" value={agi} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="end" value={end} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="will" value={will} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="cha" value={cha} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="rea" value={rea} type="number" min="1" max="4" onChange={handleChange}/></td>
-                  <td><input name="per" value={per} type="number" min="1" max="4" onChange={handleChange}/></td>
+                  <td><input name="str" value={str} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="agi" value={agi} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="end" value={end} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="will" value={will} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="cha" value={cha} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="rea" value={rea} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
+                  <td><input name="per" value={per} type="number" min="1" max="4" onChange={handleNumberChange}/></td>
                 </tr>
               </tbody>
             </table>
-          </div> */}
+          </div>
 
-          {/* <div className="status">
+          <div className="status">
             <table>
               <thead>
                 <tr>
@@ -104,18 +138,22 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input id="apAdjust" value={apAdjust} type="number" min="-1" max="2" onChange={this.handleChange}/></td>
+                  <td><input name="apAdjust" value={apAdjust} type="number" min="-1" max="2" onChange={handleNumberChange}/></td>
                   <td>
-                    <button onClick={() => this.handleApRoll(this.props.participantListId, this.props._id)}>Roll</button>
-                    <input id="ap" value={ap} type="number" min="0" max="20" onChange={this.handleChange}/>
-                    <button onClick={() => this.resetAp()}>Reset</button>
+                    <button onClick={handleRollAp}>Roll</button>
+                    <input name="ap" value={ap} type="number" min="-1" max="2" onChange={handleNumberChange}/>
+                    <button onClick={handleResetAp}>Reset</button>
                   </td>
-                  <td><input id="subtlety" value={subtlety} type="number" min="0" max="20" onChange={this.handleChange}/></td>
-                  <td><input id="dr" value={dr} type="number" min="0" max="12" onChange={this.handleChange}/></td>
-                  <td><input id="hp" value={hp} type="number" min="-10" max="50" onChange={this.handleChange}/></td>
-                  <td><input id="guard" value={guard} type="number" min="0" max="20" onChange={this.handleChange}/></td>
                   <td>
-                    <select id="disposition" onChange={this.handleChange} value={disposition}>
+                    <button onClick={handleRollSubtlety}>Roll</button>
+                    <input name="subtlety" value={subtlety} type="number" min="0" max="20" onChange={handleNumberChange}/>
+                    <button onClick={handleResetSubtlety}>Reset</button>
+                  </td>
+                  <td><input name="dr" value={dr} type="number" min="0" max="12" onChange={handleNumberChange}/></td>
+                  <td><input name="hp" value={hp} type="number" min="-10" max="50" onChange={handleNumberChange}/></td>
+                  <td><input name="guard" value={guard} type="number" min="0" max="20" onChange={handleNumberChange}/></td>
+                  <td>
+                    <select name="disposition" onChange={handleChange} value={disposition}>
                       <option value="loyal">loyal</option>
                       <option value="friend">friend</option>
                       <option value="friendly">friendly</option>
@@ -126,9 +164,13 @@ class Participant extends PureComponent {
                       <option value="nemesis">nemesis</option>
                     </select>
                   </td>
-                  <td><input id="insight" value={insight} type="number" min="0" max="20" onChange={this.handleChange}/></td>
                   <td>
-                    <select id="awareness" onChange={this.handleChange} value={awareness}>
+                    <button onClick={handleRollInsight}>Roll</button>
+                    <input name="insight" value={insight} type="number" min="0" max="20" onChange={handleNumberChange}/>
+                    <button onClick={handleResetInsight}>Reset</button>
+                  </td>
+                  <td>
+                    <select name="awareness" onChange={handleChange} value={awareness}>
                       <option value="oblivious">oblivious</option>
                       <option value="resting">resting</option>
                       <option value="cautious">cautious</option>
@@ -138,9 +180,9 @@ class Participant extends PureComponent {
                 </tr>
               </tbody>
             </table>
-          </div> */}
+          </div>
 
-          {/* <div className="debuffs">
+          <div className="debuffs">
             <table>
               <thead>
                 <tr>
@@ -158,38 +200,38 @@ class Participant extends PureComponent {
               </thead>
               <tbody>
                 <tr>
-                  <td><input id="bleeding" value={bleeding} type="number" onChange={this.handleChange}/></td>
+                  <td><input name="bleeding" value={bleeding} type="number" onChange={handleNumberChange}/></td>
                   <td>
-                    <select id="blinded" onChange={this.handleChange} value={blinded}>
+                    <select name="blinded" onChange={handleChange} value={blinded}>
                       <option value="none">none</option>
                       <option value="minor">minor</option>
                       <option value="catastrophic">catastrophic</option>
                     </select>
                   </td>
-                  <td><input id="burning" type="number" onChange={this.handleChange} value={burning}/></td>
+                  <td><input name="burning" type="number" onChange={handleNumberChange} value={burning}/></td>
                   <td>
-                    <select id="crippled" onChange={this.handleChange} value={crippled}>
+                    <select name="crippled" onChange={handleChange} value={crippled}>
                       <option value="none">none</option>
                       <option value="minor">minor</option>
                       <option value="catastrophic">catastrophic</option>
                     </select>
                   </td>
                   <td>
-                    <select id="deafened" onChange={this.handleChange} value={deafened}>
+                    <select name="deafened" onChange={handleChange} value={deafened}>
                       <option value="none">none</option>
                       <option value="minor">minor</option>
                       <option value="catastrophic">catastrophic</option>
                     </select>
                   </td>
-                  <td><input id="afraid" type="checkbox" onChange={this.handleCheckbox} checked={afraid}/></td>
-                  <td><input id="immobilized" type="checkbox" onChange={this.handleCheckbox} checked={immobilized} /></td>
-                  <td><input id="prone" type="checkbox" onChange={this.handleCheckbox} checked={prone}/></td>
-                  <td><input id="unconscious" type="checkbox" onChange={this.handleCheckbox} checked={unconscious}/></td>
-                  <td><input id="dead" type="checkbox" onChange={this.handleCheckbox} checked={dead}/></td>
+                  <td><input name="afraid" type="checkbox" onChange={handleCheckbox} checked={afraid}/></td>
+                  <td><input name="immobilized" type="checkbox" onChange={handleCheckbox} checked={immobilized} /></td>
+                  <td><input name="prone" type="checkbox" onChange={handleCheckbox} checked={prone}/></td>
+                  <td><input name="unconscious" type="checkbox" onChange={handleCheckbox} checked={unconscious}/></td>
+                  <td><input name="dead" type="checkbox" onChange={handleCheckbox} checked={dead}/></td>
                 </tr>
               </tbody>
             </table>
-          </div> */}
+          </div>
         </div>
       </li>
     );
