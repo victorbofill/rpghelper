@@ -17,7 +17,22 @@ module.exports = router
   })
 
   .put('/:id', (req, res, next) => {
-    return Participant.findByIdAndUpdate(req.params.id, req.body, updateOptions)
+    const {
+      name, str, agi, end, will, cha, rea, per,
+      apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
+      bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
+    } = req.body;
+
+    const update = {
+      name, str, agi, end, will, cha, rea, per,
+      apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
+      bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
+    };
+
+    Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
+
+    return Participant.findByIdAndUpdate(req.params.id, update, updateOptions)
+      .then(updated => res.json(updated))
       .catch(next);        
   })
 

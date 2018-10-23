@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { delParticipant } from '../../services/api';
+import { delParticipant, putParticipant } from '../../services/api';
 import { loadParticipants } from './actions';
 
 import styles from './Action.css';
@@ -15,24 +15,32 @@ class Participant extends PureComponent {
 
   state = { ...this.props.participant };
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name] : target.value });
-  };
-
-  handleNumberChange = ({ target }) => {
-    this.setState({ [target.name] : parseInt(target.value) });
-  };
-
-  handleCheckbox = ({ target }) => {
-    this.setState({ [target.name] : target.checked });
-  };
-
   handleRemoveParticipant = () => {
     const { _id } = this.props.participant;
 
     delParticipant(_id)
       .then(() => this.props.loadParticipants());
   };
+
+  handleUpdateParticipant = () => {
+    const { _id } = this.props.participant;
+    const updatedParticipant = { ...this.state };
+
+    putParticipant(_id, updatedParticipant);
+    this.props.loadParticipants();
+  };
+
+  handleChange = ({ target }) => {
+    this.setState({ [target.name] : target.value });
+  };  
+
+  handleNumberChange = ({ target }) => {
+    this.setState({ [target.name] : parseInt(target.value) });
+  };  
+
+  handleCheckbox = ({ target }) => {
+    this.setState({ [target.name] : target.checked });
+  };  
 
   handleRollAp = () => {
     const { ap } = this.state;
@@ -79,20 +87,23 @@ class Participant extends PureComponent {
   render() {
     const {
       handleRemoveParticipant, handleChange, handleNumberChange, handleRollAp, handleResetAp,
-      handleRollSubtlety, handleResetSubtlety, handleRollInsight, handleResetInsight, handleCheckbox
+      handleRollSubtlety, handleResetSubtlety, handleRollInsight, handleResetInsight, handleCheckbox,
+      handleUpdateParticipant
     } = this;
     const {
+      _id, name,
       str, agi, end, will, cha, rea, per,
       apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
       bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
     } = this.state;
 
     return (
-      <li>
+      <li onBlur={handleUpdateParticipant}>
         <div className={styles.participant}>
           <div className="header">
             <input name="name" value={name} type="text" onChange={handleChange}/>
             <button onClick={handleRemoveParticipant}>X</button>
+            <p>{_id}</p>
           </div>
           <div className="attributes">
             <table>
