@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import React, { PureComponent } from 'react';
 
 import Dice from '../dice/Dice';
-import Locations from '../locations/Locations';
+import Regions from '../regions/Regions';
 import Stories from '../stories/Stories';
 import Action from '../action/Action';
 import Notes from '../notes/Notes';
@@ -17,7 +17,7 @@ export default class App extends PureComponent {
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/locations">Locations</NavLink></li>
+              <li><NavLink to="/regions">Regions</NavLink></li>
               <li><NavLink to="/stories">Stories</NavLink></li>
               <li><NavLink to="/action">Action</NavLink></li>
               <li><NavLink to="/journal">Journal</NavLink></li>
@@ -32,7 +32,7 @@ export default class App extends PureComponent {
             <div>
               <div className={styles.content}>
                 <Switch>
-                  <Route path={'/locations'} render={props => <Locations { ...props }/>} />
+                  <Route path={'/regions'} render={props => <Regions { ...props }/>} />
                   <Route path="/stories" component={Stories}/>
                   <Route path="/action" component={Action}/>
                   <Route path="/notes" component={Notes}/>
