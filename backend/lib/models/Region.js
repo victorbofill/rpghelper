@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  locationId: String,
   url: String,
   name: String,
-  description: String,
+  cities: [{type: Schema.Types.ObjectId, ref: 'City'}]
 });
 
-module.exports = mongoose.model('Sublocation', schema);
+module.exports = mongoose.model('Region', schema);

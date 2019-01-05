@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = new Schema({
+  cityId: String,
   url: String,
   name: String,
   description: String,

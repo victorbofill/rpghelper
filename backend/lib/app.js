@@ -8,17 +8,21 @@ app.use(express.static('./public'));
 app.use(express.json());
 
 const entries = require('./routes/entries');
+const cities = require('./routes/cities');
 const locations = require('./routes/locations');
 const notes = require('./routes/notes');
 const npcs = require('./routes/npcs');
 const participants = require('./routes/participants');
+const regions = require('./routes/regions');
 const stories = require('./routes/stories');
 
 app.use('/api/entries', entries);
+app.use('/api/cities', cities);
 app.use('/api/locations', locations);
 app.use('/api/locations', npcs);
 app.use('/api/notes', notes);
 app.use('/api/participants', participants);
+app.use('/api/regions', regions);
 app.use('/api/stories', stories);
 
 app.use((req, res) => {

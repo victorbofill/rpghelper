@@ -2,14 +2,14 @@ const router = require('express').Router();
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 const Location = require('../models/Location');
-const NPC = require('../models/NPC');
+const Sublocation = require('../models/Sublocation');
 
 module.exports = router
   .post('/', (req, res) => {
-    NPC.create(req.body)
-      .then(npc => {
+    Sublocation.create(req.body)
+      .then(sublocation => {
         return Location.findByIdAndUpdate(req.body.locationId, {
-          $addToSet: { npcs: npc._id }
+          $addToSet: { sublocations: sublocation._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
@@ -21,46 +21,31 @@ module.exports = router
     const {
       url,
       name,
-      relationship,
-      money,
-      str,
-      agi,
-      end,
-      will,
-      cha,
-      rea,
-      per,
+      description
     } = req.body;
 
     const update = {
       url,
       name,
-      relationship,
-      money,
-      str,
-      agi,
-      end,
-      will,
-      cha,
-      rea,
-      per,
+      description
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return NPC.findByIdAndUpdate(req.params.id, update, updateOptions)
-      .then(updated => res.json(updated))
+    return Sublocation.findByIdAndUpdate(req.params.id, update, updateOptions)
+      .then(updated => res.send(updated))
       .catch(next);        
   })
-  
+
   .delete('/:id', (req, res) => {
-    return NPC.findByIdAndRemove(req.params.id)
+    return Sublocation.findByIdAndRemove(req.params.id)
       .then(removed => {
         return Location.findByIdAndUpdate(removed.locationId, {
-          $pull: { npcs: removed._id }
+          $pull: { sublocations: removed._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
-      .then(() => res.json({ deleted : true }))
+      .then(() => res.send({ deleted : true }))
       .catch(err => res.send(err));
   });
+  
