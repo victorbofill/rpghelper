@@ -2,10 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import Region from './Region';
-import styles from './Regions.css';
 import { loadRegions, addRegion } from './actions';
 import { getRegions } from './reducers';
+import { postRegion } from '../../services/api';
+
+
+import styles from './Regions.css';
 
 class Regions extends PureComponent {
   static propTypes = {
@@ -30,28 +34,31 @@ class Regions extends PureComponent {
     this.props.loadRegions();
   };
 
-  handleChange = ({ target }) => {
-    this.setState({ addRegionForm: target.value });
+  handleAddRegion = () => {
+    const region = {
+      url: 'newregion',
+      name: 'New region'
+    };
+
+    postRegion(region)
+      .catch(err => console.log(err));
   };
 
   render() {
+    const { handleAddRegion } = this;
     const { regions } = this.props;
 
     return (
 
       <Router>
         <div>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input onChange={this.handleChange} type="text" id="name"/>
-            </form>
-          </div>
           <header className={styles.header}>
             <ul>
               {regions && !!regions.length ? regions.map((region, i) => (
-                <li key={i}><NavLink  to={`/regions/${region.name}`}>{region.name}</NavLink></li>
+                <li key={i}><NavLink  to={`/regions/${region.url}`}>{region.name}</NavLink></li>
               )) : null
               }
+              <li onClick={handleAddRegion}>+</li>
             </ul>
           </header>
 
