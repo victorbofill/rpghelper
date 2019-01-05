@@ -3,18 +3,18 @@ const Participant = require('../models/Participant');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
-  .get('/', (req, res, next) => {
-    Participant.find()
-      .lean()
-      .then(body => res.send(body))
-      .catch(next);
-  })
-
   .post('/', (req, res, next) => {
     Participant.create({})
       .then(body => res.json(body))
       .catch(next);
   })
+
+  .get('/', (req, res, next) => {
+    Participant.find()
+      .lean()
+      .then(body => res.send(body))
+      .catch(next);
+  })    
 
   .put('/:id', (req, res, next) => {
     const {

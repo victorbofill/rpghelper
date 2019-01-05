@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import NPCs from './NPCs';
-import Locations from './Locations';
+import NPCs from '../npcs/NPCs';
+import Locations from '../locations/Locations';
 import styles from './Regions.css';
 
 class Region extends PureComponent {

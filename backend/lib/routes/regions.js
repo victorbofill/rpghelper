@@ -27,23 +27,6 @@ module.exports = router
       .catch(next);
   })
 
-  .get('/:id', (req, res, next) => {
-    Region.findById(req.params.id)
-      .lean()
-      .populate({
-        path: 'cities',
-        populate: {
-          path: 'locations',
-          populate: [
-            {path: 'npcs'},
-            {path: 'sublocations'}
-          ] 
-        },
-      })
-      .then(region => res.json(region))
-      .catch(next);
-  })
-
   .put('/:id', (req, res, next) => {
     const {
       url,
