@@ -8,7 +8,7 @@ Take a look at tabbing in the Locations component. Routes are generated ad hoc, 
 
 The Action component doesn't make nearly the use of React that it could, and the rest of the app needs to be plugged into Redux; I'll be refactoring all of that once basic functionality is all complete.
 
-How the server returns data is sort of a mess. In most cases it does its work and then just returns the entire database. I'll be re-working that.
+I've only created the BE enough to get make working on the FE possible, which is to say that I'm fully aware of how ham-fisted the routes are.
 
 BE testing was written, though I haven't updated it for some time and it's not passing. I'll re-do that some time...
 
