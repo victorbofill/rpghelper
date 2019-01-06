@@ -1,21 +1,16 @@
 import {
-  getEntries,
   postEntry,
+  getEntries,
+  putEntry,
   delEntry
 } from '../../services/api';
 
 import {
-  ENTRIES_LOAD,
   ENTRY_POST,
+  ENTRIES_LOAD,
+  ENTRY_UPDATE,
   ENTRY_REMOVE
 } from './reducers';
-
-export function loadEntries() {
-  return {
-    type: ENTRIES_LOAD,
-    payload: getEntries()
-  };
-}
 
 export function addEntry(entry) {
   return {
@@ -24,9 +19,23 @@ export function addEntry(entry) {
   };
 }
 
+export function loadEntries() {
+  return {
+    type: ENTRIES_LOAD,
+    payload: getEntries()
+  };
+}
+
+export function updateEntry(entry) {
+  return {
+    type: ENTRY_UPDATE,
+    payload: putEntry(entry)
+  };
+}
+
 export function deleteEntry(id) {
   return {
     type: ENTRY_REMOVE,
-    payload: delEntry(id).then(() => ({ _id: id }))
+    payload: delEntry(id)
   };
 }

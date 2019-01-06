@@ -1,4 +1,4 @@
-export const NOTE_POST = 'NOTES_POST';
+export const NOTE_POST = 'NOTE_POST';
 export const NOTES_LOAD = 'NOTES_LOAD';
 export const NOTE_UPDATE = 'NOTE_UPDATE';
 export const NOTE_REMOVE = 'NOTE_REMOVE';

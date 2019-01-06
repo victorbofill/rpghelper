@@ -1,16 +1,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Entry from './Entry';
 import { connect } from 'react-redux';
-import { loadEntries, addEntry, deleteEntry } from './actions';
+
+import Entry from './Entry';
 import { getEntries } from './reducers';
+import {
+  addEntry,
+  loadEntries,
+  updateEntry,
+  deleteEntry
+} from './actions';
 
 class Journal extends PureComponent {
   static propTypes = {
-    entries: PropTypes.array,
-    loadEntries: PropTypes.func.isRequired,
     addEntry: PropTypes.func.isRequired,
-    deleteEntry: PropTypes.func.isRequired
+    loadEntries: PropTypes.func.isRequired,
+    updateEntry: PropTypes.func.isRequired,
+    deleteEntry: PropTypes.func.isRequired,
+    entries: PropTypes.array.isRequired
   };
 
   state = {
@@ -21,22 +28,31 @@ class Journal extends PureComponent {
     this.props.loadEntries();
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.addEntry({ entry: this.state.addEntryForm });
-    this.setState({ addEntryForm: '' });
-    this.props.loadEntries();
-  };
-
-  handleDelete = id => {
-    this.props.deleteEntry(id);
-  };
-
   handleChange = ({ target }) => {
     this.setState({ addEntryForm: target.value });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const { addEntryForm } = this.state;
+
+    this.props.addEntry({ entry: addEntryForm })
+      .then(() => {
+        this.setState({ addEntryForm: '' });
+      });
+  };
+
+  handleUpdateEntry = entry => {
+    this.props.updateEntry(entry);
+  };
+
+  handleDeleteEntry = id => {
+    const { deleteEntry } = this.props;
+    deleteEntry(id);
+  };
+
   render() {
+    const { handleChange, handleSubmit, handleDeleteEntry, handleUpdateEntry } = this;
     const { entries } = this.props;
     if(!entries) return null;
 
@@ -45,16 +61,17 @@ class Journal extends PureComponent {
     return (
       <div>
         <h1>Journal</h1>
-        <form onSubmit={this.handleSubmit}>
-          <textarea name="addEntryForm" onChange={this.handleChange} value={addEntryForm} />
-          <input type="submit" value="Submit" />
+        <form onSubmit={handleSubmit}>
+          <textarea name="addEntryForm" onChange={handleChange} value={addEntryForm} />
+          <input type="submit" value="Add Entry" />
         </form>
         <ul>
           {entries && !!entries.length ? entries.map((entry, i) => (
             <Entry
               key={i}
               entry={entry}
-              handleDelete={this.handleDelete}
+              handleDeleteEntry={handleDeleteEntry}
+              handleUpdateEntry={handleUpdateEntry}
             />
           )) : null
           }
@@ -69,9 +86,9 @@ export default connect(
     entries: getEntries(state)
   }),
   {
-    loadEntries,
     addEntry,
-    getEntries,
+    loadEntries,
+    updateEntry,
     deleteEntry
   }
 )(Journal);

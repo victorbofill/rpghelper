@@ -40,7 +40,7 @@ export const delCity = id => del(`${CITIES_URL}/${id}`);
 
 export const postEntry = entry => post(`${ENTRIES_URL}`, entry);
 export const getEntries = () => get(`${ENTRIES_URL}`);
-export const putEntries = entry => put(`${ENTRIES_URL}/${entry._id}`, entry);
+export const putEntry = entry => put(`${ENTRIES_URL}/${entry._id}`, entry);
 export const delEntry = id => del(`${ENTRIES_URL}/${id}`);
 
 export const postLocation = location => post(`${LOCATIONS_URL}`, location);

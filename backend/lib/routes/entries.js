@@ -6,24 +6,39 @@ module.exports = router
   .get('/', (req, res, next) => {
     Entry.find()
       .lean()
-      .then(entry => res.json(entry))
+      .then(entries => res.json(entries))
       .catch(next);
   })
 
   .post('/', (req, res, next) => {
-    Entry.create(req.body)
-      .then(entry => res.json(entry))
+    return Entry.create(req.body)
+      .then(() => {
+        return Entry.find()
+          .lean()
+          .then(entries => res.json(entries))
+          .catch(next);
+      })
       .catch(next);
   })
 
   .put('/:id', (req, res, next) => {
     return Entry.findByIdAndUpdate(req.params.id, req.body, updateOptions)
-      .then(updated => res.json(updated))
-      .catch(next);
+      .then(() => {
+        return Entry.find()
+          .lean()
+          .then(entries => res.json(entries))
+          .catch(next);
+      })
+      .catch(next);        
   })
-
+  
   .delete('/:id', (req, res, next) => {
     return Entry.findByIdAndRemove(req.params.id)
-      .then(() => res.json({ deleted: true }))
+      .then(() => {
+        return Entry.find()
+          .lean()
+          .then(entries => res.json(entries))
+          .catch(next);
+      })
       .catch(next);
   });
