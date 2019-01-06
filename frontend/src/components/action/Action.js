@@ -4,34 +4,48 @@ import { connect } from 'react-redux';
 
 import Participant from './Participant';
 import { getParticipants } from './reducers';
-import { loadParticipants } from './actions';
-import { postParticipant } from '../../services/api';
+import {
+  addParticipant,
+  loadParticipants,
+  updateParticipant,
+  deleteParticipant
+} from './actions';
 
 import styles from './Action.css';
 
 class Action extends Component {
   static propTypes = {
     participants: PropTypes.array,
+    addParticipant: PropTypes.func,
     loadParticipants: PropTypes.func,
+    updateParticipant: PropTypes.func,
+    deleteParticipant: PropTypes.func
   };
   
   componentDidMount() {
     this.props.loadParticipants();
   }
 
-  handleCreateParticipant = () => {
-    postParticipant()
-      .then(() => this.props.loadParticipants());
+  createParticipant = () => {
+    this.props.addParticipant();
+  };
+
+  handleUpdateParticipant = participant => {
+    this.props.updateParticipant(participant);
+  };
+
+  handleDeleteParticipant = id => {
+    this.props.deleteParticipant(id);
   };
 
   render() {
-    const { handleCreateParticipant } = this;
+    const { createParticipant, handleUpdateParticipant, handleDeleteParticipant } = this;
     const { participants } = this.props;
 
     return (
       <div className={styles.actionContainer}>
         <div className="participant-buttons">
-          <button onClick={handleCreateParticipant}>Add Participant</button>
+          <button onClick={createParticipant}>Add Participant</button>
         </div>
 
         <div className="participants">
@@ -40,7 +54,9 @@ class Action extends Component {
               participants.map((participant, i) => (
                 <Participant
                   key={i}
-                  participant = {participant}
+                  participant={participant}
+                  handleUpdateParticipant={handleUpdateParticipant}
+                  handleDeleteParticipant={handleDeleteParticipant}
                 />
               ))
             }
@@ -55,5 +71,10 @@ export default connect(
   state => ({
     participants: getParticipants(state)
   }), 
-  { loadParticipants }
+  {
+    addParticipant,
+    loadParticipants,
+    updateParticipant,
+    deleteParticipant
+  }
 )(Action);

@@ -2,32 +2,29 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { delParticipant, putParticipant } from '../../services/api';
-import { loadParticipants } from './actions';
-
 import styles from './Action.css';
 
 class Participant extends PureComponent {
   static propTypes = {
-    loadParticipants: PropTypes.func,
-    participant: PropTypes.object
+    participant: PropTypes.object,
+    handleUpdateParticipant: PropTypes.func,
+    handleDeleteParticipant: PropTypes.func
   };
 
   state = { ...this.props.participant };
 
   handleRemoveParticipant = () => {
+    const { handleDeleteParticipant } = this.props;
     const { _id } = this.props.participant;
 
-    delParticipant(_id)
-      .then(() => this.props.loadParticipants());
+    handleDeleteParticipant(_id);
   };
 
   handleUpdateParticipant = () => {
-    const { _id } = this.props.participant;
+    const { handleUpdateParticipant } = this.props;
     const updatedParticipant = { ...this.state };
 
-    putParticipant(_id, updatedParticipant);
-    this.props.loadParticipants();
+    handleUpdateParticipant(updatedParticipant);
   };
 
   handleChange = ({ target }) => {
@@ -250,6 +247,4 @@ class Participant extends PureComponent {
 }
 
 export default connect(
-  null,
-  { loadParticipants }
 )(Participant);

@@ -4,13 +4,18 @@ const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
   .post('/', (req, res, next) => {
-    Participant.create({})
-      .then(body => res.json(body))
+    return Participant.create({})
+      .then(() => {
+        return Participant.find()
+          .lean()
+          .then(body => res.send(body))
+          .catch(next);  
+      })
       .catch(next);
   })
 
   .get('/', (req, res, next) => {
-    Participant.find()
+    return Participant.find()
       .lean()
       .then(body => res.send(body))
       .catch(next);
@@ -32,12 +37,22 @@ module.exports = router
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
     return Participant.findByIdAndUpdate(req.params.id, update, updateOptions)
-      .then(updated => res.json(updated))
+      .then(() => {
+        return Participant.find()
+          .lean()
+          .then(body => res.send(body))
+          .catch(next);  
+      })
       .catch(next);        
   })
 
   .delete('/:id', (req, res, next) => {
     return Participant.findByIdAndRemove(req.params.id)
-      .then(() => res.json({}))
+      .then(() => {
+        return Participant.find()
+          .lean()
+          .then(body => res.send(body))
+          .catch(next);  
+      })
       .catch(next);
   });
