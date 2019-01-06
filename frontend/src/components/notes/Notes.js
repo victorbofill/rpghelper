@@ -7,6 +7,7 @@ import { getNotes } from './reducers';
 import {
   addNote,
   loadNotes,
+  updateNote,
   deleteNote
 } from './actions';
 
@@ -14,6 +15,7 @@ class Notes extends PureComponent {
   static propTypes = {
     addNote: PropTypes.func.isRequired,
     loadNotes: PropTypes.func.isRequired,
+    updateNote: PropTypes.func.isRequired,
     deleteNote: PropTypes.func.isRequired,
     notes: PropTypes.array.isRequired
   };
@@ -26,17 +28,22 @@ class Notes extends PureComponent {
     this.props.loadNotes();
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { addNote } = this.props;
-    const { addNoteForm } = this.state;
-
-    addNote({ note: addNoteForm });
-    this.setState({ addNoteForm: '' });
-  };
-
   handleChange = ({ target }) => {
     this.setState({ addNoteForm: target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { addNoteForm } = this.state;
+
+    this.props.addNote({ note: addNoteForm })
+      .then(() => {
+        this.setState({ addNoteForm: '' });
+      });
+  };
+
+  handleUpdateNote = note => {
+    this.props.updateNote(note);
   };
 
   handleDeleteNote = id => {
@@ -45,7 +52,7 @@ class Notes extends PureComponent {
   };
 
   render() {
-    const { handleDeleteNote } = this;
+    const { handleChange, handleSubmit, handleDeleteNote, handleUpdateNote } = this;
     const { notes } = this.props;
     if(!notes) return null;
 
@@ -54,9 +61,9 @@ class Notes extends PureComponent {
     return (
       <div>
         <h1>Notes</h1>
-        <form onSubmit={this.handleSubmit}>
-          <textarea name="addNoteForm" onChange={this.handleChange} value={addNoteForm} />
-          <input type="submit" value="Submit" />
+        <form onSubmit={handleSubmit}>
+          <textarea name="addNoteForm" onChange={handleChange} value={addNoteForm} />
+          <input type="submit" value="Add Note" />
         </form>
         <ul>
           {notes && !!notes.length ? notes.map((note, i) => (
@@ -64,6 +71,7 @@ class Notes extends PureComponent {
               key={i}
               note={note}
               handleDeleteNote={handleDeleteNote}
+              handleUpdateNote={handleUpdateNote}
             />
           )) : null
           }
@@ -80,6 +88,7 @@ export default connect(
   {
     addNote,
     loadNotes,
+    updateNote,
     deleteNote
   }
 )(Notes);

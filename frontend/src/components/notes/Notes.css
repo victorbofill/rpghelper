@@ -14,8 +14,7 @@
 }
 
 .header button {
-  height: 2em;
-  width: 2em;
+  width: fit-content;
 }
 
 p {

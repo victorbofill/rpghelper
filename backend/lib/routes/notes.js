@@ -23,7 +23,12 @@ module.exports = router
 
   .put('/:id', (req, res, next) => {
     return Note.findByIdAndUpdate(req.params.id, req.body, updateOptions)
-      .then(updated => res.json(updated))
+      .then(() => {
+        return Note.find()
+          .lean()
+          .then(notes => res.json(notes))
+          .catch(next);
+      })
       .catch(next);        
   })
   
