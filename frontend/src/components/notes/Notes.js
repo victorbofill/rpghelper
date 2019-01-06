@@ -1,16 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import Note from './Note';
-import { loadNotes, addNote, deleteNote } from './actions';
 import { getNotes } from './reducers';
+import {
+  addNote,
+  loadNotes,
+  deleteNote
+} from './actions';
 
 class Notes extends PureComponent {
   static propTypes = {
-    notes: PropTypes.array.isRequired,
-    loadNotes: PropTypes.func.isRequired,
     addNote: PropTypes.func.isRequired,
-    deleteNote: PropTypes.func.isRequired
+    deleteNote: PropTypes.func.isRequired,
+    loadNotes: PropTypes.func.isRequired,
+    notes: PropTypes.array.isRequired
   };
 
   state = {
@@ -69,9 +74,9 @@ export default connect(
     notes: getNotes(state)
   }),
   {
-    loadNotes,
     addNote,
+    deleteNote,
     getNotes,
-    deleteNote
+    loadNotes
   }
 )(Notes);
