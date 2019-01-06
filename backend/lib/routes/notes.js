@@ -6,13 +6,18 @@ module.exports = router
   .get('/', (req, res, next) => {
     Note.find()
       .lean()
-      .then(note => res.json(note))
+      .then(notes => res.json(notes))
       .catch(next);
   })
 
   .post('/', (req, res, next) => {
-    Note.create(req.body)
-      .then(note => res.json(note))
+    return Note.create(req.body)
+      .then(() => {
+        return Note.find()
+          .lean()
+          .then(notes => res.json(notes))
+          .catch(next);
+      })
       .catch(next);
   })
 
@@ -24,6 +29,11 @@ module.exports = router
   
   .delete('/:id', (req, res, next) => {
     return Note.findByIdAndRemove(req.params.id)
-      .then(() => res.json({ deleted: true }))
+      .then(() => {
+        return Note.find()
+          .lean()
+          .then(notes => res.json(notes))
+          .catch(next);
+      })
       .catch(next);
   });

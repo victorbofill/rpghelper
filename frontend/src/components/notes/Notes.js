@@ -13,8 +13,8 @@ import {
 class Notes extends PureComponent {
   static propTypes = {
     addNote: PropTypes.func.isRequired,
-    deleteNote: PropTypes.func.isRequired,
     loadNotes: PropTypes.func.isRequired,
+    deleteNote: PropTypes.func.isRequired,
     notes: PropTypes.array.isRequired
   };
 
@@ -28,20 +28,24 @@ class Notes extends PureComponent {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addNote({ note: this.state.addNoteForm });
-    this.setState({ addNoteForm: '' });
-    this.props.loadNotes();
-  };
+    const { addNote } = this.props;
+    const { addNoteForm } = this.state;
 
-  handleDelete = id => {
-    this.props.deleteNote(id);
+    addNote({ note: addNoteForm });
+    this.setState({ addNoteForm: '' });
   };
 
   handleChange = ({ target }) => {
     this.setState({ addNoteForm: target.value });
   };
 
+  handleDeleteNote = id => {
+    const { deleteNote } = this.props;
+    deleteNote(id);
+  };
+
   render() {
+    const { handleDeleteNote } = this;
     const { notes } = this.props;
     if(!notes) return null;
 
@@ -59,7 +63,7 @@ class Notes extends PureComponent {
             <Note
               key={i}
               note={note}
-              handleDelete={this.handleDelete}
+              handleDeleteNote={handleDeleteNote}
             />
           )) : null
           }
@@ -75,8 +79,7 @@ export default connect(
   }),
   {
     addNote,
-    deleteNote,
-    getNotes,
-    loadNotes
+    loadNotes,
+    deleteNote
   }
 )(Notes);

@@ -1,14 +1,21 @@
 import {
-  getNotes,
   postNote,
+  getNotes,
   delNote
 } from '../../services/api';
 
 import {
+  NOTE_POST,
   NOTES_LOAD,
-  NOTES_POST,
   NOTE_REMOVE
 } from './reducers';
+
+export function addNote(note) {
+  return {
+    type: NOTE_POST,
+    payload: postNote(note)
+  };
+}
 
 export function loadNotes() {
   return {
@@ -17,16 +24,9 @@ export function loadNotes() {
   };
 }
 
-export function addNote(note) {
-  return {
-    type: NOTES_POST,
-    payload: postNote(note)
-  };
-}
-
 export function deleteNote(id) {
   return {
     type: NOTE_REMOVE,
-    payload: delNote(id).then(() => ({ _id: id }))
+    payload: delNote(id)
   };
 }
