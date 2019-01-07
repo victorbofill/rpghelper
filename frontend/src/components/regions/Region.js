@@ -14,13 +14,16 @@ class Region extends PureComponent {
   };
 
   render() {
+    if(!this.props.region) return null;
+    const { region } = this.props;
+
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to="/NPCs">NPCs</NavLink></li>
-              <li><NavLink to="/locations">Locations</NavLink></li>
+              <li><NavLink to={`/regions/${region.url}/NPCs`}>NPCs</NavLink></li>
+              <li><NavLink to={`/regions/${region.url}/locations`}>Locations</NavLink></li>
             </ul>
           </header>
 
