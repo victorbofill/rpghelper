@@ -14,7 +14,8 @@ class Stories extends PureComponent {
   static propTypes = {
     match: PropTypes.object,
     stories: PropTypes.array,
-    locationObject: PropTypes.object
+    locationObject: PropTypes.object,
+    loadStories: PropTypes.func
   };
 
   componentDidMount() {
