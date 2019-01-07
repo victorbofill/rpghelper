@@ -51,8 +51,8 @@ class Regions extends PureComponent {
           <main>
             <div>
               <Switch>
-                {regions && !!regions.length ? regions.map((region) => (
-                  <Route key={region._id} path={`/regions/${region.name}`} component={Region} region={region} />
+                {regions && !!regions.length ? regions.map(region => (
+                  <Route key={region._id} path={`/regions/${region.name}`} render={props => <Region region={region}  {...props} />} />
                 )) : null
                 }
               </Switch>
