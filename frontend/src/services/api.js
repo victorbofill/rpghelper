@@ -61,7 +61,7 @@ export const getParticipants = () => get(`${PARTICIPANTS_URL}`);
 export const putParticipant = participant => put(`${PARTICIPANTS_URL}/${participant._id}`, participant);
 export const delParticipant = id => del(`${PARTICIPANTS_URL}/${id}`);
 
-export const postRegion = region => post(`${REGIONS_URL}`, region);
+export const postRegion = () => post(`${REGIONS_URL}`);
 export const getRegions = () => get(`${REGIONS_URL}`);
 export const putRegion = region => put(`${REGIONS_URL}/${region._id}`, region);
 export const delRegion = id => del(`${REGIONS_URL}/${id}`);

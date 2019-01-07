@@ -4,69 +4,55 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import Region from './Region';
-import { loadRegions, addRegion } from './actions';
 import { getRegions } from './reducers';
-import { postRegion } from '../../services/api';
-
+import {
+  addRegion,
+  loadRegions,
+  updateRegion,
+  deleteRegion
+} from './actions';
 
 import styles from './Regions.css';
 
 class Regions extends PureComponent {
   static propTypes = {
-    regions: PropTypes.array,
+    addRegion: PropTypes.func.isRequired,
     loadRegions: PropTypes.func,
-    addRegion: PropTypes.func.isRequired
-  };
-
-  state = {
-    addRegionForm: '',
-    activeRegion: null
+    updateRegion: PropTypes.func,
+    deleteRegion: PropTypes.func,
+    regions: PropTypes.array
   };
 
   componentDidMount() {
     this.props.loadRegions();
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.addRegion({ name: this.state.addRegionForm });
-    this.setState({ addRegionForm: '' });
-    this.props.loadRegions();
-  };
-
-  handleAddRegion = () => {
-    const region = {
-      url: 'newregion',
-      name: 'New region'
-    };
-
-    postRegion(region)
-      .catch(err => console.log(err));
+  handleCreateRegion = () => {
+    this.props.addRegion();
   };
 
   render() {
-    const { handleAddRegion } = this;
+    const { handleCreateRegion } = this;
     const { regions } = this.props;
 
     return (
-
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {regions && !!regions.length ? regions.map((region, i) => (
-                <li key={i}><NavLink  to={`/regions/${region.url}`}>{region.name}</NavLink></li>
+              {regions && !!regions.length ? regions.map((region) => (
+                <li key={region._id}><NavLink  to={`/regions/${region.url}`}>{region.name}</NavLink></li>
               )) : null
               }
-              <li onClick={handleAddRegion}>+</li>
+              <li onClick={handleCreateRegion}>+</li>
             </ul>
           </header>
 
           <main>
             <div>
               <Switch>
-                {regions && !!regions.length ? regions.map((region, i) => (
-                  <Route key={i} path={`/regions/${region.name}`} component={Region} region={region} />
+                {regions && !!regions.length ? regions.map((region) => (
+                  <Route key={region._id} path={`/regions/${region.name}`} component={Region} region={region} />
                 )) : null
                 }
               </Switch>
@@ -83,7 +69,9 @@ export default connect(
     regions: getRegions(state)
   }),
   {
+    addRegion,
     loadRegions,
-    addRegion
+    updateRegion,
+    deleteRegion
   }
 )(Regions);

@@ -5,13 +5,13 @@ const Region = require('../models/Region');
 
 module.exports = router
   .post('/', (req, res, next) => {
-    Region.create(req.body)
+    return Region.create({})
       .then(region => res.json(region))
       .catch(next);
   })
 
   .get('/', (req, res, next) => {
-    Region.find()
+    return Region.find()
       .lean()
       .populate({
         path: 'cities',
