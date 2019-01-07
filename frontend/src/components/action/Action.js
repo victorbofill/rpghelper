@@ -51,9 +51,9 @@ class Action extends Component {
         <div className="participants">
           <ul>
             { participants && !!participants.length &&
-              participants.map((participant, i) => (
+              participants.map((participant) => (
                 <Participant
-                  key={i}
+                  key={participant._id}
                   participant={participant}
                   handleUpdateParticipant={handleUpdateParticipant}
                   handleDeleteParticipant={handleDeleteParticipant}

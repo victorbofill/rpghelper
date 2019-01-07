@@ -54,5 +54,5 @@ module.exports = router
           .then(body => res.send(body))
           .catch(next);  
       })
-      .catch(next);
+      .catch(next);  
   });

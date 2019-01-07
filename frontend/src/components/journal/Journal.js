@@ -66,9 +66,9 @@ class Journal extends PureComponent {
           <input type="submit" value="Add Entry" />
         </form>
         <ul>
-          {entries && !!entries.length ? entries.map((entry, i) => (
+          {entries && !!entries.length ? entries.map((entry) => (
             <Entry
-              key={i}
+              key={entry._id}
               entry={entry}
               handleDeleteEntry={handleDeleteEntry}
               handleUpdateEntry={handleUpdateEntry}

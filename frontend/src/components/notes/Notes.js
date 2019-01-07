@@ -66,9 +66,9 @@ class Notes extends PureComponent {
           <input type="submit" value="Add Note" />
         </form>
         <ul>
-          {notes && !!notes.length ? notes.map((note, i) => (
+          {notes && !!notes.length ? notes.map((note) => (
             <Note
-              key={i}
+              key={note._id}
               note={note}
               handleDeleteNote={handleDeleteNote}
               handleUpdateNote={handleUpdateNote}
