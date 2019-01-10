@@ -1,14 +1,14 @@
 # Overview
 
-Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization, logging in, or security as I'm running it just for myself locally on my own system. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts.
+Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization as I just run it locally. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts :)
 
-Currently I'm just working my way through basic functionality before polishing everything up.
 
-Take a look at tabbing in the Locations component. Routes are generated ad hoc, so you can direct the app to nested tabs written by the app itself upon loading.
+== Jan. 9 ==
+Basic functionality is pretty much complete. I recently added the 'region' model to the database as the top tier, and I'm working on fixing up the tab tree created using React routes. It breaks a branch or two down as of this writing.
 
-The Action component doesn't make nearly the use of React that it could, and the rest of the app needs to be plugged into Redux; I'll be refactoring all of that once basic functionality is all complete.
+The Action component doesn't make nearly the use of React that it could. Giving everything a React once-over is probably coming next.
 
-I've only created the BE enough to get make working on the FE possible, which is to say that I'm fully aware of how ham-fisted the routes are.
+I've only created the BE enough to get make working on the FE possible, which is to say that I'm fully aware of how ham-fisted the routes are. Right now the routes make edits to the database and then send a ton of data back. Redux then just shoves the entire thing back into the app. This would be awful if I was dealing with a large database... I go back and forth on whether I want to go with better database behavior, because why make FE code more complex when I'm never going to run into scalability problems?
 
 BE testing was written, though I haven't updated it for some time and it's not passing. I'll re-do that some time...
 
