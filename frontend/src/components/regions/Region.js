@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import EditRegion from './EditRegion';
 import Locations from '../locations/Locations';
 import NPCs from '../npcs/NPCs';
 
@@ -10,7 +11,7 @@ import styles from './Regions.css';
 
 class Region extends PureComponent {
   static propTypes = {
-    region: PropTypes.any
+    region: PropTypes.any.isRequired
   };
 
   render() {
@@ -19,25 +20,23 @@ class Region extends PureComponent {
 
     return (
       <Router>
-        <div>
+        <Fragment>
           <header className={styles.header}>
             <ul>
-              <li><NavLink to={`/regions/${region.url}/NPCs`}>NPCs</NavLink></li>
-              <li><NavLink to={`/regions/${region.url}/locations`}>Locations</NavLink></li>
+              <NavLink to={`/regions/${region.url}/NPCs`}><li>NPCs</li></NavLink>
+              <NavLink to={`/regions/${region.url}/locations`}><li>Locations</li></NavLink>
+              <NavLink to={`/regions/${region.url}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  <Route path="/NPCs" component={NPCs}/>
-                  <Route path="/locations" component={Locations}/>
-                </Switch>
-              </div>
-            </div>
-          </main>
-        </div>
+          <div>
+            <Switch>
+              <Route path={`/regions/${region.url}/NPCs`} render={props => <NPCs regionId={region._id} {...props} />}/>
+              <Route path={`/regions/${region.url}/locations`} component={Locations}/>
+              <Route path={`/regions/${region.url}/edit`} render={props => <EditRegion region={region} {...props}/>}/>
+            </Switch>
+          </div>
+        </Fragment>
       </Router>
     );
   }

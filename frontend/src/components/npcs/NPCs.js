@@ -62,21 +62,17 @@ class NPCs extends PureComponent {
             </ul>
           </header>
 
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  {npcs && (npcs[0] !== null) &&
-                    npcs.map(npc => {
-                      return (
-                        <Route key={npc._id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} locationObject={locationObject} />} />
-                      );
-                    })
-                  }
-                </Switch>
-              </div>
-            </div>
-          </main>
+          <div>
+            <Switch>
+              {npcs && (npcs[0] !== null) &&
+                npcs.map(npc => {
+                  return (
+                    <Route key={npc._id} path={`${path}/${npc.url}`} render={props => <NPC {...props} npc={npc} locationObject={locationObject} />} />
+                  );
+                })
+              }
+            </Switch>
+          </div>
         </div>
       </Router>
     );
