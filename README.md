@@ -3,6 +3,11 @@
 Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization as I just run it locally. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts :)
 
 
+Jan. 10
+I just re-worked the entire BE. I created a better data model structure, and then created complete CRUD routes for all models, which I didn't have before; before, I just created what I needed at the time.
+
+Right now I'm working (in the regions branch) on a SuperComponent. Most components will be incredibly similar, as the entire app is basically just a data tree. I'm going to make the SuperComponent so that I don't have the exact same code over and over in every component.
+
 Jan. 9
 Basic functionality is close to complete. I recently added the 'region' model to the database as the top tier, and I'm working on fixing up the tab tree, which is created using React routes. It breaks a branch or two down as of this writing.
 
