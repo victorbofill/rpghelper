@@ -1,19 +1,19 @@
-export const REGION_POST = 'REGION_POST';
-export const REGIONS_LOAD = 'REGIONS_LOAD';
-export const REGION_UPDATE = 'REGION_UPDATE';
-export const REGION_REMOVE = 'REGION_REMOVE';
+export const DATA_POST = 'DATA_POST';
+export const DATA_LOAD = 'DATA_LOAD';
+export const DATA_UPDATE = 'DATA_UPDATE';
+export const DATA_REMOVE = 'DATA_REMOVE';
 
-export const getRegions = state => state.regions;
+export const getData = state => state.data;
 
-export function regions(state = [], { type, payload }) {
+export function data(state = [], { type, payload }) {
   switch(type) {
-    case REGION_POST:
+    case DATA_POST:
       return [...state, payload];
-    case REGIONS_LOAD:
+    case DATA_LOAD:
       return payload;
-    case REGION_UPDATE:
+    case DATA_UPDATE:
       return payload;
-    case REGION_REMOVE:
+    case DATA_REMOVE:
       return payload;
     default:
       return state;

@@ -1,41 +1,41 @@
 import {
-  postRegion,
-  getRegions,
-  putRegion,
-  delRegion
+  postData,
+  getData,
+  putData,
+  delData
 } from '../../services/api';
 
 import {
-  REGION_POST,
-  REGIONS_LOAD,
-  REGION_UPDATE,
-  REGION_REMOVE
+  DATA_POST,
+  DATA_LOAD,
+  DATA_UPDATE,
+  DATA_REMOVE
 } from './reducers';
 
-export function addRegion() {
+export function addData() {
   return {
-    type: REGION_POST,
-    payload: postRegion()
+    type: DATA_POST,
+    payload: postData()
   };
 }
 
-export function loadRegions() {
+export function loadData() {
   return {
-    type: REGIONS_LOAD,
-    payload: getRegions()
+    type: DATA_LOAD,
+    payload: getData()
   };  
 }  
 
-export function updateRegion(region) {
+export function updateData(updatedObject) {
   return {
-    type: REGION_UPDATE,
-    payload: putRegion(region)
+    type: DATA_UPDATE,
+    payload: putData(updatedObject)
   };
 }
 
-export function deleteRegion(id) {
+export function deleteData(id) {
   return {
-    type: REGION_REMOVE,
-    payload: delRegion(id)
+    type: DATA_REMOVE,
+    payload: delData(id)
   };
 }
