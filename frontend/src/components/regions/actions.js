@@ -1,6 +1,7 @@
 import {
   postRegion,
   getRegions,
+  getRegion,
   putRegion,
   delRegion
 } from '../../services/api';
@@ -8,6 +9,7 @@ import {
 import {
   REGION_POST,
   REGIONS_LOAD,
+  REGION_LOAD,
   REGION_UPDATE,
   REGION_REMOVE
 } from './reducers';
@@ -23,6 +25,13 @@ export function loadRegions() {
   return {
     type: REGIONS_LOAD,
     payload: getRegions()
+  };  
+}  
+
+export function loadRegion(id) {
+  return {
+    type: REGION_LOAD,
+    payload: getRegion(id)
   };  
 }  
 
