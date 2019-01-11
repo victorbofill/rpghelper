@@ -20,7 +20,8 @@ class Subregions extends PureComponent {
     addSubregion: PropTypes.func.isRequired,
     loadSubregions: PropTypes.func,
     updateSubregion: PropTypes.func,
-    deleteSubregion: PropTypes.func
+    deleteSubregion: PropTypes.func,
+    match: PropTypes.object
   };
 
   componentDidMount() {
@@ -33,21 +34,23 @@ class Subregions extends PureComponent {
 
   render() {
     const { handleCreateSubregion } = this;
-    const { subregions } = this.props;
+    const { subregions, match } = this.props;
+
+    console.log('match.path: ', match.path);
 
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {subregions && subregions.map(subregion => (<NavLink key={subregion._id} to={`/subregions/${subregion.url}`}><li >{subregion.name}</li></NavLink>))}
+              {subregions && subregions.map(subregion => (<NavLink key={subregion._id} to={`${match.path}/${subregion.url}`}><li >{subregion.name}</li></NavLink>))}
               <li onClick={handleCreateSubregion}>+</li>
             </ul>
           </header>
 
           <div>
             <Switch>
-              {subregions && subregions.map(subregion => (<Route key={subregion._id} path={`/subregions/${subregion.url}`} render={props => <Subregion {...props} subregion={subregion} />}/>))}
+              {subregions && subregions.map(subregion => (<Route key={subregion._id} path={`${match.path}/${subregion.url}`} render={props => <Subregion {...props} subregion={subregion} />}/>))}
             </Switch>
           </div>
         </div>

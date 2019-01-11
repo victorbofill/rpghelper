@@ -88,11 +88,11 @@ export const delRegion = id => del(`${REGIONS_URL}/${id}`);
 export const postStory = story => post(`${STORIES_URL}`, story);
 export const getStories = () => get(`${STORIES_URL}`);
 export const getStory = id => get(`${STORIES_URL}/${id}`);
-export const putStory = story => get(`${STORIES_URL}/${story._id}`, story);
+export const putStory = story => put(`${STORIES_URL}/${story._id}`, story);
 export const delStory = id => del(`${STORIES_URL}/${id}`);
 
 export const postSubregion = subregion => post(`${SUBREGIONS_URL}`, subregion);
 export const getSubregions = () => get(`${SUBREGIONS_URL}`);
 export const getSubregion = id => get(`${SUBREGIONS_URL}/${id}`);
-export const putSubregion = subregion => get(`${SUBREGIONS_URL}/${subregion._id}`, subregion);
+export const putSubregion = subregion => put(`${SUBREGIONS_URL}/${subregion._id}`, subregion);
 export const delSubregion = id => del(`${SUBREGIONS_URL}/${id}`);

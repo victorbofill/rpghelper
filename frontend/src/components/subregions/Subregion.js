@@ -9,11 +9,12 @@ import styles from './Subregions.css';
 
 class Subregion extends PureComponent {
   static propTypes = {
-    subregion: PropTypes.object.isRequired
+    subregion: PropTypes.object.isRequired,
+    match: PropTypes.object
   };
 
   render() {
-    const { subregion } = this.props;
+    const { subregion, match } = this.props;
     
     if(!subregion) return null;
     
@@ -22,15 +23,15 @@ class Subregion extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`/regions/${subregion.url}/`}><li>Details</li></NavLink>
-              <NavLink to={`/Subregions/${Subregion.url}/edit`}><li>Edit</li></NavLink>
+              <NavLink to={`${match.path}`}><li>Details</li></NavLink>
+              <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
           <div>
             <Switch>
-              <Route exact path={`/regions/${subregion.url}/`} render={props => <SubregionDetails subregion={subregion} {...props} />}/>
-              <Route path={`/subregions/${Subregion.url}/edit`} render={props => <EditSubregion data={Subregion} {...props}/>}/>
+              <Route exact path={`${match.path}`} render={props => <SubregionDetails subregion={subregion} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditSubregion subregion={subregion} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>
