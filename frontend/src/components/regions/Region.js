@@ -22,16 +22,16 @@ class Region extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`/regions/${region.url}/`}><li>Details</li></NavLink>
               <NavLink to={`/regions/${region.url}/subregions`}><li>Subregions</li></NavLink>
+              <NavLink to={`/regions/${region.url}/`}><li>Details</li></NavLink>
               <NavLink to={`/regions/${region.url}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
           <div>
             <Switch>
-              <Route exact path={`/regions/${region.url}/`} render={props => <RegionDetails region={region} {...props} />}/>
               <Route path={`/regions/${region.url}/subregions`} component={Subregions}/>
+              <Route exact path={`/regions/${region.url}/`} render={props => <RegionDetails region={region} {...props} />}/>
               <Route path={`/regions/${region.url}/edit`} render={props => <EditRegion region={region} {...props}/>}/>
             </Switch>
           </div>
