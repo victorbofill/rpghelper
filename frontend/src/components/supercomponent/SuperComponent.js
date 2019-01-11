@@ -4,33 +4,34 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import Edit from '../edit/Edit';
-import Subregions from '../subregions/Subregions';
 
-import styles from './Regions.css';
+import styles from './styles.css';
 
-class Region extends PureComponent {
+class SuperComponent extends PureComponent {
   static propTypes = {
-    region: PropTypes.any.isRequired
+    data: PropTypes.any.isRequired,
+    dataType: PropTypes.string.isRequired,
+    parentDataType: PropTypes.string.isRequired
   };
 
   render() {
-    if(!this.props.region) return null;
-    const { region } = this.props;
+    if(!this.props.data) return null;
+    const { data, dataType, parentDataType } = this.props;
 
     return (
       <Router>
         <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`/regions/${region.url}/subregions`}><li>Subregions</li></NavLink>
-              <NavLink to={`/regions/${region.url}/edit`}><li>Edit</li></NavLink>
+              <NavLink to={`/${parentDataType}/${data.url}/${dataType}`}><li>{dataType}</li></NavLink>
+              <NavLink to={`/${parentDataType}/${data.url}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
           <div>
             <Switch>
-              <Route path={`/regions/${region.url}/subregions`} component={Subregions}/>
-              <Route path={`/regions/${region.url}/edit`} render={props => <Edit data={region} {...props}/>}/>
+              <Route path={`/${parentDataType}/${data.url}/${dataType}`} component={dataType}/>
+              <Route path={`/${parentDataType}/${data.url}/edit`} render={props => <Edit data={data} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>
@@ -40,4 +41,4 @@ class Region extends PureComponent {
 }
 
 export default connect(
-)(Region);
+)(SuperComponent);

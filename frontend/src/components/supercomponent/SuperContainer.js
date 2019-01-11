@@ -3,53 +3,58 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Region from './Region';
-import { getRegions } from './reducers';
+import SuperComponent from './SuperComponent';
+import { getData } from './reducers';
 import {
-  addRegion,
-  loadRegions,
-  updateRegion,
-  deleteRegion
+  addData,
+  loadData,
+  updateData,
+  deleteData
 } from './actions';
 
-import styles from './Regions.css';
+import styles from './styles.css';
 
-class Regions extends PureComponent {
+class SuperContainer extends PureComponent {
   static propTypes = {
-    addRegion: PropTypes.func.isRequired,
-    loadRegions: PropTypes.func,
-    updateRegion: PropTypes.func,
-    deleteRegion: PropTypes.func,
-    regions: PropTypes.array
+    data: PropTypes.array.isRequired,
+    dataType: PropTypes.string.isRequired,
+    childDataType: PropTypes.string.isRequired,
+    addData: PropTypes.func.isRequired,
+    loadData: PropTypes.func,
+    updateData: PropTypes.func,
+    deleteData: PropTypes.func
   };
 
   componentDidMount() {
-    this.props.loadRegions();
+    this.props.loadData();
   }
 
-  handleCreateRegion = () => {
-    this.props.addRegion();
+  handleCreateData = () => {
+    this.props.addData();
   };
 
   render() {
-    const { handleCreateRegion } = this;
-    const { regions } = this.props;
+    const { handleCreateData } = this;
+    const { data, dataType, childDataType } = this.props;
 
-    if(!regions) return null;
-    
+    if(!data) return null;
+
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {regions.map(region => (<NavLink key={region._id} to={`/regions/${region.url}`}><li >{region.name}</li></NavLink>))}
-              <li onClick={handleCreateRegion}>+</li>
+              {data.map(data => (<NavLink key={data._id} to={`/${dataType}/${data.url}`}><li >{data.name}</li></NavLink>))}
+              <li onClick={handleCreateData}>+</li>
             </ul>
           </header>
 
           <div>
             <Switch>
-              {regions.map(region => (<Route key={region._id} path={`/regions/${region.url}`} render={props => <Region {...props} region={region} />}/>))}
+              {data.map(data => (<Route
+                key={data._id}
+                path={`/${dataType}/${data.url}`}
+                render={props => <SuperComponent {...props} data={data} dataType={childDataType} parentDataType={dataType} />}/>))}
             </Switch>
           </div>
         </div>
@@ -60,12 +65,12 @@ class Regions extends PureComponent {
 
 export default connect(
   state => ({
-    regions: getRegions(state)
+    data: getData(state)
   }),
   {
-    addRegion,
-    loadRegions,
-    updateRegion,
-    deleteRegion
+    addData,
+    loadData,
+    updateData,
+    deleteData
   }
-)(Regions);
+)(SuperContainer);
