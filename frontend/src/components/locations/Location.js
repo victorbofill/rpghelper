@@ -1,65 +1,64 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { delLocation } from '../../services/api';
-import { loadLocations } from './actions';
+import { connect } from 'react-redux';
 
-import NPCs from '../npcs/NPCs';
-import Sublocations from './sublocations/Sublocations';
-import LocationDetails from './LocationDetails';
+import EditLocation from './EditLocation';
+// import Bases from '../bases/Bases';
 
 import styles from './Locations.css';
 
 class Location extends PureComponent {
   static propTypes = {
     locationObject: PropTypes.object,
-    loadLocations: PropTypes.func
-  };
-
-  handleRemoveLocation = () => {
-    if(confirm('Are you sure?')) {
-      delLocation(this.props.locationObject._id)
-        .then(() => this.props.loadLocations());
-    }
+    match: PropTypes.object
   };
 
   render() {
-    const { npcs, sublocations } = this.props.locationObject;
-    const { match, locationObject } = this.props;
-    const { path } = match;
-    const { handleRemoveLocation } = this;
+    const { locationObject, match } = this.props;
+
+    if(!locationObject) return null;
 
     return (
       <Router>
-        <div>
+        <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`${path}/details`}> <li>Details</li></NavLink>
-              <NavLink to={`${path}/npcs`}> <li>NPCs</li></NavLink>
-              <NavLink to={`${path}/sublocations`}> <li>Sublocations</li></NavLink>
-              <li onClick={handleRemoveLocation}>-</li>
+              {/* <NavLink to={`${match.path}/bases`}> <li>Bases</li></NavLink> */}
+              <NavLink to={`${match.path}`}><li>Details</li></NavLink>
+              <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  <Route path={`${path}/details`} render={() => <LocationDetails location={locationObject} />}/>
-                  <Route path={`${path}/npcs`} render={props => <NPCs { ...props } locationObject={locationObject} npcs={npcs} />}/>
-                  <Route path={`${path}/sublocations`} render={props => <Sublocations { ...props } locationObject={locationObject} sublocations={sublocations} />}/>
-                </Switch>
-              </div>
-            </div>
-          </main>
-        </div>
+          <div>
+            <Switch>
+              {/* <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } locationObject={locationObject} npcs={npcs} />}/> */}
+              <Route exact path={`${match.path}`} render={props => <LocationDetails locationObject={locationObject} {...props} />}/>
+              <Route path={`${match.path}`} render={props => <EditLocation locationObject={locationObject} {...props} />}/>
+            </Switch>
+          </div>
+        </Fragment>
       </Router>
     );
   }
 }
 
 export default connect(
-  state => state,
-  { loadLocations }
 )(Location);
+
+class LocationDetails extends PureComponent {
+  static propTypes = {
+    locationObject: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { name, description } = this.props.locationObject;
+
+    return (
+      <Fragment>
+        <h1>{name}</h1>
+        <p>{description}</p>
+      </Fragment>
+    );
+  }
+}

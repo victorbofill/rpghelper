@@ -35,10 +35,10 @@ export function loadSubregion(id) {
   };  
 }  
 
-export function updateSubregion(region) {
+export function updateSubregion(subregion) {
   return {
     type: SUBREGION_UPDATE,
-    payload: putSubregion(region)
+    payload: putSubregion(subregion)
   };
 }
 

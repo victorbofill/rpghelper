@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import EditSubregion from './EditSubregion';
+import Locations from '../locations/Locations';
 
 import styles from './Subregions.css';
 
@@ -23,6 +24,7 @@ class Subregion extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
+              <NavLink to={`${match.path}/locations`}><li>Locations</li></NavLink>
               <NavLink to={`${match.path}`}><li>Details</li></NavLink>
               <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
             </ul>
@@ -30,6 +32,7 @@ class Subregion extends PureComponent {
 
           <div>
             <Switch>
+              <Route path={`${match.path}/locations`} component={Locations}/>
               <Route exact path={`${match.path}`} render={props => <SubregionDetails subregion={subregion} {...props} />}/>
               <Route path={`${match.path}/edit`} render={props => <EditSubregion subregion={subregion} {...props}/>}/>
             </Switch>

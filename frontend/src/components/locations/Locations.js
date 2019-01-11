@@ -4,74 +4,54 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import Location from './Location';
-import { loadLocations } from './actions';
 import { getLocations } from './reducers';
-import { postLocation } from '../../services/api';
+import {
+  addLocation,
+  loadLocations,
+  updateLocation,
+  deleteLocation
+} from './actions';
 
 import styles from './Locations.css';
 
 class Locations extends PureComponent {
 
   static propTypes = {
+    locations: PropTypes.array,
+    addLocation: PropTypes.func,
+    loadLocations: PropTypes.func,
+    updateLocation: PropTypes.func,
+    deleteLocation: PropTypes.func,
     match: PropTypes.object,
-    locations: PropTypes.array
   };
 
   componentDidMount() {
     this.props.loadLocations();
   }
 
-  handleAddLocation = () => {
-    const newLocation = {
-      url: 'newlocation',
-      name: 'New Location',
-      description: 'Enter description',
-      assets: '0',
-      income: '0',
-      overhead: '0',
-      profit: '0'
-    };
-
-    postLocation(newLocation)
-      .then(() => this.props.loadLocations());
+  handleCreateLocation = () => {
+    this.props.addLocation();
   };
 
   render() {
+    const { handleCreateLocation } = this;
     const { locations, match } = this.props;
-    const { path } = match;
-    const { handleAddLocation } = this;
 
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {locations && 
-                locations.map(location => {
-                  return (
-                    <NavLink key={location._id} to={`${path}/${location.url}`}><li>{`${location.name}`}</li></NavLink>
-                  );
-                })
-              }
-              <li onClick={handleAddLocation}>+</li>
+              {locations && locations.map(locationObject => (<NavLink key={locationObject._id} to={`${match.path}/${locationObject.url}`}><li >{locationObject.name}</li></NavLink>))}
+              <li onClick={handleCreateLocation}>+</li>
             </ul>
           </header>
 
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  {locations &&
-                    locations.map(locationObject => {
-                      return (
-                        <Route key={locationObject._id} path={`${path}/${locationObject.url}`} render={props => <Location {...props} locationObject={locationObject} />} />
-                      );
-                    })
-                  }
-                </Switch>
-              </div>
-            </div>
-          </main>
+          <div>
+            <Switch>
+              {locations && locations.map(locationObject => (<Route key={locationObject._id} path={`${match.path}/${locationObject.url}`} render={props => <Location {...props} locationObject={locationObject} {...props} />}/>))}
+            </Switch>
+          </div>
         </div>
       </Router>
     );
@@ -82,6 +62,9 @@ export default connect(
   state => ({
     locations: getLocations(state)
   }), {
-    loadLocations
+    addLocation,
+    loadLocations,
+    updateLocation,
+    deleteLocation  
   }
 )(Locations);

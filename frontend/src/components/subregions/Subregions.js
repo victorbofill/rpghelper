@@ -36,8 +36,6 @@ class Subregions extends PureComponent {
     const { handleCreateSubregion } = this;
     const { subregions, match } = this.props;
 
-    console.log('match.path: ', match.path);
-
     return (
       <Router>
         <div>
