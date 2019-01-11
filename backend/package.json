@@ -14,7 +14,7 @@
     "test:dev": "nodemon --exec npm run mocha",
     "test:e2e": "nodemon --exec npm run mocha -- ./test/e2e",
     "start": "node server.js",
-    "start:dev": "nodemon server.js"
+    "start:watch": "nodemon server.js"
   },
   "author": "",
   "license": "MIT",
