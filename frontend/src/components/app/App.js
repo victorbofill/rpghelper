@@ -4,8 +4,8 @@ import React, { PureComponent, Fragment } from 'react';
 import Dice from '../dice/Dice';
 import Regions from '../regions/Regions';
 import Action from '../action/Action';
-import Notes from '../notes/Notes';
 import Journal from '../journal/Journal';
+import Notes from '../notes/Notes';
 
 import styles from './App.css';
 
@@ -31,8 +31,8 @@ export default class App extends PureComponent {
               <Switch>
                 <Route path="/regions" render={props => <Regions { ...props }/>} />
                 <Route path="/action" component={Action}/>
-                <Route path="/notes" component={Notes}/>
                 <Route path="/journal" component={Journal}/>
+                <Route path="/notes" component={Notes}/>
               </Switch>
             </section>
           </main>
