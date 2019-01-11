@@ -2,14 +2,14 @@ const router = require('express').Router();
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 const Location = require('../models/Location');
-const Sublocation = require('../models/Sublocation');
+const Base = require('../models/Base');
 
 module.exports = router
   .post('/', (req, res) => {
-    Sublocation.create(req.body)
-      .then(sublocation => {
+    Base.create({})
+      .then(base => {
         return Location.findByIdAndUpdate(req.body.locationId, {
-          $addToSet: { sublocations: sublocation._id }
+          $addToSet: { bases: base._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
@@ -32,16 +32,16 @@ module.exports = router
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return Sublocation.findByIdAndUpdate(req.params.id, update, updateOptions)
+    return Base.findByIdAndUpdate(req.params.id, update, updateOptions)
       .then(updated => res.send(updated))
       .catch(next);        
   })
 
   .delete('/:id', (req, res) => {
-    return Sublocation.findByIdAndRemove(req.params.id)
+    return Base.findByIdAndRemove(req.params.id)
       .then(removed => {
         return Location.findByIdAndUpdate(removed.locationId, {
-          $pull: { sublocations: removed._id }
+          $pull: { locations: removed._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })

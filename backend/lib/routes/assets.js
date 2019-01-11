@@ -2,14 +2,14 @@ const router = require('express').Router();
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 const Base = require('../models/Base');
-const NPC = require('../models/NPC');
+const Asset = require('../models/Asset');
 
 module.exports = router
   .post('/', (req, res) => {
-    NPC.create({})
-      .then(NPC => {
+    Asset.create({})
+      .then(asset => {
         return Base.findByIdAndUpdate(req.body.baseId, {
-          $addToSet: { NPCs: NPC._id }
+          $addToSet: { assets: asset._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
@@ -32,16 +32,16 @@ module.exports = router
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return NPC.findByIdAndUpdate(req.params.id, update, updateOptions)
+    return Asset.findByIdAndUpdate(req.params.id, update, updateOptions)
       .then(updated => res.send(updated))
       .catch(next);        
   })
 
   .delete('/:id', (req, res) => {
-    return NPC.findByIdAndRemove(req.params.id)
+    return Asset.findByIdAndRemove(req.params.id)
       .then(removed => {
         return Base.findByIdAndUpdate(removed.regionId, {
-          $pull: { NPCs: removed._id }
+          $pull: { assets: removed._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })

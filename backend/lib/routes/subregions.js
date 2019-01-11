@@ -2,47 +2,50 @@ const router = require('express').Router();
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 const Region = require('../models/Region');
-const City = require('../models/City');
+const Subregion = require('../models/Subregion');
 
 module.exports = router
   .post('/', (req, res) => {
-    City.create(req.body)
-      .then(city => {
+    Subregion.create({})
+      .then(subregion => {
         return Region.findByIdAndUpdate(req.body.regionId, {
-          $addToSet: { cities: city._id }
+          $addToSet: { subregions: subregion._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
-      .then(city => res.send(city))
+      .then(res => res.send(res))
       .catch(err => res.send(err));
   })
 
   .put('/:id', (req, res, next) => {
     const {
       url,
-      name
+      name,
+      description
     } = req.body;
 
     const update = {
       url,
-      name
+      name,
+      description
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return City.findByIdAndUpdate(req.params.cityId, update, updateOptions)
+    return Subregion.findByIdAndUpdate(req.params.id, update, updateOptions)
       .then(updated => res.send(updated))
       .catch(next);        
   })
-  
+
   .delete('/:id', (req, res) => {
-    return City.findByIdAndRemove(req.params.id)
+    return Subregion.findByIdAndRemove(req.params.id)
       .then(removed => {
         return Region.findByIdAndUpdate(removed.regionId, {
-          $pull: { cities: removed._id }
+          $pull: { subregions: removed._id }
         }, updateOptions)
           .catch(err => res.send(err));
       })
       .then(() => res.send({ deleted : true }))
       .catch(err => res.send(err));
   });
+  

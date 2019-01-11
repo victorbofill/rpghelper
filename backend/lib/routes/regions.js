@@ -13,16 +13,6 @@ module.exports = router
   .get('/', (req, res, next) => {
     return Region.find()
       .lean()
-      .populate({
-        path: 'cities',
-        populate: {
-          path: 'locations',
-          populate: [
-            {path: 'npcs'},
-            {path: 'sublocations'}
-          ] 
-        },
-      })
       .then(region => res.json(region))
       .catch(next);
   })
@@ -47,6 +37,6 @@ module.exports = router
 
   .delete('/:id', (req, res, next) => {
     return Region.findByIdAndRemove(req.params.id)
-      .then(data => res.send(data))
+      .then(() => res.send({ deleted : true }))
       .catch(next);
   });
