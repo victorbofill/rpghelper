@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Edit from '../edit/Edit';
+import EditSubregion from './EditSubregion';
 
 import styles from './Subregions.css';
 
@@ -26,7 +26,7 @@ class Subregion extends PureComponent {
 
           <div>
             <Switch>
-              <Route path={`/Subregions/${Subregion.url}/edit`} render={props => <Edit data={Subregion} {...props}/>}/>
+              <Route path={`/Subregions/${Subregion.url}/edit`} render={props => <EditSubregion data={Subregion} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>

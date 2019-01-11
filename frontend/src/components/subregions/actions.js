@@ -12,28 +12,28 @@ import {
   SUBREGION_REMOVE
 } from './reducers';
 
-export function addRegion() {
+export function addSubregion() {
   return {
     type: SUBREGION_POST,
     payload: postSubregion()
   };
 }
 
-export function loadRegions() {
+export function loadSubregions() {
   return {
     type: SUBREGIONS_LOAD,
     payload: getSubregions()
   };  
 }  
 
-export function updateRegion(region) {
+export function updateSubregion(region) {
   return {
     type: SUBREGION_UPDATE,
     payload: putSubregion(region)
   };
 }
 
-export function deleteRegion(id) {
+export function deleteSubregion(id) {
   return {
     type: SUBREGION_REMOVE,
     payload: delSubregion(id)

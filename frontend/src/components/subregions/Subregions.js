@@ -16,18 +16,18 @@ import styles from './Subregions.css';
 
 class Subregions extends PureComponent {
   static propTypes = {
+    subregions: PropTypes.array,
     addSubregion: PropTypes.func.isRequired,
     loadSubregions: PropTypes.func,
     updateSubregion: PropTypes.func,
-    deleteSubregion: PropTypes.func,
-    subregions: PropTypes.array
+    deleteSubregion: PropTypes.func
   };
 
   componentDidMount() {
     this.props.loadSubregions();
   }
 
-  handleCreateRegion = () => {
+  handleCreateSubregion = () => {
     this.props.addSubregion();
   };
 
@@ -35,21 +35,19 @@ class Subregions extends PureComponent {
     const { handleCreateSubregion } = this;
     const { subregions } = this.props;
 
-    if(!subregions) return null;
-    
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {subregions.map(subregion => (<NavLink key={subregion._id} to={`/subregions/${subregion.url}`}><li >{subregion.name}</li></NavLink>))}
+              {subregions && subregions.map(subregion => (<NavLink key={subregion._id} to={`/subregions/${subregion.url}`}><li >{subregion.name}</li></NavLink>))}
               <li onClick={handleCreateSubregion}>+</li>
             </ul>
           </header>
 
           <div>
             <Switch>
-              {subregions.map(subregion => (<Route key={subregion._id} path={`/subregions/${subregion.url}`} render={props => <Subregion {...props} subregion={subregion} />}/>))}
+              {subregions && subregions.map(subregion => (<Route key={subregion._id} path={`/subregions/${subregion.url}`} render={props => <Subregion {...props} subregion={subregion} />}/>))}
             </Switch>
           </div>
         </div>
@@ -60,7 +58,7 @@ class Subregions extends PureComponent {
 
 export default connect(
   state => ({
-    regions: getSubregions(state)
+    subregions: getSubregions(state)
   }),
   {
     addSubregion,
