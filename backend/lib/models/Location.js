@@ -2,16 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  cityId: String,
-  url: String,
-  name: String,
-  description: String,
-  assets: String,
-  income: String,
-  overhead: String,
-  profit: String,
-  sublocations: [{type: Schema.Types.ObjectId, ref: 'Sublocation'}],
-  npcs: [{type: Schema.Types.ObjectId, ref: 'NPC'}],
+  subregionId: String,
+  url: { type: String, default: 'newlocation' },
+  name: { type: String, default: 'New Location' },
+  description: { type: String, default: '' },
+  bases: [{type: Schema.Types.ObjectId, ref: 'Base'}]
 });
 
 module.exports = mongoose.model('Location', schema);

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  url: String,
-  name: String,
+  url: { type: String, default: 'newstory' },
+  name: { type: String, default: 'New Story' },
   chapters: [{type: Schema.Types.ObjectId, ref: 'Chapter'}]
 });
   
