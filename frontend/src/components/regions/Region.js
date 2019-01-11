@@ -22,6 +22,7 @@ class Region extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
+              <NavLink to={`/regions/${region.url}/`}><li>Details</li></NavLink>
               <NavLink to={`/regions/${region.url}/subregions`}><li>Subregions</li></NavLink>
               <NavLink to={`/regions/${region.url}/edit`}><li>Edit</li></NavLink>
             </ul>
@@ -29,6 +30,7 @@ class Region extends PureComponent {
 
           <div>
             <Switch>
+              <Route exact path={`/regions/${region.url}/`} render={props => <RegionDetails region={region} {...props} />}/>
               <Route path={`/regions/${region.url}/subregions`} component={Subregions}/>
               <Route path={`/regions/${region.url}/edit`} render={props => <EditRegion region={region} {...props}/>}/>
             </Switch>
@@ -41,3 +43,20 @@ class Region extends PureComponent {
 
 export default connect(
 )(Region);
+
+class RegionDetails extends PureComponent {
+  static propTypes = {
+    region: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { name, description } = this.props.region;
+
+    return (
+      <Fragment>
+        <h1>{name}</h1>
+        <p>{description}</p>
+      </Fragment>
+    );
+  }
+}
