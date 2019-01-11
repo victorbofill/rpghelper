@@ -34,7 +34,6 @@ class Regions extends PureComponent {
   render() {
     const { handleCreateRegion } = this;
     const { regions } = this.props;
-
    
     return (
       <Router>

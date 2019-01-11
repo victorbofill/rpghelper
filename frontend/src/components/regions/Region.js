@@ -14,8 +14,9 @@ class Region extends PureComponent {
   };
 
   render() {
-    if(!this.props.region) return null;
     const { region } = this.props;
+    
+    if(!region) return null;
 
     return (
       <Router>

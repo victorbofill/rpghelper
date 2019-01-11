@@ -9,24 +9,28 @@ import styles from './Subregions.css';
 
 class Subregion extends PureComponent {
   static propTypes = {
-    subregion: PropTypes.any.isRequired
+    subregion: PropTypes.object.isRequired
   };
 
   render() {
-    if(!this.props.subregion) return null;
-
+    const { subregion } = this.props;
+    
+    if(!subregion) return null;
+    
     return (
       <Router>
         <Fragment>
           <header className={styles.header}>
             <ul>
+              <NavLink to={`/regions/${subregion.url}/`}><li>Details</li></NavLink>
               <NavLink to={`/Subregions/${Subregion.url}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
           <div>
             <Switch>
-              <Route path={`/Subregions/${Subregion.url}/edit`} render={props => <EditSubregion data={Subregion} {...props}/>}/>
+              <Route exact path={`/regions/${subregion.url}/`} render={props => <SubregionDetails subregion={subregion} {...props} />}/>
+              <Route path={`/subregions/${Subregion.url}/edit`} render={props => <EditSubregion data={Subregion} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>
@@ -37,3 +41,20 @@ class Subregion extends PureComponent {
 
 export default connect(
 )(Subregion);
+
+class SubregionDetails extends PureComponent {
+  static propTypes = {
+    subregion: PropTypes.object.isRequired
+  };
+
+  render() {
+    const { name, description } = this.props.subregion;
+
+    return (
+      <Fragment>
+        <h1>{name}</h1>
+        <p>{description}</p>
+      </Fragment>
+    );
+  }
+}
