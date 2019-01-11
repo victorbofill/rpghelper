@@ -8,6 +8,8 @@ For now I'm just working on getting the app up and running so that I can play th
 
 The `supercomponent` branch is an experimental thing I'm playing with. Most of the components are nearly identical, and I'm working on a way to have the code do the work for me of creating them all.
 
+The `edits` branch is another experimental thing to create a dynamic Edit component that I can use for any component. I'll play with that some more as well, after I've finished hard-coding everything.
+
 * Works In Progress
 Up next is actually utilizing React, particularly in the Action component.
 
