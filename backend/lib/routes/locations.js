@@ -16,6 +16,20 @@ module.exports = router
       .then(res => res.send(res))
       .catch(err => res.send(err));
   })
+ 
+  .get('/', (req, res, next) => {
+    return Location.find()
+      .lean()
+      .then(location => res.json(location))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    return Location.findById(req.params.id)
+      .lean()
+      .then(location => res.json(location))
+      .catch(next);
+  })
 
   .put('/:id', (req, res, next) => {
     const {

@@ -17,21 +17,37 @@ module.exports = router
       .catch(next);
   })
 
+  .get('/', (req, res, next) => {
+    Chapter.find()
+      .lean()
+      .then(chapter => res.json(chapter))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    Chapter.findById(req.params.id)
+      .lean()
+      .then(chapter => res.json(chapter))
+      .catch(next);
+  })
+
   .put('/:id', (req, res, next) => {
     const {
       url,
       name,
       description,
+      status,
       reward,
-      status
+      unlocks
     } = req.body;
 
     const update = {
       url,
       name,
       description,
+      status,
       reward,
-      status
+      unlocks
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});

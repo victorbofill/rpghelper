@@ -16,18 +16,54 @@ module.exports = router
       .then(res => res.send(res))
       .catch(err => res.send(err));
   })
+ 
+  .get('/', (req, res, next) => {
+    return NPC.find()
+      .lean()
+      .then(NPC => res.json(NPC))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    return NPC.findById(req.params.id)
+      .lean()
+      .then(NPC => res.json(NPC))
+      .catch(next);
+  })
 
   .put('/:id', (req, res, next) => {
     const {
       url,
       name,
-      description
+      description,
+      relationship,
+      money,
+      str,
+      agi,
+      end,
+      will,
+      cha,
+      rea,
+      per,
+      notes,
+      skills
     } = req.body;
 
     const update = {
       url,
       name,
-      description
+      description,
+      relationship,
+      money,
+      str,
+      agi,
+      end,
+      will,
+      cha,
+      rea,
+      per,
+      notes,
+      skills
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});

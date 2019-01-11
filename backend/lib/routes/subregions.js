@@ -16,6 +16,20 @@ module.exports = router
       .then(res => res.send(res))
       .catch(err => res.send(err));
   })
+ 
+  .get('/', (req, res, next) => {
+    return Subregion.find()
+      .lean()
+      .then(subregion => res.json(subregion))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    return Subregion.findById(req.params.id)
+      .lean()
+      .then(subregion => res.json(subregion))
+      .catch(next);
+  })
 
   .put('/:id', (req, res, next) => {
     const {

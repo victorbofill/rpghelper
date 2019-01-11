@@ -3,13 +3,6 @@ const Note = require('../models/Note');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
-  .get('/', (req, res, next) => {
-    Note.find()
-      .lean()
-      .then(notes => res.json(notes))
-      .catch(next);
-  })
-
   .post('/', (req, res, next) => {
     return Note.create(req.body)
       .then(() => {
@@ -20,6 +13,13 @@ module.exports = router
       })
       .catch(next);
   })
+
+  .get('/', (req, res, next) => {
+    return Note.find()
+      .lean()
+      .then(notes => res.json(notes))
+      .catch(next);
+  })    
 
   .put('/:id', (req, res, next) => {
     return Note.findByIdAndUpdate(req.params.id, req.body, updateOptions)

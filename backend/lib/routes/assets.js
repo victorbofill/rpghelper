@@ -16,6 +16,20 @@ module.exports = router
       .then(res => res.send(res))
       .catch(err => res.send(err));
   })
+ 
+  .get('/', (req, res, next) => {
+    return Asset.find()
+      .lean()
+      .then(asset => res.json(asset))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    return Asset.findById(req.params.id)
+      .lean()
+      .then(asset => res.json(asset))
+      .catch(next);
+  })
 
   .put('/:id', (req, res, next) => {
     const {

@@ -3,13 +3,6 @@ const Entry = require('../models/Entry');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
-  .get('/', (req, res, next) => {
-    Entry.find()
-      .lean()
-      .then(entries => res.json(entries))
-      .catch(next);
-  })
-
   .post('/', (req, res, next) => {
     return Entry.create(req.body)
       .then(() => {
@@ -18,6 +11,13 @@ module.exports = router
           .then(entries => res.json(entries))
           .catch(next);
       })
+      .catch(next);
+  })
+
+  .get('/', (req, res, next) => {
+    return Entry.find()
+      .lean()
+      .then(entries => res.json(entries))
       .catch(next);
   })
 

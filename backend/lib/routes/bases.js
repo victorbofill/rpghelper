@@ -16,18 +16,38 @@ module.exports = router
       .then(res => res.send(res))
       .catch(err => res.send(err));
   })
+ 
+  .get('/', (req, res, next) => {
+    return Base.find()
+      .lean()
+      .then(base => res.json(base))
+      .catch(next);
+  })
+
+  .get('/:id', (req, res, next) => {
+    return Base.findById(req.params.id)
+      .lean()
+      .then(base => res.json(base))
+      .catch(next);
+  })
 
   .put('/:id', (req, res, next) => {
     const {
       url,
       name,
-      description
+      description,
+      income,
+      overhead,
+      profit    
     } = req.body;
 
     const update = {
       url,
       name,
-      description
+      description,
+      income,
+      overhead,
+      profit    
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});

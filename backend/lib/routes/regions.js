@@ -17,6 +17,13 @@ module.exports = router
       .catch(next);
   })
 
+  .get('/:id', (req, res, next) => {
+    return Region.findById(req.params.id)
+      .lean()
+      .then(region => res.json(region))
+      .catch(next);
+  })
+
   .put('/:id', (req, res, next) => {
     const {
       url,

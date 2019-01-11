@@ -18,23 +18,25 @@ module.exports = router
       .catch(next);
   })
 
+  .get('/:id', (req, res, next) => {
+    Story.findById(req.params.id)
+      .lean()
+      .populate('chapters')
+      .then(story => res.json(story))
+      .catch(next);
+  })
+
   .put('/:id', (req, res) => {
     const {
+      url,
       name,
-      description,
-      available,
-      patron,
-      reward,
-      notes
+      description
     } = req.body;
     
     const update = {
+      url,
       name,
-      description,
-      available,
-      patron,
-      reward,
-      notes
+      description
     };
     
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
