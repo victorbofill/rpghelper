@@ -1,4 +1,5 @@
 export const DATA_POST = 'DATA_POST';
+export const DATA_ALL_LOAD = 'DATA_LOAD';
 export const DATA_LOAD = 'DATA_LOAD';
 export const DATA_UPDATE = 'DATA_UPDATE';
 export const DATA_REMOVE = 'DATA_REMOVE';
@@ -9,6 +10,8 @@ export function data(state = [], { type, payload }) {
   switch(type) {
     case DATA_POST:
       return [...state, payload];
+    case DATA_ALL_LOAD:
+      return payload;
     case DATA_LOAD:
       return payload;
     case DATA_UPDATE:

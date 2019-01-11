@@ -1,5 +1,6 @@
 import {
   postData,
+  getAllData,
   getData,
   putData,
   delData
@@ -7,6 +8,7 @@ import {
 
 import {
   DATA_POST,
+  DATA_ALL_LOAD,
   DATA_LOAD,
   DATA_UPDATE,
   DATA_REMOVE
@@ -19,12 +21,19 @@ export function addData() {
   };
 }
 
-export function loadData() {
+export function loadAllData() {
   return {
-    type: DATA_LOAD,
+    type: DATA_ALL_LOAD,
     payload: getData()
   };  
 }  
+
+export function loadData() {
+  return {
+    type: DATA_LOAD,
+    payload: getAllData()
+  };
+}
 
 export function updateData(updatedObject) {
   return {
