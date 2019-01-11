@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Edit from '../edit/Edit';
+import EditRegion from './EditRegion';
 import Subregions from '../subregions/Subregions';
 
 import styles from './Regions.css';
@@ -30,7 +30,7 @@ class Region extends PureComponent {
           <div>
             <Switch>
               <Route path={`/regions/${region.url}/subregions`} component={Subregions}/>
-              <Route path={`/regions/${region.url}/edit`} render={props => <Edit data={region} {...props}/>}/>
+              <Route path={`/regions/${region.url}/edit`} render={props => <EditRegion region={region} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>
