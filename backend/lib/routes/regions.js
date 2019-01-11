@@ -27,12 +27,14 @@ module.exports = router
   .put('/:id', (req, res, next) => {
     const {
       url,
-      name
+      name,
+      description
     } = req.body;
 
     const update = {
       url,
-      name
+      name,
+      description
     };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
