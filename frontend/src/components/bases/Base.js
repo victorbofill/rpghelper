@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import EditBase from './EditBase';
 // import Assets from '../assets/Assets';
-// import NPCs from '../NPCs/NPCs';
+import NPCs from '../NPCs/NPCs';
 
 import styles from './Bases.css';
 
@@ -25,7 +25,7 @@ class Base extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
-              {/* <NavLink to={`${match.path}/bases`}> <li>Bases</li></NavLink> */}
+              <NavLink to={`${match.path}/npcs`}> <li>NPCs</li></NavLink>
               <NavLink to={`${match.path}`}><li>Details</li></NavLink>
               <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
             </ul>
@@ -33,9 +33,9 @@ class Base extends PureComponent {
 
           <div>
             <Switch>
-              {/* <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } base={base} npcs={npcs} />}/> */}
+              <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } base={base} />}/>
               <Route exact path={`${match.path}`} render={props => <BaseDetails base={base} {...props} />}/>
-              <Route path={`${match.path}`} render={props => <EditBase base={base} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditBase base={base} {...props} />}/>
             </Switch>
           </div>
         </Fragment>

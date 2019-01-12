@@ -48,7 +48,7 @@ class Bases extends PureComponent {
 
           <div>
             <Switch>
-              {bases && bases.map(base => (<Route key={base._id} path={`${match.path}/${base.url}`} render={props => <Base {...props} base={base} {...props} />}/>))}
+              {bases && bases.map(base => (<Route key={base._id} path={`${match.path}/${base.url}`} render={props => <Base base={base} {...props} />}/>))}
             </Switch>
           </div>
         </div>
