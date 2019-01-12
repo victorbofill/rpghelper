@@ -13,7 +13,7 @@ import { regions } from '../components/regions/reducers';
 import { subregions } from '../components/subregions/reducers';
 import { locations } from '../components/locations/reducers';
 import { bases } from '../components/bases/reducers';
-// import { assets } from '../components/assets/reducers';
+import { assets } from '../components/assets/reducers';
 import { NPCs } from '../components/NPCs/reducers';
 
 const rootReducer = combineReducers({
@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
   subregions,
   locations,
   bases,
-  // assets,
+  assets,
   NPCs
 });
 

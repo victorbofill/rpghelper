@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { connect } from 'react-redux';
 
 import EditBase from './EditBase';
-// import Assets from '../assets/Assets';
+import Assets from '../assets/Assets';
 import NPCs from '../NPCs/NPCs';
 
 import styles from './Bases.css';
@@ -25,7 +25,8 @@ class Base extends PureComponent {
         <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`${match.path}/npcs`}> <li>NPCs</li></NavLink>
+              <NavLink to={`${match.path}/assets`}><li>Assets</li></NavLink>
+              <NavLink to={`${match.path}/npcs`}><li>NPCs</li></NavLink>
               <NavLink to={`${match.path}`}><li>Details</li></NavLink>
               <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
             </ul>
@@ -33,6 +34,7 @@ class Base extends PureComponent {
 
           <div>
             <Switch>
+              <Route path={`${match.path}/assets`} render={props => <Assets { ...props } base={base} />}/>
               <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } base={base} />}/>
               <Route exact path={`${match.path}`} render={props => <BaseDetails base={base} {...props} />}/>
               <Route path={`${match.path}/edit`} render={props => <EditBase base={base} {...props} />}/>
