@@ -15,7 +15,6 @@ import {
 import styles from './Locations.css';
 
 class Locations extends PureComponent {
-
   static propTypes = {
     locations: PropTypes.array,
     addLocation: PropTypes.func,

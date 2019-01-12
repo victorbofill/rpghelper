@@ -1,70 +1,56 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Base from './Base';
-import { postBase } from '../../../services/api';
+import { getBases } from './reducers';
+import {
+  addBase,
+  loadBases,
+  updateBase,
+  deleteBase
+} from './actions';
 
 import styles from './Bases.css';
 
 class Bases extends PureComponent {
   static propTypes = {
-    match: PropTypes.object,
     bases: PropTypes.array,
-    locationObject: PropTypes.object,
-    loadLocations: PropTypes.func
+    addBase: PropTypes.func,
+    loadBases: PropTypes.func,
+    updateBase: PropTypes.func,
+    deleteBase: PropTypes.func,
+    match: PropTypes.object,
   };
 
-  handleAddBase = () => {
-    const { _id } = this.props.locationObject;
-    
-    const base = {
-      url: 'newbase',
-      name: 'New Base',
-      description: 'description',
-    };
+  componentDidMount() {
+    this.props.loadBases();
+  }
 
-    postBase(_id, base)
-      .then(() => this.props.loadLocations());
+  handleCreateBase = () => {
+    this.props.addBase();
   };
-
+  
   render() {
-    const { match, bases, locationObject } = this.props;
-    const { handleAddBase } = this;
-    const { path } = match;
+    const { handleCreateBase } = this;
+    const { bases, match } = this.props;
 
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {bases && (bases[0] !== null) &&
-                bases.map(base => {
-                  return (
-                    <li key={base._id}><NavLink to={`${path}/${base.url}`}>{`${base.name}`}</NavLink></li>
-                  );
-                })
-              }
-              <li onClick={handleAddBase}>+</li>
+              {bases && bases.map(base => (<NavLink key={base._id} to={`${match.path}/${base.url}`}><li >{base.name}</li></NavLink>))}
+              <li onClick={handleCreateBase}>+</li>
             </ul>
           </header>
 
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  {bases && (bases[0] !== null) &&
-                    bases.map(base => {
-                      return (
-                        <Route key={base._id} path={`${path}/${base.url}`} render={props => <Base {...props} locationObject={locationObject} bases={bases} />} />
-                      );
-                    })
-                  }
-                </Switch>
-              </div>
-            </div>
-          </main>
+          <div>
+            <Switch>
+              {bases && bases.map(base => (<Route key={base._id} path={`${match.path}/${base.url}`} render={props => <Base {...props} base={base} {...props} />}/>))}
+            </Switch>
+          </div>
         </div>
       </Router>
     );
@@ -72,6 +58,12 @@ class Bases extends PureComponent {
 }
 
 export default connect(
-  null,
-  { }
+  state => ({
+    bases: getBases(state)
+  }), {
+    addBase,
+    loadBases,
+    updateBase,
+    deleteBase  
+  }
 )(Bases);
