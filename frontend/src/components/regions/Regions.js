@@ -34,22 +34,20 @@ class Regions extends PureComponent {
   render() {
     const { handleCreateRegion } = this;
     const { regions } = this.props;
-
-    if(!regions) return null;
-    
+   
     return (
       <Router>
         <div>
           <header className={styles.header}>
             <ul>
-              {regions.map(region => (<NavLink key={region._id} to={`/regions/${region.url}`}><li >{region.name}</li></NavLink>))}
+              {regions && regions.map(region => (<NavLink key={region._id} to={`/regions/${region.url}`}><li >{region.name}</li></NavLink>))}
               <li onClick={handleCreateRegion}>+</li>
             </ul>
           </header>
 
           <div>
             <Switch>
-              {regions.map(region => (<Route key={region._id} path={`/regions/${region.url}`} render={props => <Region {...props} region={region} />}/>))}
+              {regions && regions.map(region => (<Route key={region._id} path={`/regions/${region.url}`} render={props => <Region {...props} region={region} />}/>))}
             </Switch>
           </div>
         </div>

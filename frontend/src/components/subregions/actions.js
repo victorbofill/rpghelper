@@ -1,6 +1,7 @@
 import {
   postSubregion,
   getSubregions,
+  getSubregion,
   putSubregion,
   delSubregion
 } from '../../services/api';
@@ -8,32 +9,40 @@ import {
 import {
   SUBREGION_POST,
   SUBREGIONS_LOAD,
+  SUBREGION_LOAD,
   SUBREGION_UPDATE,
   SUBREGION_REMOVE
 } from './reducers';
 
-export function addRegion() {
+export function addSubregion() {
   return {
     type: SUBREGION_POST,
     payload: postSubregion()
   };
 }
 
-export function loadRegions() {
+export function loadSubregions() {
   return {
     type: SUBREGIONS_LOAD,
     payload: getSubregions()
   };  
 }  
 
-export function updateRegion(region) {
+export function loadSubregion(id) {
+  return {
+    type: SUBREGION_LOAD,
+    payload: getSubregion(id)
+  };  
+}  
+
+export function updateSubregion(subregion) {
   return {
     type: SUBREGION_UPDATE,
-    payload: putSubregion(region)
+    payload: putSubregion(subregion)
   };
 }
 
-export function deleteRegion(id) {
+export function deleteSubregion(id) {
   return {
     type: SUBREGION_REMOVE,
     payload: delSubregion(id)

@@ -4,7 +4,7 @@ Oh hello! This is just an app to help me run the RPG game that I made, Quan. It 
 
 
 * Jan. 11
-For now I'm just working on getting the app up and running so that I can play the game with my friends. The routes tree from App down to the base of the tree is broken in a dozen places, but it's just a matter of plugging it all in correctly. That's what I'm working on in the `routestree` branch.
+The basic, basic functionality is done. It's all vertically plugged in. Right now, though, every component displays all data, without regard for the actual database structure. I'm considering just removing Redux, actually, because I'm not convinced that I need persistent data across components, as there's only one branch displayed at a time.
 
 The `supercomponent` branch is an experimental thing I'm playing with. Most of the components are nearly identical, and I'm working on a way to have the code do the work for me of creating them all.
 

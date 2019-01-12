@@ -20,7 +20,7 @@ module.exports = router
   .get('/', (req, res, next) => {
     return NPC.find()
       .lean()
-      .then(NPC => res.json(NPC))
+      .then(NPCs => res.json(NPCs))
       .catch(next);
   })
 
