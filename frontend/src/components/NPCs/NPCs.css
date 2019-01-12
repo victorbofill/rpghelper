@@ -20,17 +20,3 @@
     text-decoration: none;
   }
 }
-
-
-:local(.NPC) {
-  display: flex;
-  flex-direction: column;
-
-  .stats {
-    border: 1px solid red;
-  }
-
-  .stories {
-    border: 1px solid green;
-  }
-}

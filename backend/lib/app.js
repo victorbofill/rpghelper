@@ -25,7 +25,7 @@ app.use('/api/chapters', chapters);
 app.use('/api/entries', entries);
 app.use('/api/locations', locations);
 app.use('/api/notes', notes);
-app.use('/api/locations', npcs);
+app.use('/api/npcs', npcs);
 app.use('/api/participants', participants);
 app.use('/api/regions', regions);
 app.use('/api/stories', stories);

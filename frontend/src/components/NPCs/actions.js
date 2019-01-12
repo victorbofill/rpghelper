@@ -1,6 +1,7 @@
 import {
   postNPC,
   getNPCs,
+  getNPC,
   putNPC,
   delNPC
 } from '../../services/api';
@@ -8,6 +9,7 @@ import {
 import {
   NPC_POST,
   NPCS_LOAD,
+  NPC_LOAD,
   NPC_UPDATE,
   NPC_REMOVE
 } from './reducers';
@@ -26,10 +28,17 @@ export function loadNPCs() {
   };  
 }  
 
-export function updateNPC(region) {
+export function loadNPC(id) {
+  return {
+    type: NPC_LOAD,
+    payload: getNPC(id)
+  };  
+}  
+
+export function updateNPC(NPC) {
   return {
     type: NPC_UPDATE,
-    payload: putNPC(region)
+    payload: putNPC(NPC)
   };
 }
 
