@@ -31,7 +31,7 @@ const REGIONS_URL = `${URL}/regions`;
 const STORIES_URL = `${URL}/stories`;
 const SUBREGIONS_URL = `${URL}/subregions`;
 
-export const getRoutes = type => {
+export const fetchApiFunctions = type => {
   switch(type) {
     case 'assets':
       return assets;
