@@ -3,10 +3,10 @@
 Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization as I just run it locally. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts :)
 
 
-* Jan. 11
-The basic, basic functionality is done. It's all vertically plugged in. Right now, though, every component displays all data, without regard for the actual database structure. I'm considering just removing Redux, actually, because I'm not convinced that I need persistent data across components, as there's only one branch displayed at a time.
+* Jan. 16
+The basic, basic functionality is done. It's all vertically plugged in. Right now, though, every component displays all data, without regard for the actual database structure. I'm considering just removing Redux, actually, because I'm not convinced that I need persistent data across all components anyway.
 
-The `supercomponent` branch is an experimental thing I'm playing with. Most of the components are nearly identical, and I'm working on a way to have the code do the work for me of creating them all.
+The `supercomponent` branch started as an experiment wherein I was creating one giant component that I could just give a 'type' and it would use that to generate itself as whatever type that was. But that's what just... creating a component is... So I'm breaking it down into pieces. Right now I've got the ContainerHeader and Routes components, which can be used with containers to generate their headers and routes. Next I'll create one for their children.
 
 The `edits` branch is another experimental thing to create a dynamic Edit component that I can use for any component. I'll play with that some more as well, after I've finished hard-coding everything.
 
