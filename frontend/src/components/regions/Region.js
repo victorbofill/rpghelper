@@ -10,30 +10,30 @@ import styles from './Regions.css';
 
 class Region extends PureComponent {
   static propTypes = {
-    region: PropTypes.any.isRequired
+    child: PropTypes.any.isRequired
   };
 
   render() {
-    const { region } = this.props;
+    const { child } = this.props;
     
-    if(!region) return null;
+    if(!child) return null;
 
     return (
       <Router>
         <Fragment>
           <header className={styles.header}>
             <ul>
-              <NavLink to={`/regions/${region.url}/subregions`}><li>Subregions</li></NavLink>
-              <NavLink to={`/regions/${region.url}/`}><li>Details</li></NavLink>
-              <NavLink to={`/regions/${region.url}/edit`}><li>Edit</li></NavLink>
+              <NavLink to={`/regions/${child.url}/subregions`}><li>Subregions</li></NavLink>
+              <NavLink to={`/regions/${child.url}/`}><li>Details</li></NavLink>
+              <NavLink to={`/regions/${child.url}/edit`}><li>Edit</li></NavLink>
             </ul>
           </header>
 
           <div>
             <Switch>
-              <Route path={`/regions/${region.url}/subregions`} component={Subregions}/>
-              <Route exact path={`/regions/${region.url}/`} render={props => <RegionDetails region={region} {...props} />}/>
-              <Route path={`/regions/${region.url}/edit`} render={props => <EditRegion region={region} {...props}/>}/>
+              <Route path={`/regions/${child.url}/subregions`} component={Subregions}/>
+              <Route exact path={`/regions/${child.url}/`} render={props => <RegionDetails region={child} {...props} />}/>
+              <Route path={`/regions/${child.url}/edit`} render={props => <EditRegion region={child} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>

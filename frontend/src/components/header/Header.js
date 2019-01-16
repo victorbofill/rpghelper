@@ -2,29 +2,25 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import styles from './styles.css';
+import styles from './Header.css';
 
 export default class Header extends PureComponent {
   static propTypes = {
-    type: PropTypes.string.isRequired
+    headerChildren: PropTypes.array.isRequired,
+    path: PropTypes.string.isRequired,
+    handleCreateChild: PropTypes.func.isRequired
   };
-
-  state = {
-    data: null
-  };
-
-  componentDidMount() {
-  }
 
   render() {
-    const { type } = this.props;
-    const { data } = this.state;
+    const { headerChildren, path, handleCreateChild } = this.props;
 
     return (
       <header className={styles.header}>
         <ul>
-          {data && data.map(data => (<NavLink key={data._id} to={`/${type}/${data.url}`}><li >{data.name}</li></NavLink>))}
-          {/* <li onClick={handleCreateData}>+</li> */}
+          {headerChildren && headerChildren.map(headerChild =>
+            (<NavLink key={headerChild._id} to={`${path}/${headerChild.url}`}><li >{headerChild.name}</li></NavLink>)
+          )}
+          <li onClick={handleCreateChild}>+</li>
         </ul>
       </header>
     );

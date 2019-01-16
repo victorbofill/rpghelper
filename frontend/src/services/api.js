@@ -58,6 +58,14 @@ export const fetchApiFunctions = type => {
   }
 };
 
+export const apiFunctions = {
+  post: (data, url) => post(`${url}`, data),
+  getAll: (url) => get(`${url}`),
+  get: (id, url) => get(`${url}/${id}`),
+  put: (data, url) => put(`${url}/${url._id}`, data),
+  del: (id, url) => del(`${url}/${id}`)
+};
+
 const assets = {
   postAsset: asset => post(`${ASSETS_URL}`, asset),
   getAssets: () => get(`${ASSETS_URL}`),
