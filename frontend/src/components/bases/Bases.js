@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Base from './Base';
+import ContainerHeader from '../header/ContainerHeader';
+import Routes from '../routes/Routes';
 import { getBases } from './reducers';
 import {
   addBase,
@@ -12,9 +14,7 @@ import {
   deleteBase
 } from './actions';
 
-import styles from './Bases.css';
-
-class Bases extends PureComponent {
+class Bases extends Component {
   static propTypes = {
     bases: PropTypes.array,
     addBase: PropTypes.func,
@@ -38,20 +38,10 @@ class Bases extends PureComponent {
 
     return (
       <Router>
-        <div>
-          <header className={styles.header}>
-            <ul>
-              {bases && bases.map(base => (<NavLink key={base._id} to={`${match.path}/${base.url}`}><li >{base.name}</li></NavLink>))}
-              <li onClick={handleCreateBase}>+</li>
-            </ul>
-          </header>
-
-          <div>
-            <Switch>
-              {bases && bases.map(base => (<Route key={base._id} path={`${match.path}/${base.url}`} render={props => <Base base={base} {...props} />}/>))}
-            </Switch>
-          </div>
-        </div>
+        <Fragment>
+          {bases && <ContainerHeader headerChildren={bases} handleCreateChild={handleCreateBase} path={match.path} /> }
+          {bases && <Routes data={bases} DataComponent={Base} path={match.path} /> }
+        </Fragment>
       </Router>
     );
   }

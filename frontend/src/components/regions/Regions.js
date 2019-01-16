@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Header from '../header/Header';
+import ContainerHeader from '../header/ContainerHeader';
 import Region from './Region';
 import Routes from '../routes/Routes';
 import { getRegions } from './reducers';
@@ -14,16 +14,14 @@ import {
   deleteRegion
 } from './actions';
 
-import styles from './Regions.css';
-
-class Regions extends PureComponent {
+class Regions extends Component {
   static propTypes = {
     addRegion: PropTypes.func,
     loadRegions: PropTypes.func,
     updateRegion: PropTypes.func,
     deleteRegion: PropTypes.func,
     regions: PropTypes.array,
-    match: PropTypes.object
+    match: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -37,17 +35,13 @@ class Regions extends PureComponent {
   render() {
     const { handleCreateRegion } = this;
     const { regions, match } = this.props;
-   
+
     return (
       <Router>
-        <div>
-          {regions && <Header headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
-
-          <div>
-            <h1>Regions</h1>
-            {regions && <Routes data={regions} Component={Region} path={match.path} /> }
-          </div>
-        </div>
+        <Fragment>
+          {regions && <ContainerHeader headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
+          {regions && <Routes data={regions} DataComponent={Region} path={match.path} /> }
+        </Fragment>
       </Router>
     );
   }
@@ -63,4 +57,4 @@ export default connect(
     updateRegion,
     deleteRegion
   }
-)(withRouter(Regions));
+)(Regions);

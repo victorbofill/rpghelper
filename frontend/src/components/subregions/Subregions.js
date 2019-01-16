@@ -1,8 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import ContainerHeader from '../header/ContainerHeader';
+import Routes from '../routes/Routes';
 import Subregion from './Subregion';
 import { getSubregions } from './reducers';
 import {
@@ -12,9 +14,7 @@ import {
   deleteSubregion
 } from './actions';
 
-import styles from './Subregions.css';
-
-class Subregions extends PureComponent {
+class Subregions extends Component {
   static propTypes = {
     subregions: PropTypes.array,
     addSubregion: PropTypes.func.isRequired,
@@ -38,20 +38,10 @@ class Subregions extends PureComponent {
 
     return (
       <Router>
-        <div>
-          <header className={styles.header}>
-            <ul>
-              {subregions && subregions.map(subregion => (<NavLink key={subregion._id} to={`${match.path}/${subregion.url}`}><li >{subregion.name}</li></NavLink>))}
-              <li onClick={handleCreateSubregion}>+</li>
-            </ul>
-          </header>
-
-          <div>
-            <Switch>
-              {subregions && subregions.map(subregion => (<Route key={subregion._id} path={`${match.path}/${subregion.url}`} render={props => <Subregion {...props} subregion={subregion} />}/>))}
-            </Switch>
-          </div>
-        </div>
+        <Fragment>
+          {subregions && <ContainerHeader headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={match.path} /> }
+          {subregions && <Routes data={subregions} DataComponent={Subregion} path={match.path} /> }
+        </Fragment>
       </Router>
     );
   }

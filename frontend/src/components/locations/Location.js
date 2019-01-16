@@ -1,6 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditLocation from './EditLocation';
@@ -8,16 +8,16 @@ import Bases from '../bases/Bases';
 
 import styles from './Locations.css';
 
-class Location extends PureComponent {
+class Location extends Component {
   static propTypes = {
-    locationObject: PropTypes.object,
+    child: PropTypes.object,
     match: PropTypes.object
   };
 
   render() {
-    const { locationObject, match } = this.props;
+    const { child, match } = this.props;
 
-    if(!locationObject) return null;
+    if(!child) return null;
 
     return (
       <Router>
@@ -32,9 +32,9 @@ class Location extends PureComponent {
 
           <div>
             <Switch>
-              <Route path={`${match.path}/bases`} render={props => <Bases { ...props } locationObject={locationObject} />}/>
-              <Route exact path={`${match.path}`} render={props => <LocationDetails locationObject={locationObject} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditLocation locationObject={locationObject} {...props} />}/>
+              <Route path={`${match.path}/bases`} render={props => <Bases { ...props } locationObject={child} />}/>
+              <Route exact path={`${match.path}`} render={props => <LocationDetails locationObject={child} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditLocation locationObject={child} {...props} />}/>
             </Switch>
           </div>
         </Fragment>
@@ -44,9 +44,9 @@ class Location extends PureComponent {
 }
 
 export default connect(
-)(Location);
+)(withRouter(Location));
 
-class LocationDetails extends PureComponent {
+class LocationDetails extends Component {
   static propTypes = {
     locationObject: PropTypes.object.isRequired
   };

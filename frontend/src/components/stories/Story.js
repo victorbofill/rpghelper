@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { Fragment, Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { delStory, postChapter } from '../../services/api';
 
 import styles from './Stories.css';
 
-class Story extends PureComponent {
+class Story extends Component {
   static propTypes = {
     match: PropTypes.object,
     story: PropTypes.object

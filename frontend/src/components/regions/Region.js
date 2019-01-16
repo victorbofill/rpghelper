@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import Subregions from '../subregions/Subregions';
 
 import styles from './Regions.css';
 
-class Region extends PureComponent {
+class Region extends Component {
   static propTypes = {
     child: PropTypes.any.isRequired
   };
@@ -29,13 +29,11 @@ class Region extends PureComponent {
             </ul>
           </header>
 
-          <div>
-            <Switch>
-              <Route path={`/regions/${child.url}/subregions`} component={Subregions}/>
-              <Route exact path={`/regions/${child.url}/`} render={props => <RegionDetails region={child} {...props} />}/>
-              <Route path={`/regions/${child.url}/edit`} render={props => <EditRegion region={child} {...props}/>}/>
-            </Switch>
-          </div>
+          <Switch>
+            <Route path={`/regions/${child.url}/subregions`} component={Subregions}/>
+            <Route exact path={`/regions/${child.url}/`} render={props => <RegionDetails region={child} {...props} />}/>
+            <Route path={`/regions/${child.url}/edit`} render={props => <EditRegion region={child} {...props}/>}/>
+          </Switch>
         </Fragment>
       </Router>
     );
@@ -45,7 +43,7 @@ class Region extends PureComponent {
 export default connect(
 )(Region);
 
-class RegionDetails extends PureComponent {
+class RegionDetails extends Component {
   static propTypes = {
     region: PropTypes.object.isRequired
   };

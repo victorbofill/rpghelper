@@ -1,22 +1,22 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditAsset from './EditAsset';
 
 import styles from './Assets.css';
 
-class Asset extends PureComponent {
+class Asset extends Component {
   static propTypes = {
-    asset: PropTypes.object,
+    child: PropTypes.object,
     match: PropTypes.object
   };
 
   render() {
-    const { asset, match } = this.props;
+    const { child, match } = this.props;
 
-    if(!asset) return null;
+    if(!child) return null;
 
     return (
       <Router>
@@ -30,8 +30,8 @@ class Asset extends PureComponent {
 
           <div>
             <Switch>
-              <Route exact path={`${match.path}`} render={props => <AssetDetails asset={asset} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditAsset asset={asset} {...props} />}/>
+              <Route exact path={`${match.path}`} render={props => <AssetDetails asset={child} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditAsset asset={child} {...props} />}/>
             </Switch>
           </div>
         </Fragment>
@@ -41,9 +41,9 @@ class Asset extends PureComponent {
 }
 
 export default connect(
-)(Asset);
+)(withRouter(Asset));
 
-class AssetDetails extends PureComponent {
+class AssetDetails extends Component {
   static propTypes = {
     asset: PropTypes.object.isRequired
   };

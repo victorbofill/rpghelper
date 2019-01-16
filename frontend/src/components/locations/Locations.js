@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import ContainerHeader from '../header/ContainerHeader';
 import Location from './Location';
+import Routes from '../routes/Routes';
 import { getLocations } from './reducers';
 import {
   addLocation,
@@ -12,9 +14,7 @@ import {
   deleteLocation
 } from './actions';
 
-import styles from './Locations.css';
-
-class Locations extends PureComponent {
+class Locations extends Component {
   static propTypes = {
     locations: PropTypes.array,
     addLocation: PropTypes.func,
@@ -38,20 +38,10 @@ class Locations extends PureComponent {
 
     return (
       <Router>
-        <div>
-          <header className={styles.header}>
-            <ul>
-              {locations && locations.map(locationObject => (<NavLink key={locationObject._id} to={`${match.path}/${locationObject.url}`}><li >{locationObject.name}</li></NavLink>))}
-              <li onClick={handleCreateLocation}>+</li>
-            </ul>
-          </header>
-
-          <div>
-            <Switch>
-              {locations && locations.map(locationObject => (<Route key={locationObject._id} path={`${match.path}/${locationObject.url}`} render={props => <Location {...props} locationObject={locationObject} {...props} />}/>))}
-            </Switch>
-          </div>
-        </div>
+        <Fragment>
+          {locations && <ContainerHeader headerChildren={locations} handleCreateChild={handleCreateLocation} path={match.path} /> }
+          {locations && <Routes data={locations} DataComponent={Location} path={match.path} /> }
+        </Fragment>
       </Router>
     );
   }

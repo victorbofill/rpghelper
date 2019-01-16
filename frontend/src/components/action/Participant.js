@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import styles from './Action.css';
 
-class Participant extends PureComponent {
+class Participant extends Component {
   static propTypes = {
     participant: PropTypes.object,
     handleUpdateParticipant: PropTypes.func,

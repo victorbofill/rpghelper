@@ -1,6 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditBase from './EditBase';
@@ -9,16 +9,16 @@ import NPCs from '../NPCs/NPCs';
 
 import styles from './Bases.css';
 
-class Base extends PureComponent {
+class Base extends Component {
   static propTypes = {
-    base: PropTypes.object,
+    child: PropTypes.object,
     match: PropTypes.object
   };
 
   render() {
-    const { base, match } = this.props;
+    const { child, match } = this.props;
 
-    if(!base) return null;
+    if(!child) return null;
 
     return (
       <Router>
@@ -34,10 +34,10 @@ class Base extends PureComponent {
 
           <div>
             <Switch>
-              <Route path={`${match.path}/assets`} render={props => <Assets { ...props } base={base} />}/>
-              <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } base={base} />}/>
-              <Route exact path={`${match.path}`} render={props => <BaseDetails base={base} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditBase base={base} {...props} />}/>
+              <Route path={`${match.path}/assets`} render={props => <Assets { ...props } base={child} />}/>
+              <Route path={`${match.path}/npcs`} render={props => <NPCs { ...props } base={child} />}/>
+              <Route exact path={`${match.path}`} render={props => <BaseDetails base={child} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditBase base={child} {...props} />}/>
             </Switch>
           </div>
         </Fragment>
@@ -47,9 +47,9 @@ class Base extends PureComponent {
 }
 
 export default connect(
-)(Base);
+)(withRouter(Base));
 
-class BaseDetails extends PureComponent {
+class BaseDetails extends Component {
   static propTypes = {
     base: PropTypes.object.isRequired
   };

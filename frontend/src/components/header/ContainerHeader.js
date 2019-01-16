@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import styles from './Header.css';
 
-export default class Header extends PureComponent {
+export default class ContainerHeader extends Component {
   static propTypes = {
     headerChildren: PropTypes.array.isRequired,
     path: PropTypes.string.isRequired,

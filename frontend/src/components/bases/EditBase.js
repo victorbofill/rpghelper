@@ -1,10 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateBase } from './actions';
 
-class EditBase extends PureComponent {
+class EditBase extends Component {
   static propTypes = {
     base: PropTypes.object.isRequired
   };

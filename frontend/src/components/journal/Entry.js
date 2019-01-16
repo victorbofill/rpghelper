@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import styles from './Entries.css';
 
-class Entry extends PureComponent {
+class Entry extends Component {
   static propTypes = {
     handleDeleteEntry: PropTypes.func,
     handleUpdateEntry: PropTypes.func,

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import { postStory } from '../../services/api';
 
 import styles from './Stories.css';
 
-class Stories extends PureComponent {
+class Stories extends Component {
   static propTypes = {
     match: PropTypes.object,
     stories: PropTypes.array,

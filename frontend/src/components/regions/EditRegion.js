@@ -1,10 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateRegion } from './actions';
 
-class EditRegion extends PureComponent {
+class EditRegion extends Component {
   static propTypes = {
     region: PropTypes.object.isRequired
   };

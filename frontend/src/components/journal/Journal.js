@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ import {
   deleteEntry
 } from './actions';
 
-class Journal extends PureComponent {
+class Journal extends Component {
   static propTypes = {
     addEntry: PropTypes.func.isRequired,
     loadEntries: PropTypes.func.isRequired,

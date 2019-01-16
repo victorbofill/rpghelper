@@ -1,22 +1,22 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditNPC from './EditNPC';
 
 import styles from './NPCs.css';
 
-class NPCComponent extends PureComponent {
+class NPC extends Component {
   static propTypes = {
-    NPC: PropTypes.object,
+    child: PropTypes.object,
     match: PropTypes.object
   };
 
   render() {
-    const { NPC, match } = this.props;
+    const { child, match } = this.props;
 
-    if(!NPC) return null;
+    if(!child) return null;
 
     return (
       <Router>
@@ -30,8 +30,8 @@ class NPCComponent extends PureComponent {
 
           <div>
             <Switch>
-              <Route exact path={`${match.path}`} render={props => <NPCDetails NPC={NPC} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditNPC NPC={NPC} {...props} />}/>
+              <Route exact path={`${match.path}`} render={props => <NPCDetails NPC={child} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditNPC NPC={child} {...props} />}/>
             </Switch>
           </div>
         </Fragment>
@@ -41,9 +41,9 @@ class NPCComponent extends PureComponent {
 }
 
 export default connect(
-)(NPCComponent);
+)(withRouter(NPC));
 
-class NPCDetails extends PureComponent {
+class NPCDetails extends Component {
   static propTypes = {
     NPC: PropTypes.object.isRequired
   };

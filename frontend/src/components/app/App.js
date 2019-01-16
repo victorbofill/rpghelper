@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Dice from '../dice/Dice';
 import Regions from '../regions/Regions';
@@ -9,7 +9,7 @@ import Notes from '../notes/Notes';
 
 import styles from './App.css';
 
-export default class App extends PureComponent {
+export default class App extends Component {
   render() {
     return (
       <Router>

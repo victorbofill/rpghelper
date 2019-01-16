@@ -1,10 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateAsset } from './actions';
 
-class EditAsset extends PureComponent {
+class EditAsset extends Component {
   static propTypes = {
     asset: PropTypes.object.isRequired
   };

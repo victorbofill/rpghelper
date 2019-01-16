@@ -1,6 +1,6 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditSubregion from './EditSubregion';
@@ -8,16 +8,16 @@ import Locations from '../locations/Locations';
 
 import styles from './Subregions.css';
 
-class Subregion extends PureComponent {
+class Subregion extends Component {
   static propTypes = {
-    subregion: PropTypes.object.isRequired,
+    child: PropTypes.object.isRequired,
     match: PropTypes.object
   };
 
   render() {
-    const { subregion, match } = this.props;
+    const { child, match } = this.props;
     
-    if(!subregion) return null;
+    if(!child) return null;
     
     return (
       <Router>
@@ -33,8 +33,8 @@ class Subregion extends PureComponent {
           <div>
             <Switch>
               <Route path={`${match.path}/locations`} component={Locations}/>
-              <Route exact path={`${match.path}`} render={props => <SubregionDetails subregion={subregion} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditSubregion subregion={subregion} {...props}/>}/>
+              <Route exact path={`${match.path}`} render={props => <SubregionDetails subregion={child} {...props} />}/>
+              <Route path={`${match.path}/edit`} render={props => <EditSubregion subregion={child} {...props}/>}/>
             </Switch>
           </div>
         </Fragment>
@@ -44,9 +44,9 @@ class Subregion extends PureComponent {
 }
 
 export default connect(
-)(Subregion);
+)(withRouter(Subregion));
 
-class SubregionDetails extends PureComponent {
+class SubregionDetails extends Component {
   static propTypes = {
     subregion: PropTypes.object.isRequired
   };

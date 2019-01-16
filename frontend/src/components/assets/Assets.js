@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Asset from './Asset';
+import ContainerHeader from '../header/ContainerHeader';
+import Routes from '../routes/Routes';
 import { getAssets } from './reducers';
 import {
   addAsset,
@@ -12,9 +14,7 @@ import {
   deleteAsset
 } from './actions';
 
-import styles from './Assets.css';
-
-class Assets extends PureComponent {
+class Assets extends Component {
   static propTypes = {
     assets: PropTypes.array,
     addAsset: PropTypes.func,
@@ -38,20 +38,10 @@ class Assets extends PureComponent {
 
     return (
       <Router>
-        <div>
-          <header className={styles.header}>
-            <ul>
-              {assets && assets.map(asset => (<NavLink key={asset._id} to={`${match.path}/${asset.url}`}><li >{asset.name}</li></NavLink>))}
-              <li onClick={handleCreateAsset}>+</li>
-            </ul>
-          </header>
-
-          <div>
-            <Switch>
-              {assets && assets.map(asset => (<Route key={asset._id} path={`${match.path}/${asset.url}`} render={props => <Asset {...props} asset={asset} {...props} />}/>))}
-            </Switch>
-          </div>
-        </div>
+        <Fragment>
+          {assets && <ContainerHeader headerChildren={assets} handleCreateChild={handleCreateAsset} path={match.path} /> }
+          {assets && <Routes data={assets} DataComponent={Asset} path={match.path} /> }
+        </Fragment>
       </Router>
     );
   }

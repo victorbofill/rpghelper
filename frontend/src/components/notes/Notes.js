@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ import {
   deleteNote
 } from './actions';
 
-class Notes extends PureComponent {
+class Notes extends Component {
   static propTypes = {
     addNote: PropTypes.func.isRequired,
     loadNotes: PropTypes.func.isRequired,

@@ -1,10 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateNPC } from './actions';
 
-class EditNPC extends PureComponent {
+class EditNPC extends Component {
   static propTypes = {
     NPC: PropTypes.object.isRequired
   };
