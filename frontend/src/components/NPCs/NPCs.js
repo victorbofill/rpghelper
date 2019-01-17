@@ -4,8 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import NPC from './NPC';
-import Routes from '../routes/Routes';
 import { getNPCs } from './reducers';
 import {
   addNPC,
@@ -40,7 +40,7 @@ class NPCs extends Component {
       <Router>
         <Fragment>
           {NPCs && <ContainerHeader headerChildren={NPCs} handleCreateChild={handleCreateNPC} path={match.path} /> }
-          {NPCs && <Routes data={NPCs} DataComponent={NPC} path={match.path} /> }
+          {NPCs && <ContainerRoutes data={NPCs} DataComponent={NPC} path={match.path} /> }
         </Fragment>
       </Router>
     );

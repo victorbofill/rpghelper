@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Base from './Base';
 import ContainerHeader from '../header/ContainerHeader';
-import Routes from '../routes/Routes';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import { getBases } from './reducers';
 import {
   addBase,
@@ -40,7 +40,7 @@ class Bases extends Component {
       <Router>
         <Fragment>
           {bases && <ContainerHeader headerChildren={bases} handleCreateChild={handleCreateBase} path={match.path} /> }
-          {bases && <Routes data={bases} DataComponent={Base} path={match.path} /> }
+          {bases && <ContainerRoutes data={bases} DataComponent={Base} path={match.path} /> }
         </Fragment>
       </Router>
     );

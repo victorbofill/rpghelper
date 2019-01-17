@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import EditRegion from './EditRegion';
@@ -41,7 +41,7 @@ class Region extends Component {
 }
 
 export default connect(
-)(Region);
+)(withRouter(Region));
 
 class RegionDetails extends Component {
   static propTypes = {

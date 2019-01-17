@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
-import Routes from '../routes/Routes';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import Subregion from './Subregion';
 import { getSubregions } from './reducers';
 import {
@@ -40,7 +40,7 @@ class Subregions extends Component {
       <Router>
         <Fragment>
           {subregions && <ContainerHeader headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={match.path} /> }
-          {subregions && <Routes data={subregions} DataComponent={Subregion} path={match.path} /> }
+          {subregions && <ContainerRoutes data={subregions} DataComponent={Subregion} path={match.path} /> }
         </Fragment>
       </Router>
     );

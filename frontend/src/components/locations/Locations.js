@@ -4,8 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import Location from './Location';
-import Routes from '../routes/Routes';
 import { getLocations } from './reducers';
 import {
   addLocation,
@@ -40,7 +40,7 @@ class Locations extends Component {
       <Router>
         <Fragment>
           {locations && <ContainerHeader headerChildren={locations} handleCreateChild={handleCreateLocation} path={match.path} /> }
-          {locations && <Routes data={locations} DataComponent={Location} path={match.path} /> }
+          {locations && <ContainerRoutes data={locations} DataComponent={Location} path={match.path} /> }
         </Fragment>
       </Router>
     );

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Asset from './Asset';
 import ContainerHeader from '../header/ContainerHeader';
-import Routes from '../routes/Routes';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import { getAssets } from './reducers';
 import {
   addAsset,
@@ -40,7 +40,7 @@ class Assets extends Component {
       <Router>
         <Fragment>
           {assets && <ContainerHeader headerChildren={assets} handleCreateChild={handleCreateAsset} path={match.path} /> }
-          {assets && <Routes data={assets} DataComponent={Asset} path={match.path} /> }
+          {assets && <ContainerRoutes data={assets} DataComponent={Asset} path={match.path} /> }
         </Fragment>
       </Router>
     );

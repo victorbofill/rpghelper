@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 
-export default class Routes extends Component {
+export default class ContainerRoutes extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     DataComponent: PropTypes.func.isRequired,
