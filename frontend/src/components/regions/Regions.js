@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
 import Region from './Region';
-import Routes from '../routes/Routes';
+import ContainerRoutes from '../routes/ContainerRoutes';
 import { getRegions } from './reducers';
 import {
   addRegion,
@@ -40,7 +40,7 @@ class Regions extends Component {
       <Router>
         <Fragment>
           {regions && <ContainerHeader headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
-          {regions && <Routes data={regions} DataComponent={Region} path={match.path} /> }
+          {regions && <ContainerRoutes data={regions} DataComponent={Region} path={match.path} /> }
         </Fragment>
       </Router>
     );
