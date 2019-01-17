@@ -6,17 +6,15 @@ class ComponentRoutes extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
     dataComponent: PropTypes.func.isRequired,
-    match: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired
   };
 
   render() {
-    const { child, dataComponent, match } = this.props;
-
-    console.log('path: ', `${match.path}/${child.url}/subregions`);
+    const { child, dataComponent, location } = this.props;
 
     return (
       <Switch>
-        <Route path={`${match.path}/${child.url}/subregions`} component={dataComponent}/>
+        <Route path={`${location.pathname}`} component={dataComponent}/>
         {/* <Route exact path={`${match.path}/${child.url}/`} render={props => <RegionDetails region={child} {...props} />}/>
         <Route path={`${match.path}/${child.url}/edit`} render={props => <EditRegion region={child} {...props}/>}/> */}
       </Switch>
