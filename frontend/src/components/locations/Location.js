@@ -1,16 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import EditLocation from './EditLocation';
+import ComponentHeader from '../header/ComponentHeader';
+import ComponentRoutes from '../routes/ComponentRoutes';
 import Bases from '../bases/Bases';
-
-import styles from './Locations.css';
 
 class Location extends Component {
   static propTypes = {
-    child: PropTypes.object,
+    child: PropTypes.object.isRequired,
     match: PropTypes.object
   };
 
@@ -22,21 +21,8 @@ class Location extends Component {
     return (
       <Router>
         <Fragment>
-          <header className={styles.header}>
-            <ul>
-              <NavLink to={`${match.path}/bases`}> <li>Bases</li></NavLink>
-              <NavLink to={`${match.path}`}><li>Details</li></NavLink>
-              <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink>
-            </ul>
-          </header>
-
-          <div>
-            <Switch>
-              <Route path={`${match.path}/bases`} render={props => <Bases { ...props } locationObject={child} />}/>
-              <Route exact path={`${match.path}`} render={props => <LocationDetails locationObject={child} {...props} />}/>
-              <Route path={`${match.path}/edit`} render={props => <EditLocation locationObject={child} {...props} />}/>
-            </Switch>
-          </div>
+          <ComponentHeader childrenTypes={['Bases']} match={match} />
+          <ComponentRoutes child={child} dataComponents={[Bases]} match={match}/>
         </Fragment>
       </Router>
     );
@@ -45,20 +31,3 @@ class Location extends Component {
 
 export default connect(
 )(withRouter(Location));
-
-class LocationDetails extends Component {
-  static propTypes = {
-    locationObject: PropTypes.object.isRequired
-  };
-
-  render() {
-    const { name, description } = this.props.locationObject;
-
-    return (
-      <Fragment>
-        <h1>{name}</h1>
-        <p>{description}</p>
-      </Fragment>
-    );
-  }
-}

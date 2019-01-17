@@ -5,24 +5,24 @@ import { connect } from 'react-redux';
 
 import ComponentHeader from '../header/ComponentHeader';
 import ComponentRoutes from '../routes/ComponentRoutes';
-// import EditRegion from './EditRegion';
 import Subregions from '../subregions/Subregions';
 
 class Region extends Component {
   static propTypes = {
-    child: PropTypes.any.isRequired
+    child: PropTypes.any.isRequired,
+    match: PropTypes.object.isRequired
   };
 
   render() {
-    const { child } = this.props;
+    const { child, match } = this.props;
     
     if(!child) return null;
 
     return (
       <Router>
         <Fragment>
-          <ComponentHeader child={child} childType={'Subregions'}/>
-          <ComponentRoutes child={child} dataComponent={Subregions}/>
+          <ComponentHeader childrenTypes={['Subregions']} match={match} />
+          <ComponentRoutes child={child} dataComponents={[Subregions]} match={match}/>
         </Fragment>
       </Router>
     );
@@ -31,20 +31,3 @@ class Region extends Component {
 
 export default connect(
 )(withRouter(Region));
-
-class RegionDetails extends Component {
-  static propTypes = {
-    region: PropTypes.object.isRequired
-  };
-
-  render() {
-    const { name, description } = this.props.region;
-
-    return (
-      <Fragment>
-        <h1>{name}</h1>
-        <p>{description}</p>
-      </Fragment>
-    );
-  }
-}
