@@ -34,13 +34,14 @@ class Subregions extends Component {
 
   render() {
     const { handleCreateSubregion } = this;
-    const { subregions, match } = this.props;
+    const { subregions } = this.props;
+    const { path } = this.props.match;
 
     return (
       <Router>
         <Fragment>
-          {subregions && <ContainerHeader headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={match.path} /> }
-          {subregions && <ContainerRoutes data={subregions} DataComponent={Subregion} path={match.path} /> }
+          {subregions && <ContainerHeader headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={path} /> }
+          {subregions && <ContainerRoutes data={subregions} DataComponent={Subregion} path={path} /> }
         </Fragment>
       </Router>
     );

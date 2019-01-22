@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
@@ -57,4 +57,4 @@ export default connect(
     updateRegion,
     deleteRegion
   }
-)(Regions);
+)(withRouter(Regions));

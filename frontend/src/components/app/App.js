@@ -29,7 +29,7 @@ export default class App extends Component {
             </section>
             <section className={styles.content}>
               <Switch>
-                <Route path="/regions" render={props => <Regions { ...props }/>} />
+                <Route path="/regions" component={Regions}/>
                 <Route path="/action" component={Action}/>
                 <Route path="/journal" component={Journal}/>
                 <Route path="/notes" component={Notes}/>

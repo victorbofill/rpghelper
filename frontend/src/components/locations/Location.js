@@ -10,11 +10,12 @@ import Bases from '../bases/Bases';
 class Location extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
-    path: PropTypes.string.isRequired
+    match: PropTypes.object.isRequired
   };
 
   render() {
-    const { child, path } = this.props;
+    const { child } = this.props;
+    const { path } = this.props.match;
 
     if(!child) return null;
 
@@ -22,7 +23,7 @@ class Location extends Component {
       <Router>
         <Fragment>
           <ComponentHeader childrenTypes={['Bases']} path={path} />
-          <ComponentRoutes child={child} dataComponents={[Bases]} path={path}/>
+          <ComponentRoutes child={child} dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
         </Fragment>
       </Router>
     );
