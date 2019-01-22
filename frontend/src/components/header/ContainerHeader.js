@@ -17,8 +17,9 @@ export default class ContainerHeader extends Component {
     return (
       <header className={styles.header}>
         <ul>
-          {headerChildren && headerChildren.map(headerChild =>
-            (<NavLink key={headerChild._id} to={`${path}/${headerChild.url}`}><li >{headerChild.name}</li></NavLink>)
+          {headerChildren && headerChildren.map(headerChild => {
+            return (<NavLink key={headerChild._id} to={`${path}/${headerChild.url}`}><li >{headerChild.name}</li></NavLink>);
+          }
           )}
           <li onClick={handleCreateChild}>+</li>
         </ul>

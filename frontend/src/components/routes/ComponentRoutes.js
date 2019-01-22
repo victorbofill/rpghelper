@@ -16,9 +16,10 @@ export default class ComponentRoutes extends Component {
 
     return (
       <Switch>
-        <Route exact path={`${path}`} render={props => <Details child={child} {...props} />}/>
-        {dataComponents && dataComponents.map(component => {
-          return <Route key={component} path={`${path}/${child.url}`} component={component}/>;
+        <Route exact path={`${path}/`} render={props => <Details child={child} {...props} />}/>
+        {dataComponents && dataComponents.map(dataComponent => {
+          const { route, component } = dataComponent;
+          return <Route key={component} path={`${path}${route}`} component={component}/>;
         }) }
         {/* <Route path={`${match.path}/edit`} render={props => <Edit child={child} {...props}/>}/> */}
       </Switch>

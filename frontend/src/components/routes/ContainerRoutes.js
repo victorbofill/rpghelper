@@ -15,7 +15,9 @@ export default class ContainerRoutes extends Component {
 
     return (
       <Switch>
-        {data && data.map(child => (<Route key={child._id} path={`${path}/${child.url}`} render={() => <DataComponent child={child} path={path} />}/>))}
+        {data && data.map(child => {
+          return (<Route key={child._id} path={`${path}/${child.url}`} render={() => <DataComponent child={child} />}/>);
+        })}
       </Switch>
     );
   }
