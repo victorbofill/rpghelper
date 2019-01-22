@@ -10,19 +10,19 @@ import Bases from '../bases/Bases';
 class Location extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
-    match: PropTypes.object
+    path: PropTypes.string.isRequired
   };
 
   render() {
-    const { child, match } = this.props;
+    const { child, path } = this.props;
 
     if(!child) return null;
 
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Bases']} match={match} />
-          <ComponentRoutes child={child} dataComponents={[Bases]} match={match}/>
+          <ComponentHeader childrenTypes={['Bases']} path={path} />
+          <ComponentRoutes child={child} dataComponents={[Bases]} path={path}/>
         </Fragment>
       </Router>
     );

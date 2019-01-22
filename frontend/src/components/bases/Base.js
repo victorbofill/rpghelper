@@ -10,20 +10,20 @@ import NPCs from '../NPCs/NPCs';
 
 class Base extends Component {
   static propTypes = {
-    child: PropTypes.object,
-    match: PropTypes.object
+    child: PropTypes.object.isRequired,
+    path: PropTypes.string.isRequired
   };
 
   render() {
-    const { child, match } = this.props;
+    const { child, path } = this.props;
 
     if(!child) return null;
 
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Assets', 'NPCs']} match={match} />
-          <ComponentRoutes child={child} dataComponents={[Assets, NPCs]} match={match}/>
+          <ComponentHeader childrenTypes={['Assets', 'NPCs']} path={path} />
+          <ComponentRoutes child={child} dataComponents={[Assets, NPCs]} path={path}/>
         </Fragment>
       </Router>
     );

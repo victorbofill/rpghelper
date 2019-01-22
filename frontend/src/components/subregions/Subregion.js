@@ -10,19 +10,19 @@ import Locations from '../locations/Locations';
 class Subregion extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
-    match: PropTypes.object
+    path: PropTypes.string.isRequired
   };
 
   render() {
-    const { child, match } = this.props;
+    const { child, path } = this.props;
     
     if(!child) return null;
     
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Locations']} match={match} />
-          <ComponentRoutes child={child} dataComponents={[Locations]} match={match}/>
+          <ComponentHeader childrenTypes={['Locations']} path={path} />
+          <ComponentRoutes child={child} dataComponents={[Locations]} path={path}/>
         </Fragment>
       </Router>
     );
