@@ -3,12 +3,12 @@
 Oh hello! This is just an app to help me run the RPG game that I made, Quan. It doesn't have any sort of authorization as I just run it locally. It's also pretty sloppy because I just work on it as I have time. If you're a potential employer, don't refrain from looking; just keep in mind that this project is the roughest of drafts :)
 
 
-* Jan. 16
+* Jan. 21
 The basic, basic functionality is done. It's all vertically plugged in. Right now, though, every component displays all data, without regard for the actual database structure. I'm considering just removing Redux, actually, because I'm not convinced that I need persistent data across all components anyway.
 
-The `supercomponent` branch started as an experiment wherein I was creating one giant component that I could just give a 'type' and it would use that to generate itself as whatever type that was. But that's what just... creating a component is... So I'm breaking it down into pieces. Right now I've got the ContainerHeader and Routes components, which can be used with containers to generate their headers and routes. Next I'll create one for their children.
+I just finished writing up some components that build out the route structure, taking data from their parents and creating both links and routes based on the parent's child data.
 
-The `edits` branch is another experimental thing to create a dynamic Edit component that I can use for any component. I'll play with that some more as well, after I've finished hard-coding everything.
+Next up is going to be on the `edits` branch. I'm going to create a component that takes in its parent's data and generates a page to edit all data of that parent in the database.
 
 * Works In Progress
 Up next is actually utilizing React, particularly in the Action component.
