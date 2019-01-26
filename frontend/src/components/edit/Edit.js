@@ -2,13 +2,12 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { updateData } from './actions';
+
 class Edit extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired
-  };
-
-  state = {
-    hasSetInitialState: false
+    data: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired
   };
 
   componentDidMount() {
@@ -26,8 +25,16 @@ class Edit extends Component {
     this.setState({ [target.name]: target.value });
   };
 
+  handleUpdateData = ({ target }) => {
+    const { _id } = this.props.data;
+    const { type } = this.props;
+    const { value } = target;
+
+    updateData(type, _id, value);
+  };
+
   render() {
-    const { handleChange } = this;
+    const { handleChange, handleUpdateData } = this;
     const { state } = this;
 
     return (
@@ -43,7 +50,7 @@ class Edit extends Component {
                 <Fragment key={key}>
                   <tr>
                     <td>{key}</td>
-                    <td><input onChange={handleChange} value={value} name={key} /></td>
+                    <td><input onBlur={handleUpdateData} onChange={handleChange} value={value} name={key} /></td>
                   </tr>
                 </Fragment>
               );
