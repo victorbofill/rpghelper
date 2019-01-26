@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { updateData } from './actions';
-
 class Edit extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -32,7 +30,9 @@ class Edit extends Component {
     const { type } = this.props;
     const { value } = target;
 
-    updateData(type, _id, value);
+    console.log('id: ', _id);
+    console.log('type: ', type);
+    console.log('value: ', value);
   };
 
   render() {
