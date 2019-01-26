@@ -23,7 +23,7 @@ class Location extends Component {
       <Router>
         <Fragment>
           <ComponentHeader childrenTypes={['Bases']} path={path} />
-          <ComponentRoutes child={child} dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
+          <ComponentRoutes child={child} type='locations' dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
         </Fragment>
       </Router>
     );

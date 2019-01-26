@@ -24,7 +24,7 @@ class Base extends Component {
       <Router>
         <Fragment>
           <ComponentHeader childrenTypes={['Assets', 'NPCs']} path={path} />
-          <ComponentRoutes child={child} dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
+          <ComponentRoutes child={child} type='bases' dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
         </Fragment>
       </Router>
     );

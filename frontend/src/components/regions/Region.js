@@ -23,7 +23,7 @@ class Region extends Component {
       <Router>
         <Fragment>
           <ComponentHeader childrenTypes={['Subregions']} path={path} />
-          <ComponentRoutes child={child} dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
+          <ComponentRoutes child={child} type='regions' dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
         </Fragment>
       </Router>
     );

@@ -8,11 +8,12 @@ export default class ComponentRoutes extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
     dataComponents: PropTypes.array.isRequired,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
   };
 
   render() {
-    const { child, dataComponents, path } = this.props;
+    const { child, dataComponents, path, type } = this.props;
 
     return (
       <Switch>
@@ -20,7 +21,7 @@ export default class ComponentRoutes extends Component {
           const { route, component } = dataComponent;
           return <Route key={component} path={`${path}${route}`} component={component}/>;
         }) }
-        {child && <Route path={`${path}/`} render={props => <Edit data={child} {...props}/>}/>}
+        {child && <Route path={`${path}/`} render={props => <Edit data={child} type={type} {...props}/>}/>}
       </Switch>
     );
   }

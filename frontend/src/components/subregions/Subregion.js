@@ -23,7 +23,7 @@ class Subregion extends Component {
       <Router>
         <Fragment>
           <ComponentHeader childrenTypes={['Locations']} path={path} />
-          <ComponentRoutes child={child} dataComponents={[{ route: '/locations', component: Locations }]} path={path}/>
+          <ComponentRoutes child={child} type='subregions' dataComponents={[{ route: '/locations', component: Locations }]} path={path}/>
         </Fragment>
       </Router>
     );
