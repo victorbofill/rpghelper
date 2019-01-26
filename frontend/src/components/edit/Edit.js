@@ -10,6 +10,8 @@ class Edit extends Component {
     type: PropTypes.string.isRequired
   };
 
+  state = {};
+
   componentDidMount() {
     const { data } = this.props;
     // This will grab each key/value pair in the data and generate a state based on them
@@ -45,7 +47,6 @@ class Edit extends Component {
             {Object.keys(state).map((key, index) => {
               const value = Object.values(state)[index];
               // We don't want this particular item to be rendered
-              if(key === 'hasSetInitialState') return;
               return (
                 <Fragment key={key}>
                   <tr>
