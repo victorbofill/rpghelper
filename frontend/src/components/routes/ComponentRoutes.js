@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
-import Details from '../details/Details';
 import Edit from '../edit/Edit';
 
 export default class ComponentRoutes extends Component {
@@ -17,12 +16,11 @@ export default class ComponentRoutes extends Component {
 
     return (
       <Switch>
-        <Route exact path={`${path}/`} render={props => <Details child={child} {...props} />}/>
         {dataComponents && dataComponents.map(dataComponent => {
           const { route, component } = dataComponent;
           return <Route key={component} path={`${path}${route}`} component={component}/>;
         }) }
-        {child && <Route path={`${path}/edit`} render={props => <Edit data={child} {...props}/>}/>}
+        {child && <Route path={`${path}/`} render={props => <Edit data={child} {...props}/>}/>}
       </Switch>
     );
   }

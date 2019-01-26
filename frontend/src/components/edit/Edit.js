@@ -36,7 +36,6 @@ class Edit extends Component {
 
     return (
       <Fragment>
-        <h1>Edit</h1>
         <table>
           <tbody>
             {/* This will grab everything out of the state and create a table based on the key/value pairs */}

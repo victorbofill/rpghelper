@@ -16,12 +16,11 @@ export default class ComponentHeader extends Component {
     return (
       <header className={styles.header}>
         <ul>
+          <NavLink to={`${path}/`}><li>Details</li></NavLink>
           {childrenTypes && childrenTypes.map(child => {
             const url = child.toLowerCase();
             return <NavLink key={child} to={`${path}/${url}`}><li>{child}</li></NavLink>;
           })}
-          <NavLink to={`${path}/`}><li>Details</li></NavLink>
-          <NavLink to={`${path}/edit`}><li>Edit</li></NavLink>
         </ul>
       </header>
     );
