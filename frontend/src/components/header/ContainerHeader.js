@@ -21,7 +21,6 @@ export default class ContainerHeader extends Component {
             return (<NavLink key={headerChild._id} to={`${path}/${headerChild.url}`}><li >{headerChild.name}</li></NavLink>);
           }
           )}
-          <NavLink to={`${path}/edit`}><li>Edit</li></NavLink>
           <li onClick={handleCreateChild}>+</li>
         </ul>
       </header>

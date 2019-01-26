@@ -21,7 +21,7 @@ export default class ComponentHeader extends Component {
             return <NavLink key={child} to={`${path}/${url}`}><li>{child}</li></NavLink>;
           })}
           <NavLink to={`${path}/`}><li>Details</li></NavLink>
-          {/* <NavLink to={`${match.path}/edit`}><li>Edit</li></NavLink> */}
+          <NavLink to={`${path}/edit`}><li>Edit</li></NavLink>
         </ul>
       </header>
     );

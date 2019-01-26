@@ -4,26 +4,24 @@ import { connect } from 'react-redux';
 
 class Edit extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.object.isRequired
   };
 
   state = {
     hasSetInitialState: false
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     // We only want this to run on initial load, but we can't use componentDidMount because data isn't loaded at that point
     if(this.state.hasSetInitialState === false) {
       const { data } = this.props;
-      if(data !== prevProps.data) {
-        // This will grab each key/value pair in the data and generate a state based on them
-        Object.keys(data[0]).map((key, index) => {
-          if(key === '__v' || key === '_id') return;
-          const value = Object.values(data[0])[index];
-          if(typeof value === 'object') return;
-          this.setState({ [key]: value });
-        });
-      }
+      // This will grab each key/value pair in the data and generate a state based on them
+      Object.keys(data).map((key, index) => {
+        if(key === '__v' || key === '_id') return;
+        const value = Object.values(data)[index];
+        if(typeof value === 'object') return;
+        this.setState({ [key]: value });
+      });
       this.setState({ hasSetInitialState: true });
     }
   }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
 import Details from '../details/Details';
+import Edit from '../edit/Edit';
 
 export default class ComponentRoutes extends Component {
   static propTypes = {
@@ -21,7 +22,7 @@ export default class ComponentRoutes extends Component {
           const { route, component } = dataComponent;
           return <Route key={component} path={`${path}${route}`} component={component}/>;
         }) }
-        {/* <Route path={`${match.path}/edit`} render={props => <Edit child={child} {...props}/>}/> */}
+        {child && <Route path={`${path}/edit`} render={props => <Edit data={child} {...props}/>}/>}
       </Switch>
     );
   }
