@@ -4,7 +4,7 @@ import {
   getBase,
   putBase,
   delBase
-} from '../../services/api';
+} from '../../../../../../../services/api';
 
 import {
   BASE_POST,

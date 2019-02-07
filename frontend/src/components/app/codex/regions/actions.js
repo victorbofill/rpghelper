@@ -4,7 +4,7 @@ import {
   getRegion,
   putRegion,
   delRegion
-} from '../../services/api';
+} from '../../../../services/api';
 
 import {
   REGION_POST,

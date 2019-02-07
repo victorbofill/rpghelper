@@ -3,7 +3,7 @@ import {
   getEntries,
   putEntry,
   delEntry
-} from '../../services/api';
+} from '../../../services/api';
 
 import {
   ENTRY_POST,

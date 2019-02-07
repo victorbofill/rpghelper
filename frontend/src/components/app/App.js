@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import React, { Component, Fragment } from 'react';
 
-import Dice from '../dice/Dice';
-import Regions from '../regions/Regions';
-import Action from '../action/Action';
-import Journal from '../journal/Journal';
-import Notes from '../notes/Notes';
+import Dice from './dice/Dice';
+import Regions from './codex/regions/Regions';
+import Action from './action/Action';
+import Journal from './journal/Journal';
+import Notes from './notes/Notes';
 
 import styles from './App.css';
 

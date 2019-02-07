@@ -2,19 +2,19 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import promiseMiddelware from './promise-middleware';
-import { entries } from '../components/journal/reducers';
-import { notes } from '../components/notes/reducers';
-import { participants } from '../components/action/reducers';
+import { entries } from '../components/app/journal/reducers';
+import { notes } from '../components/app/notes/reducers';
+import { participants } from '../components/app/action/reducers';
 
-import { stories } from '../components/stories/reducers';
-// import { chapters } from '../components/chapters/reducers';
+import { stories } from '../components/app/stories/reducers';
+// import { chapters } from '../components/app/stories/chapters/reducers';
 
-import { regions } from '../components/regions/reducers';
-import { subregions } from '../components/subregions/reducers';
-import { locations } from '../components/locations/reducers';
-import { bases } from '../components/bases/reducers';
-import { assets } from '../components/assets/reducers';
-import { NPCs } from '../components/NPCs/reducers';
+import { regions } from '../components/app/codex/regions/reducers';
+import { subregions } from '../components/app/codex/regions/subregions/reducers';
+import { locations } from '../components/app/codex/regions/subregions/locations/reducers';
+import { bases } from '../components/app/codex/regions/subregions/locations/bases/reducers';
+import { assets } from '../components/app/codex/regions/subregions/locations/bases/assets/reducers';
+import { NPCs } from '../components/app/codex/regions/subregions/locations/bases/NPCs/reducers';
 
 const rootReducer = combineReducers({
   entries,

@@ -4,7 +4,7 @@ import {
   getAsset,
   putAsset,
   delAsset
-} from '../../services/api';
+} from '../../../../../../../../services/api';
 
 import {
   ASSET_POST,

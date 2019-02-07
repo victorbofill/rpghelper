@@ -4,7 +4,7 @@ import {
   getSubregion,
   putSubregion,
   delSubregion
-} from '../../services/api';
+} from '../../../../../services/api';
 
 import {
   SUBREGION_POST,

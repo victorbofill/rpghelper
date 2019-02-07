@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ComponentHeader from '../header/ComponentHeader';
-import ComponentRoutes from '../routes/ComponentRoutes';
-import Bases from '../bases/Bases';
+import ComponentHeader from '../../../../header/ComponentHeader';
+import ComponentRoutes from '../../../../routes/ComponentRoutes';
+import Assets from './assets/Assets';
+import NPCs from './NPCs/NPCs';
 
-class Location extends Component {
+class Base extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
@@ -22,8 +23,8 @@ class Location extends Component {
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Bases']} path={path} />
-          <ComponentRoutes child={child} type='locations' dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
+          <ComponentHeader childrenTypes={['Assets', 'NPCs']} path={path} />
+          <ComponentRoutes child={child} type='bases' dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
         </Fragment>
       </Router>
     );
@@ -31,4 +32,4 @@ class Location extends Component {
 }
 
 export default connect(
-)(withRouter(Location));
+)(withRouter(Base));

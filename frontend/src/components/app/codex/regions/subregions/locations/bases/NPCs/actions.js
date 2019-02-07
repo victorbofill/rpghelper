@@ -4,7 +4,7 @@ import {
   getNPC,
   putNPC,
   delNPC
-} from '../../services/api';
+} from '../../../../../../../../services/api';
 
 import {
   NPC_POST,

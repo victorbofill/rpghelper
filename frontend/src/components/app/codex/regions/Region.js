@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 
 import ComponentHeader from '../header/ComponentHeader';
 import ComponentRoutes from '../routes/ComponentRoutes';
-import Assets from '../assets/Assets';
-import NPCs from '../NPCs/NPCs';
+import Subregions from './subregions/Subregions';
 
-class Base extends Component {
+class Region extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
@@ -17,14 +16,14 @@ class Base extends Component {
   render() {
     const { child } = this.props;
     const { path } = this.props.match;
-
+    
     if(!child) return null;
 
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Assets', 'NPCs']} path={path} />
-          <ComponentRoutes child={child} type='bases' dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
+          <ComponentHeader childrenTypes={['Subregions']} path={path} />
+          <ComponentRoutes child={child} type='regions' dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
         </Fragment>
       </Router>
     );
@@ -32,4 +31,4 @@ class Base extends Component {
 }
 
 export default connect(
-)(withRouter(Base));
+)(withRouter(Region));

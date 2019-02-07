@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ComponentHeader from '../header/ComponentHeader';
-import ComponentRoutes from '../routes/ComponentRoutes';
-import Locations from '../locations/Locations';
+import ComponentHeader from '../../../header/ComponentHeader';
+import ComponentRoutes from '../../../routes/ComponentRoutes';
+import Bases from './bases/Bases';
 
-class Subregion extends Component {
+class Location extends Component {
   static propTypes = {
     child: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
@@ -18,12 +18,12 @@ class Subregion extends Component {
     const { path } = this.props.match;
 
     if(!child) return null;
-    
+
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Locations']} path={path} />
-          <ComponentRoutes child={child} type='subregions' dataComponents={[{ route: '/locations', component: Locations }]} path={path}/>
+          <ComponentHeader childrenTypes={['Bases']} path={path} />
+          <ComponentRoutes child={child} type='locations' dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
         </Fragment>
       </Router>
     );
@@ -31,4 +31,4 @@ class Subregion extends Component {
 }
 
 export default connect(
-)(withRouter(Subregion));
+)(withRouter(Location));

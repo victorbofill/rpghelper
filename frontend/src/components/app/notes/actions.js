@@ -3,7 +3,7 @@ import {
   getNotes,
   putNote,
   delNote
-} from '../../services/api';
+} from '../../../services/api';
 
 import {
   NOTE_POST,

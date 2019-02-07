@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ContainerHeader from '../header/ContainerHeader';
-import ContainerRoutes from '../routes/ContainerRoutes';
+import ContainerHeader from '../../../../../header/ContainerHeader';
+import ContainerRoutes from '../../../../../routes/ContainerRoutes';
 import NPC from './NPC';
 import { getNPCs } from './reducers';
 import {

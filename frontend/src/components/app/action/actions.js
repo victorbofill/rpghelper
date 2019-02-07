@@ -3,7 +3,7 @@ import {
   getParticipants,
   putParticipant,
   delParticipant
-} from '../../services/api';
+} from '../../../services/api';
 
 import {
   PARTICIPANT_POST,

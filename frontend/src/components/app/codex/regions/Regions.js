@@ -4,8 +4,8 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ContainerHeader from '../header/ContainerHeader';
-import Region from './Region';
 import ContainerRoutes from '../routes/ContainerRoutes';
+import Region from './Region';
 import { getRegions } from './reducers';
 import {
   addRegion,

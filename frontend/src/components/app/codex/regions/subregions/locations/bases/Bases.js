@@ -4,8 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Base from './Base';
-import ContainerHeader from '../header/ContainerHeader';
-import ContainerRoutes from '../routes/ContainerRoutes';
+import ContainerHeader from '../../../../header/ContainerHeader';
+import ContainerRoutes from '../../../../routes/ContainerRoutes';
 import { getBases } from './reducers';
 import {
   addBase,

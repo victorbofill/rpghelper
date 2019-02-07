@@ -4,7 +4,7 @@ import {
   getLocation,
   putLocation,
   delLocation
-} from '../../services/api';
+} from '../../../../../../services/api';
 
 import {
   LOCATION_POST,
