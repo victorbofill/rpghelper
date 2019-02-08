@@ -7,30 +7,30 @@ import Edit from '../edit/Edit';
 export default class Routes extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
-    child: PropTypes.object.isRequired,
-    dataComponents: PropTypes.array.isRequired,
+    type: PropTypes.string,
+    data: PropTypes.array,
+    child: PropTypes.object,
+    dataComponents: PropTypes.array,
   };
 
   state = {
-    containerOrContent: '',
+    containerOrContent: null,
   };
 
   componentDidMount() {
     const { type } = this.props;
-    this.setState({ containerOrContent: type ? 'container' : 'content' });
+    this.setState({ containerOrContent: type ? 'content' : 'container' });
   }
 
   render() {
+    const { path, type, data, child, dataComponents } = this.props;
+    const DataComponent = dataComponents[0];
     const { containerOrContent } = this.state;
 
     return (
       <Switch>
-        {containerOrContent === 'container' ?
-          <ContainerRoutes /> :
-          <ContentRoutes />
-        }
+        {containerOrContent === 'container' && <ContainerRoutes path={path} data={data} DataComponent={DataComponent} />}
+        {containerOrContent === 'content' && <ContentRoutes path={path} type={type} child={child} />}
       </Switch>
     );
   }
@@ -48,7 +48,7 @@ class ContainerRoutes extends Component {
 
     return (
       <Fragment>
-        {data.map(child => {
+        {data && data.map(child => {
           return (<Route
             key={child._id}
             path={`${path}/${child.url}`}
@@ -72,7 +72,7 @@ class ContentRoutes extends Component {
 
     return (
       <Fragment>
-        {dataComponents.map(dataComponent => {
+        {dataComponents && dataComponents.map(dataComponent => {
           const { route, component } = dataComponent;
           return <Route
             key={component}

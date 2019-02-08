@@ -17,9 +17,9 @@ export default class Header extends Component {
   };
 
   componentDidMount() {
-    const { headerChildren } = this.props;
+    const { handleCreateChild } = this.props;
     this.setState({
-      containerOrContent: headerChildren ? 'content' : 'container'
+      containerOrContent: handleCreateChild ? 'container' : 'content'
     });
   }
 
@@ -30,10 +30,8 @@ export default class Header extends Component {
     return (
       <header className={styles.header}>
         <ul>
-          {containerOrContent === 'container' ?
-            <ContainerHeader path={path} headerChildren={headerChildren} handleCreateChild={handleCreateChild} /> :
-            <ContentHeader path={path} childrenTypes={childrenTypes} />
-          }
+          {containerOrContent === 'container' && <ContainerHeader path={path} headerChildren={headerChildren} handleCreateChild={handleCreateChild} />}
+          {containerOrContent === 'content' && <ContentHeader path={path} childrenTypes={childrenTypes} />}
         </ul>
       </header>
     );

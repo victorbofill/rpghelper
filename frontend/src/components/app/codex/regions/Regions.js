@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ContainerHeader from '../header/ContainerHeader';
-import ContainerRoutes from '../routes/ContainerRoutes';
+import Routes from '../routes/Routes';
+import Header from '../header/Header';
 import Region from './Region';
 import { getRegions } from './reducers';
 import {
@@ -39,8 +39,8 @@ class Regions extends Component {
     return (
       <Router>
         <Fragment>
-          {regions && <ContainerHeader headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
-          {regions && <ContainerRoutes data={regions} DataComponent={Region} path={match.path} /> }
+          {regions && <Header headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
+          {regions && <Routes data={regions} dataComponents={[Region]} path={match.path} /> }
         </Fragment>
       </Router>
     );
