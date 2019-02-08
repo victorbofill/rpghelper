@@ -1,31 +1,21 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { api } from '../../../services/api';
 
 import styles from './Action.css';
 
-class Participant extends Component {
+export default class Participant extends Component {
   static propTypes = {
     participant: PropTypes.object,
-    handleUpdateParticipant: PropTypes.func,
     handleDeleteParticipant: PropTypes.func
   };
 
   state = { ...this.props.participant };
 
-  handleRemoveParticipant = () => {
-    const { handleDeleteParticipant } = this.props;
-    const { _id } = this.props.participant;
-
-    handleDeleteParticipant(_id);
-  };
-
-  handleUpdateParticipant = () => {
-    const { handleUpdateParticipant } = this.props;
-    const updatedParticipant = { ...this.state };
-
-    handleUpdateParticipant(updatedParticipant);
-  };
+  componentDidUpdate() {
+    this.handleUpdateParticipant();
+  }
 
   handleChange = ({ target }) => {
     this.setState({ [target.name] : target.value });
@@ -34,6 +24,12 @@ class Participant extends Component {
   handleNumberChange = ({ target }) => {
     this.setState({ [target.name] : parseInt(target.value) });
   };  
+
+  handleUpdateParticipant = () => {
+    const updatedParticipant = { ...this.state };
+
+    api.putData('participants', updatedParticipant);
+  };
 
   handleCheckbox = ({ target }) => {
     this.setState({ [target.name] : target.checked });
@@ -50,8 +46,6 @@ class Participant extends Component {
   };
 
   handleResetAp = () => {
-    const { apAdjust } = this.state;
-    this.setState({ apAdjust: parseInt(apAdjust) });
     this.setState({ ap: 0 });
   };
 
@@ -83,10 +77,11 @@ class Participant extends Component {
 
   render() {
     const {
-      handleRemoveParticipant, handleChange, handleNumberChange, handleRollAp, handleResetAp,
+      handleChange, handleNumberChange, handleRollAp, handleResetAp,
       handleRollSubtlety, handleResetSubtlety, handleRollInsight, handleResetInsight, handleCheckbox,
       handleUpdateParticipant
     } = this;
+    const { handleDeleteParticipant } = this.props;
     const {
       _id, name,
       str, agi, end, will, cha, rea, per,
@@ -99,7 +94,7 @@ class Participant extends Component {
         <div className={styles.participant}>
           <div className="header">
             <input name="name" value={name} type="text" onChange={handleChange}/>
-            <button onClick={handleRemoveParticipant}>X</button>
+            <button onClick={() => handleDeleteParticipant(_id)}>X</button>
             <p>{_id}</p>
           </div>
           <div className="attributes">
@@ -245,6 +240,3 @@ class Participant extends Component {
     );
   }
 }
-
-export default connect(
-)(Participant);

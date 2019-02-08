@@ -1,46 +1,40 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Participant from './Participant';
-import { getParticipants } from './reducers';
-import {
-  addParticipant,
-  loadParticipants,
-  updateParticipant,
-  deleteParticipant
-} from './actions';
+import { api } from '../../../services/api';
 
 import styles from './Action.css';
 
-class Action extends Component {
-  static propTypes = {
-    participants: PropTypes.array,
-    addParticipant: PropTypes.func,
-    loadParticipants: PropTypes.func,
-    updateParticipant: PropTypes.func,
-    deleteParticipant: PropTypes.func
+export default class Action extends Component {
+  state = {
+    participants: [],
   };
-  
-  componentDidMount() {
-    this.props.loadParticipants();
+
+  async componentDidMount() {
+    const participants = await api.getAllData('participants');
+    this.setState({ participants });
   }
 
-  createParticipant = () => {
-    this.props.addParticipant();
-  };
+  createParticipant = async() => {
+    const { participants } = this.state;
+    const newParticipant = await api.postData('participants');
 
-  handleUpdateParticipant = participant => {
-    this.props.updateParticipant(participant);
+    participants.push(newParticipant);
+    this.setState({ participants });
   };
 
   handleDeleteParticipant = id => {
-    this.props.deleteParticipant(id);
+    api.delData('participants', id);
+
+    const { participants } = this.state;
+    const deletedParticipantIndex = participants.findIndex(participant => { return participant._id === id; });
+    participants.splice(deletedParticipantIndex, 1);
+    this.setState({ participants });
   };
 
   render() {
-    const { createParticipant, handleUpdateParticipant, handleDeleteParticipant } = this;
-    const { participants } = this.props;
+    const { createParticipant, handleDeleteParticipant } = this;
+    const { participants } = this.state;
 
     return (
       <div className={styles.actionContainer}>
@@ -55,7 +49,6 @@ class Action extends Component {
                 <Participant
                   key={participant._id}
                   participant={participant}
-                  handleUpdateParticipant={handleUpdateParticipant}
                   handleDeleteParticipant={handleDeleteParticipant}
                 />
               ))
@@ -66,15 +59,3 @@ class Action extends Component {
     );
   }
 }
-
-export default connect(
-  state => ({
-    participants: getParticipants(state)
-  }), 
-  {
-    addParticipant,
-    loadParticipants,
-    updateParticipant,
-    deleteParticipant
-  }
-)(Action);
