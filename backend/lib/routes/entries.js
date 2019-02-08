@@ -3,42 +3,32 @@ const Entry = require('../models/Entry');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
-  .post('/', (req, res, next) => {
-    return Entry.create(req.body)
-      .then(() => {
-        return Entry.find()
-          .lean()
-          .then(entries => res.json(entries))
-          .catch(next);
-      })
-      .catch(next);
+  .post('/', async(req, res) => {
+    const newEntry = await Entry.create(req.body)
+      .catch(err => console.err(err));
+    return res.json(newEntry);
   })
 
-  .get('/', (req, res, next) => {
-    return Entry.find()
-      .lean()
-      .then(entries => res.json(entries))
-      .catch(next);
+  .get('/', async(req, res, next) => {
+    const entries = await Entry.find()
+      .catch(err => next(err));
+    return res.json(entries);
   })
 
-  .put('/:id', (req, res, next) => {
-    return Entry.findByIdAndUpdate(req.params.id, req.body, updateOptions)
-      .then(() => {
-        return Entry.find()
-          .lean()
-          .then(entries => res.json(entries))
-          .catch(next);
-      })
-      .catch(next);        
+  .get('/:id', async(req, res, next) => {
+    const entry = await Entry.findById(req.params.id).lean()
+      .catch(err => next(err));
+    return res.json(entry);
+  })    
+
+  .put('/:id', async(req, res, next) => {
+    const updatedEntry = await Entry.findByIdAndUpdate(req.params.id, req.body, updateOptions)
+      .catch(err => next(err));
+    return res.json(updatedEntry);
   })
   
-  .delete('/:id', (req, res, next) => {
-    return Entry.findByIdAndRemove(req.params.id)
-      .then(() => {
-        return Entry.find()
-          .lean()
-          .then(entries => res.json(entries))
-          .catch(next);
-      })
-      .catch(next);
+  .delete('/:id', async(req, res, next) => {
+    const deletedEntry = await Entry.findByIdAndRemove(req.params.id)
+      .catch(err => next(err));
+    return res.json(deletedEntry);
   });

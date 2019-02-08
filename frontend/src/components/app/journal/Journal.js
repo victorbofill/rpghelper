@@ -1,77 +1,63 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Entry from './Entry';
-import { getEntries } from './reducers';
-import {
-  addEntry,
-  loadEntries,
-  updateEntry,
-  deleteEntry
-} from './actions';
+import { api } from '../../../services/api';
 
-class Journal extends Component {
-  static propTypes = {
-    addEntry: PropTypes.func.isRequired,
-    loadEntries: PropTypes.func.isRequired,
-    updateEntry: PropTypes.func.isRequired,
-    deleteEntry: PropTypes.func.isRequired,
-    entries: PropTypes.array.isRequired
-  };
-
+export default class Journal extends Component {
   state = {
-    addEntryForm: ''
+    entries: [],
+    newEntryForm: '',
   };
 
-  componentDidMount() {
-    this.props.loadEntries();
+  async componentDidMount() {
+    const entries = await api.getAllData('entries');
+    this.setState({ entries });
   }
 
   handleChange = ({ target }) => {
-    this.setState({ addEntryForm: target.value });
+    this.setState({ [target.name]: target.value });
   };
-
-  handleSubmit = e => {
+  
+  handleSubmit = async e => {
     e.preventDefault();
-    const { addEntryForm } = this.state;
+    const { entries, newEntryForm } = this.state;
+    const newEntry = await api.postData('entries', { entry: newEntryForm });
 
-    this.props.addEntry({ entry: addEntryForm })
-      .then(() => {
-        this.setState({ addEntryForm: '' });
-      });
-  };
+    entries.push(newEntry);
 
-  handleUpdateEntry = entry => {
-    this.props.updateEntry(entry);
+    this.setState({ newEntryForm: '', entries });
   };
 
   handleDeleteEntry = id => {
-    const { deleteEntry } = this.props;
-    deleteEntry(id);
+    api.delData('entries', id);
+
+    const { entries } = this.state;
+    const deletedEntryIndex = entries.findIndex(entry => { return entry._id === id; });
+    entries.splice(deletedEntryIndex, 1);
+    this.setState({ entries });
   };
 
   render() {
-    const { handleChange, handleSubmit, handleDeleteEntry, handleUpdateEntry } = this;
-    const { entries } = this.props;
+    const { handleChange, handleSubmit, handleDeleteEntry } = this;
+    const { entries } = this.state;
     if(!entries) return null;
 
-    const { addEntryForm } = this.state;
+    const { newEntryForm } = this.state;
     
     return (
       <div>
         <h1>Journal</h1>
         <form onSubmit={handleSubmit}>
-          <textarea name="addEntryForm" onChange={handleChange} value={addEntryForm} />
+          <textarea name="newEntryForm" onChange={handleChange} value={newEntryForm} />
           <input type="submit" value="Add Entry" />
         </form>
+
         <ul>
           {entries && !!entries.length ? entries.map((entry) => (
             <Entry
               key={entry._id}
               entry={entry}
               handleDeleteEntry={handleDeleteEntry}
-              handleUpdateEntry={handleUpdateEntry}
             />
           )) : null
           }
@@ -80,15 +66,3 @@ class Journal extends Component {
     );
   }
 }
-
-export default connect(
-  state => ({
-    entries: getEntries(state)
-  }),
-  {
-    addEntry,
-    loadEntries,
-    updateEntry,
-    deleteEntry
-  }
-)(Journal);

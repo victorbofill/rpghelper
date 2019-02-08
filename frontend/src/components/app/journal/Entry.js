@@ -1,61 +1,53 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+
+import { api } from '../../../services/api';
 
 import styles from './Entries.css';
 
-class Entry extends Component {
+export default class Entry extends Component {
   static propTypes = {
-    handleDeleteEntry: PropTypes.func,
-    handleUpdateEntry: PropTypes.func,
     entry: PropTypes.any,
+    handleDeleteEntry: PropTypes.func,
   };
 
   state = {
     isEditing: false,
-    entry: ''
+    entryEdits: ''
   };
 
   componentDidMount() {
     const { entry } = this.props.entry;
-    this.setState({ entry: entry });
+    this.setState({ entryEdits: entry });
   }
-
-  toggleEditing = () => {
-    const { isEditing } = this.state;
-    this.setState({ isEditing: !isEditing });
-  };
-
-  cancelEdits = () => {
-    const { entry } = this.props.entry;
-    this.setState({ entry: entry });
-
-    this.toggleEditing();
-  };  
-
-  submitEdits = () => {
-    const { handleUpdateEntry } = this.props;
-    const { _id } = this.props.entry;
-    const { entry } = this.state;
-
-    const newEntry = {
-      _id: _id,
-      entry: entry
-    };
-
-    handleUpdateEntry(newEntry);
-    this.toggleEditing();
-  };  
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
 
+  toggleEditing = () => {
+    const { isEditing } = this.state;
+    this.setState({ isEditing: !isEditing });
+  };  
+
+  cancelEdits = () => {
+    const { entry } = this.props.entry;
+    this.setState({ entryEdits: entry, isEditing: false });
+  };    
+
+  submitEdits = async() => {
+    const { entry } = this.props;
+    const { entryEdits } = this.state;
+    entry.entry = entryEdits;
+    const { updatedEntry } = await api.putData('entries', entry);
+    this.setState({ entry: updatedEntry, isEditing: false });
+  };
+
   render() {
     const { toggleEditing, handleChange, cancelEdits, submitEdits } = this;
     const { handleDeleteEntry } = this.props;
-    const { _id } = this.props.entry;
-    const { entry, isEditing } = this.state;
+    const { entry, _id } = this.props.entry;
+    const { isEditing, entryEdits } = this.state;
 
     return (
       <div className={styles.entry}>
@@ -79,13 +71,10 @@ class Entry extends Component {
             <p>{entry}</p>
           }
           {isEditing &&
-            <textarea name="entry" onChange={handleChange} value={entry} />
+            <textarea name="entryEdits" onChange={handleChange} value={entryEdits} />
           }
         </main>
       </div>
     );
   }
 }
-
-export default connect(
-)(Entry);

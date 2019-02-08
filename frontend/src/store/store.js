@@ -2,8 +2,6 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import promiseMiddelware from './promise-middleware';
-import { entries } from '../components/app/journal/reducers';
-import { notes } from '../components/app/notes/reducers';
 import { participants } from '../components/app/action/reducers';
 
 import { stories } from '../components/app/stories/reducers';
@@ -17,8 +15,6 @@ import { assets } from '../components/app/codex/regions/subregions/locations/bas
 import { NPCs } from '../components/app/codex/regions/subregions/locations/bases/NPCs/reducers';
 
 const rootReducer = combineReducers({
-  entries,
-  notes,
   participants,
   stories,
   // chapters,
