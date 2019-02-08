@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import styles from './Header.css';
 
-export default class header extends Component {
+export default class Header extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
     headerChildren: PropTypes.array,
@@ -31,8 +31,7 @@ export default class header extends Component {
       <header className={styles.header}>
         <ul>
           {containerOrContent === 'container' ?
-            <ContainerHeader path={path} headerChildren={headerChildren} handleCreateChild={handleCreateChild} />
-            :
+            <ContainerHeader path={path} headerChildren={headerChildren} handleCreateChild={handleCreateChild} /> :
             <ContentHeader path={path} childrenTypes={childrenTypes} />
           }
         </ul>
