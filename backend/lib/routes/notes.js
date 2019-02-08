@@ -3,42 +3,32 @@ const Note = require('../models/Note');
 const { updateOptions } = require('../utils/mongoose-helpers');
 
 module.exports = router
-  .post('/', (req, res, next) => {
-    return Note.create(req.body)
-      .then(() => {
-        return Note.find()
-          .lean()
-          .then(notes => res.json(notes))
-          .catch(next);
-      })
-      .catch(next);
+  .post('/', async(req, res) => {
+    const newNote = await Note.create(req.body)
+      .catch(err => console.err(err));
+    return res.json(newNote);
   })
 
-  .get('/', (req, res, next) => {
-    return Note.find()
-      .lean()
-      .then(notes => res.json(notes))
-      .catch(next);
+  .get('/', async(req, res, next) => {
+    const notes = await Note.find()
+      .catch(err => next(err));
+    return res.json(notes);
+  })
+
+  .get('/:id', async(req, res, next) => {
+    const note = await Note.findById(req.params.id).lean()
+      .catch(err => next(err));
+    return res.json(note);
   })    
 
-  .put('/:id', (req, res, next) => {
-    return Note.findByIdAndUpdate(req.params.id, req.body, updateOptions)
-      .then(() => {
-        return Note.find()
-          .lean()
-          .then(notes => res.json(notes))
-          .catch(next);
-      })
-      .catch(next);        
+  .put('/:id', async(req, res, next) => {
+    const updatedNote = await Note.findByIdAndUpdate(req.params.id, req.body, updateOptions)
+      .catch(err => next(err));
+    return res.json(updatedNote);
   })
   
-  .delete('/:id', (req, res, next) => {
-    return Note.findByIdAndRemove(req.params.id)
-      .then(() => {
-        return Note.find()
-          .lean()
-          .then(notes => res.json(notes))
-          .catch(next);
-      })
-      .catch(next);
+  .delete('/:id', async(req, res, next) => {
+    const deletedNote = await Note.findByIdAndRemove(req.params.id)
+      .catch(err => next(err));
+    return res.json(deletedNote);
   });

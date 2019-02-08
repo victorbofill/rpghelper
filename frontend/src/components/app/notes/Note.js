@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+
+import { api } from '../../../services/api';
 
 import styles from './Notes.css';
 
-class Note extends Component {
+export default class Note extends Component {
   static propTypes = {
-    handleDeleteNote: PropTypes.func,
-    handleUpdateNote: PropTypes.func,
-    note: PropTypes.any,
+    note: PropTypes.object.isRequired,
+    handleDeleteNote: PropTypes.func.isRequired,
   };
 
   state = {
     isEditing: false,
-    note: ''
+    entryEdits: '',
   };
 
   componentDidMount() {
-    const { note } = this.props.note;
-    this.setState({ note: note });
+    const { entry } = this.props.note;
+    this.setState({ entryEdits: entry });
   }
+
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value });
+  };
 
   toggleEditing = () => {
     const { isEditing } = this.state;
@@ -27,35 +31,23 @@ class Note extends Component {
   };
 
   cancelEdits = () => {
-    const { note } = this.props.note;
-    this.setState({ note: note });
-
-    this.toggleEditing();
-  };  
-
-  submitEdits = () => {
-    const { handleUpdateNote } = this.props;
-    const { _id } = this.props.note;
-    const { note } = this.state;
-
-    const newNote = {
-      _id: _id,
-      note: note
-    };
-
-    handleUpdateNote(newNote);
-    this.toggleEditing();
-  };  
-
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
+    const { entry } = this.props.note;
+    this.setState({ entryEdits: entry, isEditing: false });
   };
+
+  submitEdits = async() => {
+    const { note } = this.props;
+    const { entryEdits } = this.state;
+    note.entry = entryEdits;
+    const { entry } = await api.putData('notes', note);
+    this.setState({ entry: entry, isEditing: false });
+  };    
 
   render() {
     const { toggleEditing, handleChange, cancelEdits, submitEdits } = this;
     const { handleDeleteNote } = this.props;
-    const { _id } = this.props.note;
-    const { note, isEditing } = this.state;
+    const { entry, _id } = this.props.note;
+    const { isEditing, entryEdits } = this.state;
 
     return (
       <div className={styles.note}>
@@ -76,16 +68,13 @@ class Note extends Component {
         </header>
         <main>
           {!isEditing &&
-            <p>{note}</p>
+            <p>{entry}</p>
           }
           {isEditing &&
-            <textarea name="note" onChange={handleChange} value={note} />
+            <textarea name="entryEdits" onChange={handleChange} value={entryEdits} />
           }
         </main>
       </div>
     );
   }
 }
-
-export default connect(
-)(Note);

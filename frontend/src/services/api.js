@@ -20,29 +20,27 @@ const del = (url, data) => request(url, { method: 'DELETE' }, data);
 
 
 // These aren't used extensively. I'm going to be rebuilding in a future patch to make use of them.
-export const postData = type => {
-  const url = `/api/${type}`;
-  return post(url);
-};
-
-export const getAllData = type => {
-  const url = `/api/${type}`;
-  return get(url);
-};
-
-export const getData = (type, id) => {
-  const url = `/api/${type}/${id}`;
-  return get(url);
-};
-
-export const putData = (type, data) => {
-  const url = `/api/${type}/${data._id}`;
-  return put(url, data);
-};
-
-export const delData = (type, id) => {
-  const url = `/api/${type}/${id}`;
-  return del(url);
+export const api = {
+  postData: (type, data) => {
+    const url = `/api/${type}`;
+    return post(url, data || null);
+  },
+  getAllData: type => {
+    const url = `/api/${type}`;
+    return get(url);
+  },
+  getData: (type, id) => {
+    const url = `/api/${type}/${id}`;
+    return get(url);
+  },
+  putData: (type, data) => {
+    const url = `/api/${type}/${data._id}`;
+    return put(url, data);
+  },
+  delData: (type, id) => {
+    const url = `/api/${type}/${id}`;
+    return del(url);
+  }
 };
 
 // These are all used in the current Redux build. I'll be removing them in a future patch.

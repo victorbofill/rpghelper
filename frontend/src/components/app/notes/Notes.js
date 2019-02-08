@@ -1,77 +1,64 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Note from './Note';
-import { getNotes } from './reducers';
-import {
-  addNote,
-  loadNotes,
-  updateNote,
-  deleteNote
-} from './actions';
+import { api } from '../../../services/api';
 
-class Notes extends Component {
-  static propTypes = {
-    addNote: PropTypes.func.isRequired,
-    loadNotes: PropTypes.func.isRequired,
-    updateNote: PropTypes.func.isRequired,
-    deleteNote: PropTypes.func.isRequired,
-    notes: PropTypes.array.isRequired
-  };
-
+export default class Notes extends Component {
   state = {
-    addNoteForm: ''
+    notes: [],
+    newNoteForm: '',
   };
 
-  componentDidMount() {
-    this.props.loadNotes();
+  async componentDidMount() {
+    const notes = await api.getAllData('notes');
+    this.setState({ notes });
   }
 
   handleChange = ({ target }) => {
-    this.setState({ addNoteForm: target.value });
+    this.setState({ [target.name]: target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    const { addNoteForm } = this.state;
+    const { notes, newNoteForm } = this.state;
+    const newNote = await api.postData('notes', { entry: newNoteForm });
 
-    this.props.addNote({ note: addNoteForm })
-      .then(() => {
-        this.setState({ addNoteForm: '' });
-      });
-  };
+    notes.push(newNote);
 
-  handleUpdateNote = note => {
-    this.props.updateNote(note);
+    this.setState({ newNoteForm: '', notes });
   };
 
   handleDeleteNote = id => {
-    const { deleteNote } = this.props;
-    deleteNote(id);
+    api.delData('notes', id);
+
+    const { notes } = this.state;
+    const deletedNoteIndex = notes.findIndex(note => { return note._id === id; });
+    notes.splice(deletedNoteIndex, 1);
+    this.setState({ notes });
   };
 
   render() {
-    const { handleChange, handleSubmit, handleDeleteNote, handleUpdateNote } = this;
-    const { notes } = this.props;
+    const { handleChange, handleSubmit, handleDeleteNote } = this;
+    const { notes } = this.state;
+
     if(!notes) return null;
 
-    const { addNoteForm } = this.state;
+    const { newNoteForm } = this.state;
     
     return (
       <div>
         <h1>Notes</h1>
         <form onSubmit={handleSubmit}>
-          <textarea name="addNoteForm" onChange={handleChange} value={addNoteForm} />
+          <textarea name="newNoteForm" onChange={handleChange} value={newNoteForm} />
           <input type="submit" value="Add Note" />
         </form>
+
         <ul>
-          {notes && !!notes.length ? notes.map((note) => (
+          {notes && !!notes.length ? notes.map(note => (
             <Note
               key={note._id}
               note={note}
               handleDeleteNote={handleDeleteNote}
-              handleUpdateNote={handleUpdateNote}
             />
           )) : null
           }
@@ -80,15 +67,3 @@ class Notes extends Component {
     );
   }
 }
-
-export default connect(
-  state => ({
-    notes: getNotes(state)
-  }),
-  {
-    addNote,
-    loadNotes,
-    updateNote,
-    deleteNote
-  }
-)(Notes);
