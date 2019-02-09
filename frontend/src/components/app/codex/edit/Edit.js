@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { parseDatabaseObject } from '../../../../actions/edit';
+import { api } from '../../../../services/api';
+
 class Edit extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -9,31 +12,24 @@ class Edit extends Component {
 
   state = {};
 
-  componentDidMount() {
+  async componentDidMount() {
     const { data } = this.props;
-    // This will grab each key/value pair in the data and generate a state based on them
-    Object.keys(data).map((key, index) => {
-      if(key === '__v' || key === '_id') return;
-      const value = Object.values(data)[index];
-      if(typeof value === 'object') return;
-      this.setState({ [key]: value });
-    });
+
+    const updatedData = parseDatabaseObject(data);
+    this.setState({ ...updatedData });
   }
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
 
-  // TODO: Update w/o Redux
-  // handleUpdateData = ({ target }) => {
-  //   const { _id } = this.props.data;
-  //   const { type } = this.props;
-  //   const { value } = target;
+  handleUpdateData = ({ target }) => {
+    const { _id } = this.props.data;
+    const { type } = this.props;
+    const updatedData = { _id, [target.name]: target.value };
 
-  //   console.log('id: ', _id);
-  //   console.log('type: ', type);
-  //   console.log('value: ', value);
-  // };
+    api.putData(type, updatedData);
+  };
 
   render() {
     const { handleChange, handleUpdateData } = this;
@@ -46,7 +42,6 @@ class Edit extends Component {
             {/* This will grab everything out of the state and create a table based on the key/value pairs */}
             {Object.keys(state).map((key, index) => {
               const value = Object.values(state)[index];
-              // We don't want this particular item to be rendered
               return (
                 <Fragment key={key}>
                   <tr>
