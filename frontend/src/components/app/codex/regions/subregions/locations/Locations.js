@@ -37,7 +37,7 @@ class Locations extends Component {
       <Router>
         <Fragment>
           {locations && <Header headerChildren={locations} handleCreateChild={handleCreateLocation} path={path} /> }
-          {locations && <Routes data={locations} dataComponents={[Location]} path={path} /> }
+          {locations && <Routes data={locations} DataComponent={Location} path={path} /> }
         </Fragment>
       </Router>
     );

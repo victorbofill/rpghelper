@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import ComponentHeader from '../header/ComponentHeader';
-import ComponentRoutes from '../routes/ComponentRoutes';
+import Header from '../header/Header';
+import Routes from '../routes/Routes';
 import Subregions from './subregions/Subregions';
 
 class Region extends Component {
@@ -22,13 +21,12 @@ class Region extends Component {
     return (
       <Router>
         <Fragment>
-          <ComponentHeader childrenTypes={['Subregions']} path={path} />
-          <ComponentRoutes child={child} type='regions' dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
+          <Header childrenTypes={['Subregions']} path={path} />
+          <Routes child={child} type='regions' dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
         </Fragment>
       </Router>
     );
   }
 }
 
-export default connect(
-)(withRouter(Region));
+export default withRouter(Region);

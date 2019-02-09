@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { updateAsset } from './actions';
 
 class EditAsset extends Component {
   static propTypes = {
@@ -29,19 +26,20 @@ class EditAsset extends Component {
     this.setState({ [target.name]: target.value });
   };
 
-  handleUpdate = () => {
-    const { _id } = this.props.asset;
-    const { url, name, description } = this.state;
+  // TODO: Update w/o Redux
+  // handleUpdate = () => {
+  //   const { _id } = this.props.asset;
+  //   const { url, name, description } = this.state;
 
-    const updatedAsset = {
-      _id: _id,
-      url: url,
-      name: name,
-      description: description
-    };
+  //   const updatedAsset = {
+  //     _id: _id,
+  //     url: url,
+  //     name: name,
+  //     description: description
+  //   };
 
-    updateAsset(updatedAsset);
-  };
+  //   updateAsset(updatedAsset);
+  // };
 
   render() {
     const { handleChange, handleUpdate } = this;
@@ -61,5 +59,4 @@ class EditAsset extends Component {
   }
 }
 
-export default connect(
-)(EditAsset);
+export default EditAsset;

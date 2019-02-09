@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { updateNPC } from './actions';
 
 class EditNPC extends Component {
   static propTypes = {
@@ -66,16 +63,17 @@ class EditNPC extends Component {
     this.setState({ [target.name]: target.value });
   };
 
-  handleUpdate = () => {
-    const { _id } = this.props.NPC;
+  // TODO: Update w/o Redux
+  // handleUpdate = () => {
+  //   const { _id } = this.props.NPC;
 
-    const updatedNPC = {
-      _id: _id,
-      ...this.state
-    };
+  //   const updatedNPC = {
+  //     _id: _id,
+  //     ...this.state
+  //   };
 
-    updateNPC(updatedNPC);
-  };
+  //   updateNPC(updatedNPC);
+  // };
 
   render() {
     const { handleChange, handleUpdate } = this;
@@ -132,5 +130,4 @@ class EditNPC extends Component {
   }
 }
 
-export default connect(
-)(EditNPC);
+export default EditNPC;

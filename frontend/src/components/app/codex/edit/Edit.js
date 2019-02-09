@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class Edit extends Component {
   static propTypes = {
@@ -25,15 +24,16 @@ class Edit extends Component {
     this.setState({ [target.name]: target.value });
   };
 
-  handleUpdateData = ({ target }) => {
-    const { _id } = this.props.data;
-    const { type } = this.props;
-    const { value } = target;
+  // TODO: Update w/o Redux
+  // handleUpdateData = ({ target }) => {
+  //   const { _id } = this.props.data;
+  //   const { type } = this.props;
+  //   const { value } = target;
 
-    console.log('id: ', _id);
-    console.log('type: ', type);
-    console.log('value: ', value);
-  };
+  //   console.log('id: ', _id);
+  //   console.log('type: ', type);
+  //   console.log('value: ', value);
+  // };
 
   render() {
     const { handleChange, handleUpdateData } = this;
@@ -63,5 +63,4 @@ class Edit extends Component {
   }
 }
 
-export default connect(
-)(Edit);
+export default Edit;

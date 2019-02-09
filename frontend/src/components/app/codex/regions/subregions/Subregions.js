@@ -13,7 +13,7 @@ class Subregions extends Component {
   };
 
   state = {
-    regions: [],
+    subregions: [],
   };
 
   async componentDidMount() {
@@ -37,7 +37,7 @@ class Subregions extends Component {
       <Router>
         <Fragment>
           {subregions && <Header headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={path} /> }
-          {subregions && <Routes data={subregions} dataComponents={[Subregion]} path={path} /> }
+          {subregions && <Routes data={subregions} DataComponent={Subregion} path={path} /> }
         </Fragment>
       </Router>
     );

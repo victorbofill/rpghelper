@@ -11,6 +11,7 @@ export default class Routes extends Component {
     data: PropTypes.array,
     child: PropTypes.object,
     dataComponents: PropTypes.array,
+    DataComponent: PropTypes.func,
   };
 
   state = {
@@ -23,14 +24,13 @@ export default class Routes extends Component {
   }
 
   render() {
-    const { path, type, data, child, dataComponents } = this.props;
-    const DataComponent = dataComponents[0];
+    const { path, type, data, child, dataComponents, DataComponent } = this.props;
     const { containerOrContent } = this.state;
 
     return (
       <Switch>
         {containerOrContent === 'container' && <ContainerRoutes path={path} data={data} DataComponent={DataComponent} />}
-        {containerOrContent === 'content' && <ContentRoutes path={path} type={type} child={child} />}
+        {containerOrContent === 'content' && <ContentRoutes path={path} type={type} child={child} dataComponents={dataComponents} />}
       </Switch>
     );
   }
@@ -75,7 +75,7 @@ class ContentRoutes extends Component {
         {dataComponents && dataComponents.map(dataComponent => {
           const { route, component } = dataComponent;
           return <Route
-            key={component}
+            key={Math.random()}
             path={`${path}${route}`}
             component={component}/>;
         }) }

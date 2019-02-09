@@ -30,14 +30,14 @@ class Assets extends Component {
 
   render() {
     const { handleCreateAsset } = this;
-    const { match } = this.props;
+    const { path } = this.props.match;
     const { assets } = this.state;
 
     return (
       <Router>
         <Fragment>
           {assets && <Header headerChildren={assets} handleCreateChild={handleCreateAsset} path={match.path} /> }
-          {assets && <Routes data={assets} dataComponents={[Asset]} path={match.path} /> }
+          {assets && <Routes data={assets} DataComponent={Asset} path={path} /> }
         </Fragment>
       </Router>
     );

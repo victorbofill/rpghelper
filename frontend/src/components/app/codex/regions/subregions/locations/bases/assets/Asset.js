@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route, NavLink, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import EditAsset from './EditAsset';
 
@@ -40,8 +39,7 @@ class Asset extends Component {
   }
 }
 
-export default connect(
-)(withRouter(Asset));
+export default withRouter(Asset);
 
 class AssetDetails extends Component {
   static propTypes = {

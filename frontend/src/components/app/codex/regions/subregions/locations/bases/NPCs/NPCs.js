@@ -30,14 +30,14 @@ class NPCs extends Component {
   
   render() {
     const { handleCreateNPC } = this;
-    const { match } = this.props;
+    const { path } = this.props.match;
     const { NPCs } = this.state;
 
     return (
       <Router>
         <Fragment>
           {NPCs && <Header headerChildren={NPCs} handleCreateChild={handleCreateNPC} path={match.path} /> }
-          {NPCs && <Routes data={NPCs} dataComponents={[NPC]} path={match.path} /> }
+          {NPCs && <Routes data={NPCs} DataComponent={NPC} path={path} /> }
         </Fragment>
       </Router>
     );

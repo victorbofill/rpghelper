@@ -30,14 +30,14 @@ class Regions extends Component {
 
   render() {
     const { handleCreateRegion } = this;
-    const { match } = this.props;
+    const { path } = this.props.match;
     const { regions } = this.state;
 
     return (
       <Router>
         <Fragment>
-          {regions && <Header headerChildren={regions} handleCreateChild={handleCreateRegion} path={match.path} /> }
-          {regions && <Routes data={regions} dataComponents={[Region]} path={match.path} /> }
+          {regions && <Header headerChildren={regions} handleCreateChild={handleCreateRegion} path={path} /> }
+          {regions && <Routes data={regions} DataComponent={Region} path={path} /> }
         </Fragment>
       </Router>
     );

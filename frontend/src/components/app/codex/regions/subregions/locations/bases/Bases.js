@@ -30,14 +30,14 @@ class Bases extends Component {
   
   render() {
     const { handleCreateBase } = this;
-    const { match } = this.props;
+    const { path } = this.props.match;
     const { bases } = this.state;
 
     return (
       <Router>
         <Fragment>
-          {bases && <Header headerChildren={bases} handleCreateChild={handleCreateBase} path={match.path} /> }
-          {bases && <Routes data={bases} dataComponents={[Base]} path={match.path} /> }
+          {bases && <Header headerChildren={bases} handleCreateChild={handleCreateBase} path={path} /> }
+          {bases && <Routes data={bases} DataComponent={Base} path={path} /> }
         </Fragment>
       </Router>
     );
