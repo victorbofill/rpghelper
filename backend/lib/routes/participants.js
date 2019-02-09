@@ -16,19 +16,7 @@ module.exports = router
   })
 
   .put('/:id', async(req, res, next) => {
-    const {
-      name, str, agi, end, will, cha, rea, per,
-      apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
-      bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
-    } = req.body;
-
-    const updates = {
-      name, str, agi, end, will, cha, rea, per,
-      apAdjust, ap, dr, hp, guard, disposition, subtlety, insight, awareness,
-      bleeding, blinded, burning, crippled, deafened, afraid, prone, dead, immobilized, unconscious
-    };
-
-    const updatedParticipant = await Participant.findByIdAndUpdate(req.params.id, updates, updateOptions)
+    const updatedParticipant = await Participant.findByIdAndUpdate(req.params.id, req.body, updateOptions)
       .catch(err => next(err));
     return res.json(updatedParticipant);
   })
