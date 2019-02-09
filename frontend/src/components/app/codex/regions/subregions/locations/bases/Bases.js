@@ -36,7 +36,7 @@ class Bases extends Component {
     return (
       <Router>
         <Fragment>
-          {bases && <Header headerChildren={bases} handleCreateChild={handleCreateBase} path={path} /> }
+          {bases && <Header containers={bases} handleCreateContainer={handleCreateBase} path={path} /> }
           {bases && <Routes data={bases} DataComponent={Base} path={path} /> }
         </Fragment>
       </Router>

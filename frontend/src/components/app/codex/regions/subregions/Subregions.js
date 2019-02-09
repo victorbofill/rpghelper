@@ -36,7 +36,7 @@ class Subregions extends Component {
     return (
       <Router>
         <Fragment>
-          {subregions && <Header headerChildren={subregions} handleCreateChild={handleCreateSubregion} path={path} /> }
+          {subregions && <Header containers={subregions} handleCreateContainer={handleCreateSubregion} path={path} /> }
           {subregions && <Routes data={subregions} DataComponent={Subregion} path={path} /> }
         </Fragment>
       </Router>

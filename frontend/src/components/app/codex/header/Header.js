@@ -7,9 +7,9 @@ import styles from './Header.css';
 export default class Header extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
-    headerChildren: PropTypes.array,
-    handleCreateChild: PropTypes.func,
-    childrenTypes: PropTypes.array,
+    containers: PropTypes.array,
+    handleCreateContainer: PropTypes.func,
+    contentTypes: PropTypes.array,
   };
 
   state = {
@@ -17,21 +17,21 @@ export default class Header extends Component {
   };
 
   componentDidMount() {
-    const { handleCreateChild } = this.props;
+    const { handleCreateContainer } = this.props;
     this.setState({
-      containerOrContent: handleCreateChild ? 'container' : 'content'
+      containerOrContent: handleCreateContainer ? 'container' : 'content'
     });
   }
 
   render() {
-    const { path, headerChildren, handleCreateChild, childrenTypes } = this.props;
+    const { path, containers, handleCreateContainer, contentTypes } = this.props;
     const { containerOrContent } = this.state;
 
     return (
       <header className={styles.header}>
         <ul>
-          {containerOrContent === 'container' && <ContainerHeader path={path} headerChildren={headerChildren} handleCreateChild={handleCreateChild} />}
-          {containerOrContent === 'content' && <ContentHeader path={path} childrenTypes={childrenTypes} />}
+          {containerOrContent === 'container' && <ContainerHeader path={path} containers={containers} handleCreateContainer={handleCreateContainer} />}
+          {containerOrContent === 'content' && <ContentHeader path={path} contentTypes={contentTypes} />}
         </ul>
       </header>
     );
@@ -41,20 +41,20 @@ export default class Header extends Component {
 class ContainerHeader extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
-    headerChildren: PropTypes.array.isRequired,
-    handleCreateChild: PropTypes.func.isRequired,
+    containers: PropTypes.array.isRequired,
+    handleCreateContainer: PropTypes.func.isRequired,
   };
 
   render() {
-    const { path, headerChildren, handleCreateChild } = this.props;
+    const { path, containers, handleCreateContainer } = this.props;
 
     return (
       <Fragment>
-        {headerChildren && headerChildren.map(headerChild => {
+        {containers && containers.map(headerChild => {
           return (<NavLink key={headerChild._id} to={`${path}/${headerChild.url}`}><li >{headerChild.name}</li></NavLink>);
         }
         )}
-        <li onClick={handleCreateChild}>+</li>
+        <li onClick={handleCreateContainer}>+</li>
       </Fragment>
     );
   }
@@ -63,16 +63,16 @@ class ContainerHeader extends Component {
 class ContentHeader extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
-    childrenTypes: PropTypes.array.isRequired,
+    contentTypes: PropTypes.array.isRequired,
   };
   render() {
-    const { path, childrenTypes } = this.props;
+    const { path, contentTypes } = this.props;
     return (
       <Fragment>
         <NavLink to={`${path}/`}><li>Details</li></NavLink>
-        {childrenTypes && childrenTypes.map(child => {
-          const url = child.toLowerCase();
-          return <NavLink key={child} to={`${path}/${url}`}><li>{child}</li></NavLink>;
+        {contentTypes && contentTypes.map(type => {
+          const url = type.toLowerCase();
+          return <NavLink key={Math.random()} to={`${path}/${url}`}><li>{type}</li></NavLink>;
         })}
       </Fragment>);
   }

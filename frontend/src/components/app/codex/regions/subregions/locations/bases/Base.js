@@ -22,7 +22,7 @@ class Base extends Component {
     return (
       <Router>
         <Fragment>
-          <Header childrenTypes={['Assets', 'NPCs']} path={path} />
+          <Header contentTypes={['Assets', 'NPCs']} path={path} />
           <Routes child={child} type='bases' dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
         </Fragment>
       </Router>
