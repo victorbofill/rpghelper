@@ -79,7 +79,7 @@ class ContentRoutes extends Component {
             path={`${path}${route}`}
             component={component}/>;
         }) }
-        <Route path={`${path}/`} render={props => <Edit data={child} type={type} {...props}/>}/>
+        <Route exact path={`${path}/`} render={props => <Edit data={child} type={type} {...props}/>}/>
       </Fragment>
     );
   }

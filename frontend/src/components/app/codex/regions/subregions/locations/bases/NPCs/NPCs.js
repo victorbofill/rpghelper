@@ -36,7 +36,7 @@ class NPCs extends Component {
     return (
       <Router>
         <Fragment>
-          {NPCs && <Header headerChildren={NPCs} handleCreateChild={handleCreateNPC} path={match.path} /> }
+          {NPCs && <Header headerChildren={NPCs} handleCreateChild={handleCreateNPC} path={path} /> }
           {NPCs && <Routes data={NPCs} DataComponent={NPC} path={path} /> }
         </Fragment>
       </Router>
