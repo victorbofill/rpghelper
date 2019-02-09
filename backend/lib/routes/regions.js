@@ -4,48 +4,38 @@ const { updateOptions } = require('../utils/mongoose-helpers');
 const Region = require('../models/Region');
 
 module.exports = router
-  .post('/', (req, res, next) => {
-    return Region.create({})
-      .then(region => res.json(region))
+  .post('/', async(req, res, next) => {
+    const newRegion = await Region.create({})
       .catch(next);
+    return res.json(newRegion);
   })
 
-  .get('/', (req, res, next) => {
-    return Region.find()
-      .lean()
-      .then(region => res.json(region))
+  .get('/', async(req, res, next) => {
+    const regions = await Region.find()
       .catch(next);
+    return res.json(regions);
   })
 
-  .get('/:id', (req, res, next) => {
-    return Region.findById(req.params.id)
-      .lean()
-      .then(region => res.json(region))
+  .get('/:id', async(req, res, next) => {
+    const region = await Region.findById(req.params.id)
       .catch(next);
+    return res.json(region);
   })
 
-  .put('/:id', (req, res, next) => {
-    const {
-      url,
-      name,
-      description
-    } = req.body;
-
-    const update = {
-      url,
-      name,
-      description
-    };
+  .put('/:id', async(req, res, next) => {
+    const { url, name, description } = req.body;
+    const update = { url, name, description };
 
     Object.keys(update).forEach(key => {if(!update[key]) delete update[key];});
 
-    return Region.findByIdAndUpdate(req.params.id, update, updateOptions)
-      .then(updated => res.json(updated))
+    const updatedRegion = await Region.findByIdAndUpdate(req.params.id, update, updateOptions)
       .catch(next);
+
+    return res.json(updatedRegion);
   })
 
-  .delete('/:id', (req, res, next) => {
-    return Region.findByIdAndRemove(req.params.id)
-      .then(() => res.send({ deleted : true }))
+  .delete('/:id', async(req, res, next) => {
+    const deletedRegion = Region.findByIdAndRemove(req.params.id)
       .catch(next);
+    return res.send(deletedRegion);
   });
