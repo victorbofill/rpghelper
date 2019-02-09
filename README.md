@@ -4,7 +4,7 @@ Oh hello! This is just an app to help me run the RPG game that I made, Quan. It 
 
 
 ## Feb. 8
-I'm in the process of removing Redux. I don't actually need it for this project.
+I just removed Redux from the project because it wasn't actually needed. Up next is adjusting routes to provide specific branches of the database tree; initially I wrote nothing but a bunch of get-all paths just to have data to work with.
 
 ## Up next
 Actually utilizing React is coming up, particularly in the Action component.
