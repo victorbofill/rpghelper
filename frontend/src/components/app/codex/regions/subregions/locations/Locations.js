@@ -1,59 +1,47 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import ContainerHeader from '../../../header/ContainerHeader';
-import ContainerRoutes from '../../../routes/ContainerRoutes';
+import Header from '../../../header/Header';
+import Routes from '../../../routes/Routes';
 import Location from './Location';
-import { getLocations } from './reducers';
-import {
-  addLocation,
-  loadLocations,
-  updateLocation,
-  deleteLocation
-} from './actions';
+import { api } from '../../../../../../services/api';
 
 class Locations extends Component {
   static propTypes = {
-    locations: PropTypes.array,
-    addLocation: PropTypes.func,
-    loadLocations: PropTypes.func,
-    updateLocation: PropTypes.func,
-    deleteLocation: PropTypes.func,
     match: PropTypes.object,
   };
 
-  componentDidMount() {
-    this.props.loadLocations();
+  state = {
+    locations: []
+  };
+
+  async componentDidMount() {
+    const locations = await api.getAllData('locations');
+    this.setState({ locations });
   }
 
-  handleCreateLocation = () => {
-    this.props.addLocation();
+  handleCreateLocation = async() => {
+    const { locations } = this.state;
+    const newSubregion = await api.postData('locations');
+    locations.push(newSubregion);
+    this.setState({ locations });
   };
 
   render() {
     const { handleCreateLocation } = this;
-    const { locations, match } = this.props;
+    const { path } = this.props.match;
+    const { locations } = this.state;
 
     return (
       <Router>
         <Fragment>
-          {locations && <ContainerHeader headerChildren={locations} handleCreateChild={handleCreateLocation} path={match.path} /> }
-          {locations && <ContainerRoutes data={locations} DataComponent={Location} path={match.path} /> }
+          {locations && <Header headerChildren={locations} handleCreateChild={handleCreateLocation} path={path} /> }
+          {locations && <Routes data={locations} dataComponents={[Location]} path={path} /> }
         </Fragment>
       </Router>
     );
   }
 }
 
-export default connect(
-  state => ({
-    locations: getLocations(state)
-  }), {
-    addLocation,
-    loadLocations,
-    updateLocation,
-    deleteLocation  
-  }
-)(Locations);
+export default withRouter(Locations);

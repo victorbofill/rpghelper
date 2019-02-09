@@ -1,59 +1,47 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Asset from './Asset';
-import ContainerHeader from '../../../../../header/ContainerHeader';
-import ContainerRoutes from '../../../../../routes/ContainerRoutes';
-import { getAssets } from './reducers';
-import {
-  addAsset,
-  loadAssets,
-  updateAsset,
-  deleteAsset
-} from './actions';
+import Header from '../../../../../header/Header';
+import Routes from '../../../../../routes/Routes';
+import { api } from '../../../../../../../../services/api';
 
 class Assets extends Component {
   static propTypes = {
-    assets: PropTypes.array,
-    addAsset: PropTypes.func,
-    loadAssets: PropTypes.func,
-    updateAssets: PropTypes.func,
-    deleteAssets: PropTypes.func,
     match: PropTypes.object,
   };
 
-  componentDidMount() {
-    this.props.loadAssets();
+  state = {
+    assets: [],
+  };
+
+  async componentDidMount() {
+    const assets = await api.getAllData('assets');
+    this.setState({ assets });
   }
 
-  handleCreateAsset = () => {
-    this.props.addAsset();
+  handleCreateAsset = async() => {
+    const { assets } = this.state;
+    const newAsset = await api.postData('assets');
+    assets.push(newAsset);
+    this.setState({ assets });
   };
 
   render() {
     const { handleCreateAsset } = this;
-    const { assets, match } = this.props;
+    const { match } = this.props;
+    const { assets } = this.state;
 
     return (
       <Router>
         <Fragment>
-          {assets && <ContainerHeader headerChildren={assets} handleCreateChild={handleCreateAsset} path={match.path} /> }
-          {assets && <ContainerRoutes data={assets} DataComponent={Asset} path={match.path} /> }
+          {assets && <Header headerChildren={assets} handleCreateChild={handleCreateAsset} path={match.path} /> }
+          {assets && <Routes data={assets} dataComponents={[Asset]} path={match.path} /> }
         </Fragment>
       </Router>
     );
   }
 }
 
-export default connect(
-  state => ({
-    assets: getAssets(state)
-  }), {
-    addAsset,
-    loadAssets,
-    updateAsset,
-    deleteAsset  
-  }
-)(Assets);
+export default withRouter(Assets);

@@ -1,59 +1,47 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Base from './Base';
-import ContainerHeader from '../../../../header/ContainerHeader';
-import ContainerRoutes from '../../../../routes/ContainerRoutes';
-import { getBases } from './reducers';
-import {
-  addBase,
-  loadBases,
-  updateBase,
-  deleteBase
-} from './actions';
+import Header from '../../../../header/Header';
+import Routes from '../../../../routes/Routes';
+import { api } from '../../../../../../../services/api';
 
 class Bases extends Component {
   static propTypes = {
-    bases: PropTypes.array,
-    addBase: PropTypes.func,
-    loadBases: PropTypes.func,
-    updateBase: PropTypes.func,
-    deleteBase: PropTypes.func,
     match: PropTypes.object,
   };
 
-  componentDidMount() {
-    this.props.loadBases();
+  state = {
+    bases: [],
+  };
+
+  async componentDidMount() {
+    const bases = await api.getAllData('bases');
+    this.setState({ bases });
   }
 
-  handleCreateBase = () => {
-    this.props.addBase();
+  handleCreateBase = async() => {
+    const { bases } = this.state;
+    const newBase = await api.postData('bases');
+    bases.push(newBase);
+    this.setState({ bases });
   };
   
   render() {
     const { handleCreateBase } = this;
-    const { bases, match } = this.props;
+    const { match } = this.props;
+    const { bases } = this.state;
 
     return (
       <Router>
         <Fragment>
-          {bases && <ContainerHeader headerChildren={bases} handleCreateChild={handleCreateBase} path={match.path} /> }
-          {bases && <ContainerRoutes data={bases} DataComponent={Base} path={match.path} /> }
+          {bases && <Header headerChildren={bases} handleCreateChild={handleCreateBase} path={match.path} /> }
+          {bases && <Routes data={bases} dataComponents={[Base]} path={match.path} /> }
         </Fragment>
       </Router>
     );
   }
 }
 
-export default connect(
-  state => ({
-    bases: getBases(state)
-  }), {
-    addBase,
-    loadBases,
-    updateBase,
-    deleteBase  
-  }
-)(Bases);
+export default withRouter(Bases);

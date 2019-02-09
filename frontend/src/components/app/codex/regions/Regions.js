@@ -1,40 +1,37 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Routes from '../routes/Routes';
 import Header from '../header/Header';
 import Region from './Region';
-import { getRegions } from './reducers';
-import {
-  addRegion,
-  loadRegions,
-  updateRegion,
-  deleteRegion
-} from './actions';
+import { api } from '../../../../services/api';
 
 class Regions extends Component {
   static propTypes = {
-    addRegion: PropTypes.func,
-    loadRegions: PropTypes.func,
-    updateRegion: PropTypes.func,
-    deleteRegion: PropTypes.func,
-    regions: PropTypes.array,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
   };
 
-  componentDidMount() {
-    this.props.loadRegions();
+  state= {
+    regions: []
+  };
+
+  async componentDidMount() {
+    const regions = await api.getAllData('regions');
+    this.setState({ regions });
   }
 
-  handleCreateRegion = () => {
-    this.props.addRegion();
+  handleCreateRegion = async() => {
+    const { regions } = this.state;
+    const newRegion = await api.postData('regions');
+    regions.push(newRegion);
+    this.setState({ regions });
   };
 
   render() {
     const { handleCreateRegion } = this;
-    const { regions, match } = this.props;
+    const { match } = this.props;
+    const { regions } = this.state;
 
     return (
       <Router>
@@ -47,14 +44,4 @@ class Regions extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    regions: getRegions(state)
-  }),
-  {
-    addRegion,
-    loadRegions,
-    updateRegion,
-    deleteRegion
-  }
-)(withRouter(Regions));
+export default withRouter(Regions);
