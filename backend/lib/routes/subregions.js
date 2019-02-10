@@ -29,6 +29,12 @@ module.exports = router
       .catch(next);
   })
 
+  .get('/:id/locations', async(req, res, next) => {
+    const { locations } = await Subregion.findById(req.params.id).populate('locations')
+      .catch(next);
+    return res.json(locations);
+  })
+
   .put('/:id', (req, res, next) => {
     const {
       url,
@@ -49,15 +55,11 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete('/:id', (req, res) => {
-    return Subregion.findByIdAndRemove(req.params.id)
-      .then(removed => {
-        return Region.findByIdAndUpdate(removed.regionId, {
-          $pull: { subregions: removed._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(() => res.send({ deleted : true }))
+  .delete('/:id', async(req, res) => {
+    await Subregion.findByIdAndRemove(req.params.id);
+    await Region.findByIdAndUpdate(req.params.id, {
+      $pull: { subregions: req.params.id }
+    }, updateOptions)
       .catch(err => res.send(err));
+    res.send({ deleted: true });
   });
-  

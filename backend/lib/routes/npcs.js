@@ -5,16 +5,14 @@ const Base = require('../models/Base');
 const NPC = require('../models/NPC');
 
 module.exports = router
-  .post('/', (req, res) => {
-    NPC.create({})
-      .then(NPC => {
-        return Base.findByIdAndUpdate(req.body.baseId, {
-          $addToSet: { NPCs: NPC._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(res => res.send(res))
-      .catch(err => res.send(err));
+  .post('/', async(req, res, next) => {
+    const { baseId } = req.body;
+    const newNPC = await Base.create({});
+    await Base.findByIdAndUpdate(baseId, {
+      $addToSet: { subregions: newNPC._id }
+    }, updateOptions)
+      .catch(next);
+    return res.json(newNPC);
   })
  
   .get('/', (req, res, next) => {
@@ -73,15 +71,12 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete('/:id', (req, res) => {
-    return NPC.findByIdAndRemove(req.params.id)
-      .then(removed => {
-        return Base.findByIdAndUpdate(removed.regionId, {
-          $pull: { NPCs: removed._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(() => res.send({ deleted : true }))
+  .delete('/:id', async(req, res) => {
+    await NPC.findByIdAndRemove(req.params.id);
+    await Base.findByIdAndUpdate(req.params.id, {
+      $pull: { NPCs: req.params.id }
+    }, updateOptions)
       .catch(err => res.send(err));
+    res.send({ deleted: true });
   });
   

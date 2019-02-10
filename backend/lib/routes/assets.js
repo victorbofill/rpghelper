@@ -5,16 +5,14 @@ const Base = require('../models/Base');
 const Asset = require('../models/Asset');
 
 module.exports = router
-  .post('/', (req, res) => {
-    Asset.create({})
-      .then(asset => {
-        return Base.findByIdAndUpdate(req.body.baseId, {
-          $addToSet: { assets: asset._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(res => res.send(res))
-      .catch(err => res.send(err));
+  .post('/', async(req, res, next) => {
+    const { baseId } = req.body;
+    const newAsset = await Base.create({});
+    await Base.findByIdAndUpdate(baseId, {
+      $addToSet: { subregions: newAsset._id }
+    }, updateOptions)
+      .catch(next);
+    return res.json(newAsset);
   })
  
   .get('/', (req, res, next) => {
@@ -51,15 +49,12 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete('/:id', (req, res) => {
-    return Asset.findByIdAndRemove(req.params.id)
-      .then(removed => {
-        return Base.findByIdAndUpdate(removed.regionId, {
-          $pull: { assets: removed._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(() => res.send({ deleted : true }))
+  .delete('/:id', async(req, res) => {
+    await Asset.findByIdAndRemove(req.params.id);
+    await Base.findByIdAndUpdate(req.params.id, {
+      $pull: { assets: req.params.id }
+    }, updateOptions)
       .catch(err => res.send(err));
+    res.send({ deleted: true });
   });
   

@@ -5,18 +5,16 @@ const Location = require('../models/Location');
 const Base = require('../models/Base');
 
 module.exports = router
-  .post('/', (req, res) => {
-    Base.create({})
-      .then(base => {
-        return Location.findByIdAndUpdate(req.body.locationId, {
-          $addToSet: { bases: base._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(res => res.send(res))
-      .catch(err => res.send(err));
+  .post('/', async(req, res, next) => {
+    const { locationId } = req.body;
+    const newBase = await Base.create({});
+    await Location.findByIdAndUpdate(locationId, {
+      $addToSet: { subregions: newBase._id }
+    }, updateOptions)
+      .catch(next);
+    return res.json(newBase);
   })
- 
+  
   .get('/', (req, res, next) => {
     return Base.find()
       .lean()
@@ -29,6 +27,12 @@ module.exports = router
       .lean()
       .then(base => res.json(base))
       .catch(next);
+  })
+
+  .get('/:id/populated', async(req, res, next) => {
+    const { assets, NPCs } = await Base.findById(req.params.id).populate('assets NPCs')
+      .catch(next);
+    return res.json({ assets, NPCs });
   })
 
   .put('/:id', (req, res, next) => {
@@ -57,15 +61,12 @@ module.exports = router
       .catch(next);        
   })
 
-  .delete('/:id', (req, res) => {
-    return Base.findByIdAndRemove(req.params.id)
-      .then(removed => {
-        return Location.findByIdAndUpdate(removed.locationId, {
-          $pull: { locations: removed._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(() => res.send({ deleted : true }))
+  .delete('/:id', async(req, res) => {
+    await Base.findByIdAndRemove(req.params.id);
+    await Location.findByIdAndUpdate(req.params.id, {
+      $pull: { bases: req.params.id }
+    }, updateOptions)
       .catch(err => res.send(err));
+    res.send({ deleted: true });
   });
   
