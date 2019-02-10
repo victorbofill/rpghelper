@@ -44,7 +44,7 @@ class Region extends Component {
         <Router>
           <Fragment>
             {subregions && <Header path={path} childrenList={subregions} handleCreateContainer={handleCreateSubregion} /> }
-            {subregions && <Routes  path={path} childrenList={subregions} Component={Subregion} /> }
+            {subregions && <Routes  path={path} childrenList={subregions} Component={Subregion} content={content} type={'regions'}/> }
           </Fragment>
         </Router>
       </Fragment>

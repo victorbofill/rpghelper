@@ -6,16 +6,16 @@ import { api } from '../../../../services/api';
 
 class Edit extends Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
+    content: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired
   };
 
   state = {};
 
   async componentDidMount() {
-    const { data } = this.props;
+    const { content } = this.props;
 
-    const updatedData = parseDatabaseObject(data);
+    const updatedData = parseDatabaseObject(content);
     this.setState({ ...updatedData });
   }
 
@@ -24,7 +24,7 @@ class Edit extends Component {
   };
 
   handleUpdateData = ({ target }) => {
-    const { _id } = this.props.data;
+    const { _id } = this.props.content;
     const { type } = this.props;
     const updatedData = { _id, [target.name]: target.value };
 

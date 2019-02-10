@@ -15,12 +15,10 @@ export default class Header extends Component {
   render() {
     const { path, parentType, childrenList, handleCreateNewChild } = this.props;
 
-    if(childrenList.length < 1) return <h1>Test</h1>;
-
     return (
       <header className={styles.header}>
         <ul>
-          {childrenList.map(child => {
+          {childrenList && childrenList.map(child => {
             const { _id, name } = child;
             return (<NavLink
               key={_id}
@@ -28,9 +26,12 @@ export default class Header extends Component {
               <li >{name}</li>
             </NavLink>);
           })}
-          {handleCreateNewChild &&
-            <li onClick={handleCreateNewChild}>+</li>
+          {!handleCreateNewChild &&
+            <NavLink key={Math.random()} to={`${path}/`}>
+              <li>Details</li>
+            </NavLink>
           }
+          <li onClick={handleCreateNewChild}>+</li>
         </ul>
       </header>
     );
