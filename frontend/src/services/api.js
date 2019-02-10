@@ -33,6 +33,10 @@ export const api = {
     const url = `/api/${type}/${id}`;
     return get(url);
   },
+  getChildren: (parentType, parentId, childType) => {
+    const url = `/api/${parentType}/${parentId}/${childType}`;
+    return get(url);
+  },
   putData: (type, data) => {
     const url = `/api/${type}/${data._id}`;
     return put(url, data);

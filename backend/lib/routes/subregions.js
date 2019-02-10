@@ -5,16 +5,14 @@ const Region = require('../models/Region');
 const Subregion = require('../models/Subregion');
 
 module.exports = router
-  .post('/', (req, res) => {
-    Subregion.create({})
-      .then(subregion => {
-        return Region.findByIdAndUpdate(req.body.regionId, {
-          $addToSet: { subregions: subregion._id }
-        }, updateOptions)
-          .catch(err => res.send(err));
-      })
-      .then(res => res.send(res))
-      .catch(err => res.send(err));
+  .post('/', async(req, res, next) => {
+    const { regionId } = req.body;
+    const newSubregion = await Subregion.create({});
+    await Region.findByIdAndUpdate(regionId, {
+      $addToSet: { subregions: newSubregion._id }
+    }, updateOptions)
+      .catch(next);
+    return res.json(newSubregion);
   })
  
   .get('/', (req, res, next) => {

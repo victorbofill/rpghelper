@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import { RouteTree } from '../routes/Routes';
 import Header from '../header/Header';
+import Routes from '../routes/Routes';
 import Region from './Region';
 import { api } from '../../../../services/api';
 
@@ -36,8 +36,8 @@ class Regions extends Component {
     return (
       <Router>
         <Fragment>
-          {regions && <Header containers={regions} handleCreateContainer={handleCreateRegion} path={path} /> }
-          {regions && <RouteTree  childrenList={regions} path={path} content={regions} Component={Region} /> }
+          {regions && <Header path={path} childrenList={regions} handleCreateContainer={handleCreateRegion} /> }
+          {regions && <Routes  path={path} childrenList={regions} Component={Region} /> }
         </Fragment>
       </Router>
     );

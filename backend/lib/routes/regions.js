@@ -22,6 +22,12 @@ module.exports = router
     return res.json(region);
   })
 
+  .get('/:id/subregions', async(req, res, next) => {
+    const { subregions } = await Region.findById(req.params.id).populate('subregions')
+      .catch(next);
+    return res.json(subregions);
+  })
+
   .put('/:id', async(req, res, next) => {
     const { url, name, description } = req.body;
     const update = { url, name, description };

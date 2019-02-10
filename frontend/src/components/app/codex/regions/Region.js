@@ -4,27 +4,50 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Header from '../header/Header';
 import Routes from '../routes/Routes';
-import Subregions from './subregions/Subregions';
+import Subregion from './subregions/Subregions';
+import { api } from '../../../../services/api';
 
 class Region extends Component {
   static propTypes = {
+    match: PropTypes.object.isRequired,
     content: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
+  };
+
+  state = {
+    subregions: [],
+  };
+
+  async componentDidMount() {
+    const { _id } = this.props.content;
+    const subregions = await api.getChildren('regions', _id, 'subregions');
+    this.setState({ subregions });
+  }
+
+  handleCreateSubregion = async() => {
+    const { _id } = this.props.content;
+    const { subregions } = this.state;
+    const newSubregion = await api.postData('subregions', { regionId: _id });
+    subregions.push(newSubregion);
+    this.setState({ subregions });
   };
 
   render() {
+    const { handleCreateSubregion } = this;
     const { content } = this.props;
     const { path } = this.props.match;
+    const { subregions } = this.state;
     
     if(!content) return null;
 
     return (
-      <Router>
-        <Fragment>
-          <Header contentTypes={['Subregions']} path={path} />
-          <Routes child={content} type='regions' dataComponents={[{ route: '/subregions', component: Subregions }]} path={path}/>
-        </Fragment>
-      </Router>
+      <Fragment>
+        <Router>
+          <Fragment>
+            {subregions && <Header path={path} childrenList={subregions} handleCreateContainer={handleCreateSubregion} /> }
+            {subregions && <Routes  path={path} childrenList={subregions} Component={Subregion} /> }
+          </Fragment>
+        </Router>
+      </Fragment>
     );
   }
 }
