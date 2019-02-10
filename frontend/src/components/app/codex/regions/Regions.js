@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import Routes from '../routes/Routes';
+import { RouteTree } from '../routes/Routes';
 import Header from '../header/Header';
 import Region from './Region';
 import { api } from '../../../../services/api';
@@ -37,7 +37,7 @@ class Regions extends Component {
       <Router>
         <Fragment>
           {regions && <Header containers={regions} handleCreateContainer={handleCreateRegion} path={path} /> }
-          {regions && <Routes data={regions} DataComponent={Region} path={path} /> }
+          {regions && <RouteTree  childrenList={regions} path={path} content={regions} Component={Region} /> }
         </Fragment>
       </Router>
     );

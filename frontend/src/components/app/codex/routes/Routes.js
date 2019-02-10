@@ -36,19 +36,43 @@ export default class Routes extends Component {
   }
 }
 
+export class RouteTree extends Component {
+  static propTypes = {
+    path: PropTypes.string.isRequired,
+    parentId: PropTypes.string,
+    childrenList: PropTypes.array.isRequired,
+    Component: PropTypes.func.isRequired,
+  };
+
+  render() {
+    const { path, parentId, childrenList, Component } = this.props;
+
+    return (
+      <Fragment>
+        {childrenList && childrenList.map(child => {
+          return (<Route
+            key={child._id}
+            path={`${path}/${child.url}`}
+            render={() => <Component content={child} parentId={parentId}/>}/>);
+        })}
+      </Fragment>
+    );
+  }
+}
+
 class ContainerRoutes extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
     DataComponent: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired,
+    content: PropTypes.array.isRequired,
   };
 
   render() {
-    const { path, data, DataComponent } = this.props;
+    const { path, content, DataComponent } = this.props;
 
     return (
       <Fragment>
-        {data && data.map(child => {
+        {content && content.map(child => {
           return (<Route
             key={child._id}
             path={`${path}/${child.url}`}
