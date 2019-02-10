@@ -10,6 +10,7 @@ import { api } from '../../../../../../services/api';
 class Locations extends Component {
   static propTypes = {
     match: PropTypes.object,
+    parentId: PropTypes.string,
   };
 
   state = {
@@ -22,9 +23,10 @@ class Locations extends Component {
   }
 
   handleCreateLocation = async() => {
+    const { parentId } = this.props;
     const { locations } = this.state;
-    const newSubregion = await api.postData('locations');
-    locations.push(newSubregion);
+    const newLocation = await api.postData('locations', { subregionId: parentId });
+    locations.push(newLocation);
     this.setState({ locations });
   };
 
@@ -36,8 +38,9 @@ class Locations extends Component {
     return (
       <Router>
         <Fragment>
-          {locations && <Header containers={locations} handleCreateContainer={handleCreateLocation} path={path} /> }
-          {locations && <Routes data={locations} DataComponent={Location} path={path} /> }
+          <p>Locations</p>
+          {locations && <Header path={path} childrenList={locations} handleCreateNewChild={handleCreateLocation} /> }
+          {locations && <Routes path={path} childrenList={locations} Component={Location} /> }
         </Fragment>
       </Router>
     );

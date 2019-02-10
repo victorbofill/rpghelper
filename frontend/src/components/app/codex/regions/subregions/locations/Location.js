@@ -8,21 +8,31 @@ import Bases from './bases/Bases';
 
 class Location extends Component {
   static propTypes = {
-    child: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    content: PropTypes.object.isRequired,
   };
 
+  childrenList = [{
+    _id: Math.random(),
+    url: 'bases',
+    name: 'Bases',
+  }];
+
   render() {
-    const { child } = this.props;
+    const { childrenList } = this;
+    const { content } = this.props;
     const { path } = this.props.match;
 
-    if(!child) return null;
+    if(!content) return null;
+
+    const { _id } = content;
 
     return (
       <Router>
         <Fragment>
-          <Header contentTypes={['Bases']} path={path} />
-          <Routes child={child} type='locations' dataComponents={[{ route: '/bases', component: Bases }]} path={path}/>
+          <p>Location</p>
+          <Header path={path} childrenList={childrenList}/>
+          <Routes path={path} content={content} type={'locations'} Component={Bases} parentId={_id} />
         </Fragment>
       </Router>
     );
