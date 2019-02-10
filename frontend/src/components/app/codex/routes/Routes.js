@@ -10,17 +10,19 @@ export default class Routes extends Component {
     parentId: PropTypes.string,
     childrenList: PropTypes.array,
     Component: PropTypes.func,
+    Components: PropTypes.func,
     content: PropTypes.object,
     type: PropTypes.string,
   };
 
   render() {
-    const { path, parentId, childrenList, Component, content, type } = this.props;
+    const { path, parentId, childrenList, content, type } = this.props;
 
     return (
       <Switch>
         {childrenList && childrenList.map(child => {
           const { _id, url } = child;
+          const Component = this.props.Component || child.Component;
           return (<Route
             key={_id}
             path={`${path}/${url}`}

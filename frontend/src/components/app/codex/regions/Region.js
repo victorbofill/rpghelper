@@ -15,7 +15,7 @@ class Region extends Component {
   childrenList = [{
     _id: Math.random(),
     url: 'subregions',
-    name: 'Subregions',
+    name: 'Subregions'
   }];
 
   render() {
@@ -32,7 +32,7 @@ class Region extends Component {
         <Fragment>
           <p>Region</p>
           <Header path={path} childrenList={childrenList}/>
-          <Routes path={path} childrenList={childrenList} content={content} type={'regions'} Component={Subregions} parentId={_id} />
+          <Routes path={path} childrenList={childrenList} Component={Subregions} content={content} type={'regions'} parentId={_id} />
         </Fragment>
       </Router>
     );

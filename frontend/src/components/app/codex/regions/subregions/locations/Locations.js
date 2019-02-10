@@ -18,7 +18,8 @@ class Locations extends Component {
   };
 
   async componentDidMount() {
-    const locations = await api.getAllData('locations');
+    const { parentId } = this.props;
+    const locations = await api.getChildren('subregions', parentId, 'locations');
     this.setState({ locations });
   }
 
@@ -39,8 +40,8 @@ class Locations extends Component {
       <Router>
         <Fragment>
           <p>Locations</p>
-          {locations && <Header path={path} childrenList={locations} handleCreateNewChild={handleCreateLocation} /> }
-          {locations && <Routes path={path} childrenList={locations} Component={Location} /> }
+          <Header path={path} childrenList={locations} handleCreateNewChild={handleCreateLocation} />
+          <Routes path={path} childrenList={locations} Component={Location} />
         </Fragment>
       </Router>
     );

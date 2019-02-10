@@ -9,21 +9,40 @@ import NPCs from './NPCs/NPCs';
 
 class Base extends Component {
   static propTypes = {
-    child: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired,
+    content: PropTypes.object.isRequired,
   };
 
+  childrenList = [
+    {
+      _id: Math.random(),
+      url: 'assets',
+      name: 'Assets',
+      Component: Assets,
+    },
+    {
+      _id: Math.random(),
+      url: 'npcs',
+      name: 'NPCs',
+      Component: NPCs,
+    }
+  ];
+
   render() {
-    const { child } = this.props;
+    const { childrenList } = this;
+    const { content } = this.props;
     const { path } = this.props.match;
 
-    if(!child) return null;
+    if(!content) return null;
+
+    const { _id } = content;
 
     return (
       <Router>
         <Fragment>
-          <Header contentTypes={['Assets', 'NPCs']} path={path} />
-          <Routes child={child} type='bases' dataComponents={[{ route: '/assets', component: Assets }, { route: '/npcs', component: NPCs }]} path={path}/>
+          <p>Base</p>
+          <Header path={path} childrenList={childrenList} />
+          <Routes path={path} childrenList={childrenList} type={'bases'} parentId={_id} content={content} />
         </Fragment>
       </Router>
     );

@@ -18,7 +18,8 @@ class Subregions extends Component {
   };
 
   async componentDidMount() {
-    const subregions = await api.getAllData('subregions');
+    const { parentId } = this.props;
+    const subregions = await api.getChildren('regions', parentId, 'subregions');
     this.setState({ subregions });
   }
 
@@ -40,8 +41,8 @@ class Subregions extends Component {
       <Router>
         <Fragment>
           <p>Subregions</p>
-          {subregions && <Header path={path} childrenList={subregions} handleCreateNewChild={handleCreateSubregion} /> }
-          {subregions && <Routes path={path} childrenList={subregions} Component={Subregion} /> }
+          <Header path={path} childrenList={subregions} handleCreateNewChild={handleCreateSubregion} />
+          <Routes path={path} childrenList={subregions} Component={Subregion} />
         </Fragment>
       </Router>
     );

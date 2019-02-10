@@ -9,12 +9,12 @@ module.exports = router
     const { locationId } = req.body;
     const newBase = await Base.create({});
     await Location.findByIdAndUpdate(locationId, {
-      $addToSet: { subregions: newBase._id }
+      $addToSet: { bases: newBase._id }
     }, updateOptions)
       .catch(next);
     return res.json(newBase);
   })
-  
+
   .get('/', (req, res, next) => {
     return Base.find()
       .lean()
@@ -29,10 +29,16 @@ module.exports = router
       .catch(next);
   })
 
-  .get('/:id/populated', async(req, res, next) => {
-    const { assets, NPCs } = await Base.findById(req.params.id).populate('assets NPCs')
+  .get('/:id/assets', async(req, res, next) => {
+    const { assets } = await Base.findById(req.params.id).populate('assets')
       .catch(next);
-    return res.json({ assets, NPCs });
+    return res.json(assets);
+  })
+
+  .get('/:id/npcs', async(req, res, next) => {
+    const { npcs } = await Base.findById(req.params.id).populate('npcs')
+      .catch(next);
+    return res.json(npcs);
   })
 
   .put('/:id', (req, res, next) => {

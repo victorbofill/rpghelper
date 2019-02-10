@@ -10,6 +10,7 @@ import { api } from '../../../../../../../services/api';
 class Bases extends Component {
   static propTypes = {
     match: PropTypes.object,
+    parentId: PropTypes.string,
   };
 
   state = {
@@ -17,13 +18,15 @@ class Bases extends Component {
   };
 
   async componentDidMount() {
-    const bases = await api.getAllData('bases');
+    const { parentId } = this.props;
+    const bases = await api.getChildren('locations', parentId, 'bases');
     this.setState({ bases });
   }
 
   handleCreateBase = async() => {
+    const { parentId } = this.props;
     const { bases } = this.state;
-    const newBase = await api.postData('bases');
+    const newBase = await api.postData('bases', { locationId: parentId });
     bases.push(newBase);
     this.setState({ bases });
   };
@@ -36,8 +39,9 @@ class Bases extends Component {
     return (
       <Router>
         <Fragment>
-          {bases && <Header containers={bases} handleCreateContainer={handleCreateBase} path={path} /> }
-          {bases && <Routes data={bases} DataComponent={Base} path={path} /> }
+          <p>Bases</p>
+          <Header path={path} childrenList={bases} handleCreateNewChild={handleCreateBase} />
+          <Routes path={path} childrenList={bases} Component={Base} />
         </Fragment>
       </Router>
     );

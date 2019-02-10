@@ -9,7 +9,7 @@ module.exports = router
     const { subregionId } = req.body;
     const newLocation = await Location.create({});
     await Subregion.findByIdAndUpdate(subregionId, {
-      $addToSet: { subregions: newLocation._id }
+      $addToSet: { locations: newLocation._id }
     }, updateOptions)
       .catch(next);
     return res.json(newLocation);

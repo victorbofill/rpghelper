@@ -10,6 +10,7 @@ import { api } from '../../../../../../../../services/api';
 class Assets extends Component {
   static propTypes = {
     match: PropTypes.object,
+    parentId: PropTypes.string,
   };
 
   state = {
@@ -17,13 +18,15 @@ class Assets extends Component {
   };
 
   async componentDidMount() {
-    const assets = await api.getAllData('assets');
+    const { parentId } = this.props;
+    const assets = await api.getChildren('bases', parentId, 'assets');
     this.setState({ assets });
   }
 
   handleCreateAsset = async() => {
+    const { parentId } = this.props;
     const { assets } = this.state;
-    const newAsset = await api.postData('assets');
+    const newAsset = await api.postData('assets', { baseId: parentId });
     assets.push(newAsset);
     this.setState({ assets });
   };
@@ -36,8 +39,9 @@ class Assets extends Component {
     return (
       <Router>
         <Fragment>
-          {assets && <Header containers={assets} handleCreateContainer={handleCreateAsset} path={path} /> }
-          {assets && <Routes data={assets} DataComponent={Asset} path={path} /> }
+          <p>Assets</p>
+          <Header path={path} childrenList={assets} handleCreateNewChild={handleCreateAsset} />
+          <Routes path={path} childrenList={assets} Component={Asset} />
         </Fragment>
       </Router>
     );

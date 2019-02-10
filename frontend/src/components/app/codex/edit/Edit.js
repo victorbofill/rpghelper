@@ -7,7 +7,7 @@ import { api } from '../../../../services/api';
 class Edit extends Component {
   static propTypes = {
     content: PropTypes.object.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string
   };
 
   state = {};

@@ -7,9 +7,9 @@ const NPC = require('../models/NPC');
 module.exports = router
   .post('/', async(req, res, next) => {
     const { baseId } = req.body;
-    const newNPC = await Base.create({});
+    const newNPC = await NPC.create({});
     await Base.findByIdAndUpdate(baseId, {
-      $addToSet: { subregions: newNPC._id }
+      $addToSet: { npcs: newNPC._id }
     }, updateOptions)
       .catch(next);
     return res.json(newNPC);

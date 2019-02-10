@@ -7,9 +7,9 @@ const Asset = require('../models/Asset');
 module.exports = router
   .post('/', async(req, res, next) => {
     const { baseId } = req.body;
-    const newAsset = await Base.create({});
+    const newAsset = await Asset.create({});
     await Base.findByIdAndUpdate(baseId, {
-      $addToSet: { subregions: newAsset._id }
+      $addToSet: { assets: newAsset._id }
     }, updateOptions)
       .catch(next);
     return res.json(newAsset);

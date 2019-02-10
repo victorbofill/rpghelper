@@ -30,8 +30,9 @@ module.exports = router
   })
 
   .get('/:id/locations', async(req, res, next) => {
-    const { locations } = await Subregion.findById(req.params.id).populate('locations')
+    const populatedSubregions = await Subregion.findById(req.params.id).populate('locations')
       .catch(next);
+    const { locations } = populatedSubregions;
     return res.json(locations);
   })
 
