@@ -8,8 +8,8 @@ export default class Routes extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
     parentId: PropTypes.string,
-    childrenList: PropTypes.array.isRequired,
-    Component: PropTypes.func.isRequired,
+    childrenList: PropTypes.array,
+    Component: PropTypes.func,
     content: PropTypes.object,
     type: PropTypes.string,
   };
@@ -20,16 +20,17 @@ export default class Routes extends Component {
     return (
       <Switch>
         {childrenList && childrenList.map(child => {
+          const { _id, url } = child;
           return (<Route
-            key={child._id}
-            path={`${path}/${child.url}`}
+            key={_id}
+            path={`${path}/${url}`}
             render={() => <Component content={child} parentId={parentId}/>}
           />);
         })}
         {content &&
           <Route
             key={Math.random()}
-            exact path={`${path}/`}
+            exact path={`${path}`}
             render={() => <Edit content={content} type={type} />}
           />
         }

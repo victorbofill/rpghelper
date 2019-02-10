@@ -4,8 +4,7 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Header from '../header/Header';
 import Routes from '../routes/Routes';
-import Subregion from './subregions/Subregions';
-import { api } from '../../../../services/api';
+import Subregions from './subregions/Subregions';
 
 class Region extends Component {
   static propTypes = {
@@ -13,41 +12,39 @@ class Region extends Component {
     content: PropTypes.object.isRequired,
   };
 
-  state = {
-    subregions: [],
-  };
-
-  async componentDidMount() {
-    const { _id } = this.props.content;
-    const subregions = await api.getChildren('regions', _id, 'subregions');
-    this.setState({ subregions });
-  }
-
-  handleCreateSubregion = async() => {
-    const { _id } = this.props.content;
-    const { subregions } = this.state;
-    const newSubregion = await api.postData('subregions', { regionId: _id });
-    subregions.push(newSubregion);
-    this.setState({ subregions });
-  };
+  childrenList = [{
+    _id: Math.random(),
+    url: 'Subregions',
+  }];
 
   render() {
-    const { handleCreateSubregion } = this;
     const { content } = this.props;
     const { path } = this.props.match;
-    const { subregions } = this.state;
     
     if(!content) return null;
 
+    const { _id } = content;
+
     return (
-      <Fragment>
-        <Router>
-          <Fragment>
-            {subregions && <Header path={path} childrenList={subregions} handleCreateContainer={handleCreateSubregion} /> }
-            {subregions && <Routes  path={path} childrenList={subregions} Component={Subregion} content={content} type={'regions'}/> }
-          </Fragment>
-        </Router>
-      </Fragment>
+      <Router>
+        <Fragment>
+          <p>Region</p>
+          <Header
+            path={path}
+            childrenList={[{
+              name: 'Subregions',
+              url: 'subregions',
+              _id: Math.random(),
+            }]}/>
+          <Routes 
+            path={path}
+            content={content}
+            type={'regions'}
+            Component={Subregions}
+            parentId={_id}
+          />
+        </Fragment>
+      </Router>
     );
   }
 }
