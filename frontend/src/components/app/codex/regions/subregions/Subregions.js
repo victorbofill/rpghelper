@@ -10,6 +10,7 @@ import { api } from '../../../../../services/api';
 class Subregions extends Component {
   static propTypes = {
     match: PropTypes.object,
+    parentId: PropTypes.string,
   };
 
   state = {
@@ -22,16 +23,16 @@ class Subregions extends Component {
   }
 
   handleCreateSubregion = async() => {
-    const { _id } = this.props.content;
+    const { parentId } = this.props;
     const { subregions } = this.state;
-    const newSubregion = await api.postData('subregions', { regionId: _id });
+    const newSubregion = await api.postData('subregions', { regionId: parentId });
     subregions.push(newSubregion);
     this.setState({ subregions });
   };
 
 
   render() {
-    const { handleCreatLocation } = this;
+    const { handleCreateSubregion } = this;
     const { path } = this.props.match;
     const { subregions } = this.state;
 
@@ -39,7 +40,7 @@ class Subregions extends Component {
       <Router>
         <Fragment>
           <p>Subregions</p>
-          {subregions && <Header path={path} childrenList={subregions} handleCreateNewChild={handleCreatLocation} /> }
+          {subregions && <Header path={path} childrenList={subregions} handleCreateNewChild={handleCreateSubregion} /> }
           {subregions && <Routes path={path} childrenList={subregions} Component={Subregion} /> }
         </Fragment>
       </Router>

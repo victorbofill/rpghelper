@@ -14,10 +14,12 @@ class Region extends Component {
 
   childrenList = [{
     _id: Math.random(),
-    url: 'Subregions',
+    url: 'subregions',
+    name: 'Subregions',
   }];
 
   render() {
+    const { childrenList } = this;
     const { content } = this.props;
     const { path } = this.props.match;
     
@@ -29,20 +31,8 @@ class Region extends Component {
       <Router>
         <Fragment>
           <p>Region</p>
-          <Header
-            path={path}
-            childrenList={[{
-              name: 'Subregions',
-              url: 'subregions',
-              _id: Math.random(),
-            }]}/>
-          <Routes 
-            path={path}
-            content={content}
-            type={'regions'}
-            Component={Subregions}
-            parentId={_id}
-          />
+          <Header path={path} childrenList={childrenList}/>
+          <Routes path={path} childrenList={childrenList} content={content} type={'regions'} Component={Subregions} parentId={_id} />
         </Fragment>
       </Router>
     );
