@@ -30,7 +30,6 @@ class Location extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Location</p>
           <Header path={path} childrenList={childrenList}/>
           <Routes path={path} childrenList={childrenList} Component={Bases} content={content} type={'locations'} parentId={_id} />
         </Fragment>

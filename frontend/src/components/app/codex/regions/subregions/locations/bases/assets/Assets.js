@@ -39,7 +39,6 @@ class Assets extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Assets</p>
           <Header path={path} childrenList={assets} handleCreateNewChild={handleCreateAsset} />
           <Routes path={path} childrenList={assets} Component={Asset} />
         </Fragment>

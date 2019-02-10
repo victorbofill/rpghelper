@@ -30,7 +30,6 @@ class Subregion extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Subregion</p>
           <Header path={path} childrenList={childrenList}/>
           <Routes path={path} childrenList={childrenList} Component={Locations} content={content} type={'subregions'} parentId={_id} />
         </Fragment>

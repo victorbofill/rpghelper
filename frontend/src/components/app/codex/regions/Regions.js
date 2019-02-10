@@ -36,9 +36,8 @@ class Regions extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Regions</p>
-          {regions && <Header path={path} childrenList={regions} handleCreateNewChild={handleCreateRegion} /> }
-          {regions && <Routes  path={path} childrenList={regions} Component={Region} /> }
+          <Header path={path} childrenList={regions} handleCreateNewChild={handleCreateRegion} />
+          <Routes  path={path} childrenList={regions} Component={Region} />
         </Fragment>
       </Router>
     );

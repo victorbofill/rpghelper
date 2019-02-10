@@ -40,7 +40,6 @@ class Base extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Base</p>
           <Header path={path} childrenList={childrenList} />
           <Routes path={path} childrenList={childrenList} type={'bases'} parentId={_id} content={content} />
         </Fragment>

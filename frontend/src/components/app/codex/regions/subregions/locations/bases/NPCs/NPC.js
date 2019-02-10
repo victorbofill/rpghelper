@@ -19,7 +19,6 @@ class NPC extends Component {
     return (
       <Router>
         <Fragment>
-          <p>NPC</p>
           <Routes path={path} content={content} type={'NPCs'} />
         </Fragment>
       </Router>

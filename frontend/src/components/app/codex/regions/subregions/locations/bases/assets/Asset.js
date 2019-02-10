@@ -19,7 +19,6 @@ class Asset extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Asset</p>
           <Routes path={path} content={content} type={'assets'} />
         </Fragment>
       </Router>

@@ -39,7 +39,6 @@ class Bases extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Bases</p>
           <Header path={path} childrenList={bases} handleCreateNewChild={handleCreateBase} />
           <Routes path={path} childrenList={bases} Component={Base} />
         </Fragment>
