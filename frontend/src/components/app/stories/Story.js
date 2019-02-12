@@ -2,25 +2,38 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-// import Chapters from './chapters/Chapters';
+import Header from '../shared/header/Header';
+import Routes from '../shared/routes/Routes';
+import Chapters from './chapters/Chapters';
 
 class Region extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
-    story: PropTypes.object.isRequired,
+    content: PropTypes.object.isRequired,
   };
 
+  childrenList = [{
+    _id: Math.random(),
+    url: 'chapters',
+    name: 'Chapters',
+    Component: Chapters,
+  }];
+
   render() {
-    const { story } = this.props;
+    const { childrenList } = this;
+    const { content } = this.props;
     const { path } = this.props.match;
     
-    if(!story) return null;
+    if(!content) return null;
 
-    const { _id } = story;
+    const { _id } = content;
 
     return (
       <Router>
-        <p>Story</p>
+        <Fragment>
+          <Header path={path} childrenList={childrenList}/>
+          <Routes path={path} childrenList={childrenList} type={'stories'} parentId={_id} content={content} />
+        </Fragment>
       </Router>
     );
   }

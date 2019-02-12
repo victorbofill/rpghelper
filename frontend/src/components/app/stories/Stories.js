@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
+import Header from '../shared/header/Header';
+import Routes from '../shared/routes/Routes';
 import Story from './Story';
 import { api } from '../../../services/api';
 
@@ -34,10 +36,8 @@ class Stories extends Component {
     return (
       <Router>
         <Fragment>
-          <p>Stories</p>
-          {stories && stories.map(story => {
-            <Story story={story} />;
-          })}
+          <Header path={path} childrenList={stories} handleCreateNewChild={handleCreateStory} />
+          <Routes  path={path} childrenList={stories} Component={Story} />
         </Fragment>
       </Router>
     );
