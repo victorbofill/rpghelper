@@ -15,7 +15,7 @@ class Region extends Component {
   childrenList = [{
     _id: Math.random(),
     url: 'subregions',
-    name: 'Subregions'
+    name: 'Subregions',
   }];
 
   render() {
