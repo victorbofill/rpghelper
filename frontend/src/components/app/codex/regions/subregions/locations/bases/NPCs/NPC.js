@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import Routes from '../../../../../routes/Routes';
+import Routes from '../../../../../../shared/routes/Routes';
 
 class NPC extends Component {
   static propTypes = {

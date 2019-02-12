@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Base from './Base';
-import Header from '../../../../header/Header';
-import Routes from '../../../../routes/Routes';
+import Header from '../../../../../shared/header/Header';
+import Routes from '../../../../../shared/routes/Routes';
 import { api } from '../../../../../../../services/api';
 
 class Bases extends Component {

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import Header from '../header/Header';
-import Routes from '../routes/Routes';
+import Header from '../../shared/header/Header';
+import Routes from '../../shared/routes/Routes';
 import Subregions from './subregions/Subregions';
 
 class Region extends Component {
