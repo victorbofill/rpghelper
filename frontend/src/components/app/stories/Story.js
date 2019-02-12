@@ -1,81 +1,29 @@
-import React, { Fragment, Component } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
-import Chapter from './chapters/Chapter';
-import { delStory, postChapter } from '../../services/api';
+// import Chapters from './chapters/Chapters';
 
-import styles from './Stories.css';
-
-class Story extends Component {
+class Region extends Component {
   static propTypes = {
-    match: PropTypes.object,
-    story: PropTypes.object
-  };
-
-  handleDeleteStory = () => {
-    const { _id } = this.props.story;
-    
-    if(confirm('Are you sure?')) delStory(_id);
-  };
-
-  handleAddChapter = () => {
-    const { _id } = this.props.story;
-
-    const chapter = {
-      url: 'newchapter',
-      name: 'New Chapter',
-      description: 'description',
-      reward: 'reward',
-      status: 'unavailable'
-    };
-
-    postChapter(_id, chapter)
-      .catch(err => console.log(err));
+    match: PropTypes.object.isRequired,
+    story: PropTypes.object.isRequired,
   };
 
   render() {
-    const { story, match } = this.props;
-    const { path } = match;
-    const { name, chapters } = story;
-    const { handleDeleteStory, handleAddChapter } = this;
+    const { story } = this.props;
+    const { path } = this.props.match;
+    
+    if(!story) return null;
+
+    const { _id } = story;
 
     return (
-      <Fragment>
-        <main className={styles.stories}>
-          <div className={'title'}>
-            <h1>{name}</h1>
-          </div>
-
-          <div className={'leftColumn'}>
-            <button onClick={handleDeleteStory}>Delete Story</button>
-            <button onClick={handleAddChapter}>Add Chapter</button>
-            <ul>
-              {chapters && (chapters[0] !== null) &&
-                  chapters.map(chapter => {
-                    return (
-                      <NavLink key={chapter._id} to={`${path}/${chapter.url}`}><li>{`${chapter.name}`}</li></NavLink>
-                    );
-                  })
-              }
-            </ul>
-          </div>
-
-          <div className={'rightColumn'}>
-            {chapters && (chapters[0] !== null) &&
-              chapters.map(chapter => {
-                return (
-                  <Route key={chapter._id} path={`${path}/${chapter.url}`} render={props => <Chapter {...props} chapter={chapter} story={story}/>} />
-                );
-              })
-            }
-          </div>
-        </main>
-      </Fragment>
+      <Router>
+        <p>Story</p>
+      </Router>
     );
   }
 }
 
-export default connect(
-)(Story);
+export default withRouter(Region);

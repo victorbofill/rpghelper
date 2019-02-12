@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-import { delChapter, putChapter } from '../../../services/api';
+import { api } from '../../../../services/api';
 
 class Chapter extends Component {
   static propTypes = {
-    chapter: PropTypes.object,
-    story: PropTypes.object
+
   };
 
   defaultState = {
@@ -24,34 +22,31 @@ class Chapter extends Component {
     this.setState({ [target.name] : [target.value] });
   };
 
-  handleToggleEdit = () => {
-    const { editing } = this.state;
-    this.setState({ editing: !editing });
-  };
-
   handleSubmitEdit = () => {
-    const { editUrl, editName, editDescription, editReward } = this.state;
-    const { url, name, description, reward } = this.props.chapter;
-    const { _id } = this.props.story;
-    const { _id: chapterId } = this.props.chapter;
+    // TODO: Implement edits
+    // const { editUrl, editName, editDescription, editReward } = this.state;
+    // const { url, name, description, reward } = this.props.chapter;
+    // const { _id } = this.props.story;
+    // const { _id: chapterId } = this.props.chapter;
 
-    const chapter = {
-      url: editUrl || url,
-      name: editName || name,
-      description: editDescription || description,
-      reward: editReward || reward
-    };
+    // const chapter = {
+    //   url: editUrl || url,
+    //   name: editName || name,
+    //   description: editDescription || description,
+    //   reward: editReward || reward
+    // };
 
-    putChapter(_id, chapterId, chapter);
-    this.setState(this.defaultState);
+    // putChapter(_id, chapterId, chapter);
+    // this.setState(this.defaultState);
   };
 
   handleDeleteChapter = () => {
-    const { _id: chapterId } = this.props.chapter;
-    const { _id } = this.props.story;
+    // TODO: Implement delete
+    // const { _id: chapterId } = this.props.chapter;
+    // const { _id } = this.props.story;
     
-    delChapter(_id, chapterId)
-      .catch(err => console.log(err));
+    // delChapter(_id, chapterId)
+    //   .catch(err => console.log(err));
   };
 
   render() {

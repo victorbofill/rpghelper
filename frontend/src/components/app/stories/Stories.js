@@ -1,83 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 
 import Story from './Story';
-import { loadStories } from './actions';
-import { getStories } from './reducers';
-import { postStory } from '../../services/api';
-
-import styles from './Stories.css';
+import { api } from '../../../services/api';
 
 class Stories extends Component {
   static propTypes = {
-    match: PropTypes.object,
-    stories: PropTypes.array,
-    locationObject: PropTypes.object,
-    loadStories: PropTypes.func
+    match: PropTypes.object.isRequired,
   };
 
-  componentDidMount() {
-    this.props.loadStories();
+  state= {
+    stories: []
+  };
+
+  async componentDidMount() {
+    const stories = await api.getAllData('stories');
+    this.setState({ stories });
   }
 
-  handleAddStory = () => {
-    const story = {
-      url: 'newstory',
-      name: 'New Story'
-    };
-
-    postStory(story)
-      .catch(err => console.log(err));
+  handleCreateStory = async() => {
+    const { stories } = this.state;
+    const newStory = await api.postData('stories');
+    stories.push(newStory);
+    this.setState({ stories });
   };
 
   render() {
-    const { match, stories, locationObject } = this.props;
-    const { handleAddStory } = this;
-    const { path } = match;
+    const { handleCreateStory } = this;
+    const { path } = this.props.match;
+    const { stories } = this.state;
 
     return (
       <Router>
-        <div>
-          <header className={styles.header}>
-            <ul>
-              {stories && (stories[0] !== null) &&
-                  stories.map(story => {
-                    return (
-                      <li key={story._id}><NavLink to={`${path}/${story.url}`}>{`${story.name}`}</NavLink></li>
-                    );
-                  })
-              }
-              <li onClick={handleAddStory}>+</li>
-            </ul>
-          </header>
-
-          <main>
-            <div>
-              <div>
-                <Switch>
-                  {stories && (stories[0] !== null) &&
-                    stories.map(story => {
-                      return (
-                        <Route key={story._id} path={`${path}/${story.url}`} render={props => <Story {...props} story={story} locationObject={locationObject}/>} />
-                      );
-                    })
-                  }
-                </Switch>
-              </div>
-            </div>
-          </main>
-        </div>
+        <Fragment>
+          <p>Stories</p>
+          {stories && stories.map(story => {
+            <Story story={story} />;
+          })}
+        </Fragment>
       </Router>
     );
   }
 }
 
-export default connect(
-  state => ({
-    stories: getStories(state)
-  }), {
-    loadStories
-  }
-)(Stories);
+export default withRouter(Stories);
