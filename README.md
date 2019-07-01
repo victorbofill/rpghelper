@@ -2,8 +2,8 @@
 
 Oh hello! This is just an app to help me run the RPG game that I made, Quan. It's little more than an interface for a database of locations, NPCs, quests, etc., as well as a minimal dice-roller and combat tracker. All the sort of thing that's typically done with pen-and-paper in a pen-and-paper RPG.
 
-## June 12
-I've been super busy, and the app is doing what it needs to (minimally) so I haven't done much work on this app for quite a while. The problem I've run into now is that if I were to make this from scratch today, I'd do it differently. So do I re-write code from the ground up, or do I make little improvements/changes here and there? It's probably going to be the latter by default, but I'm considering the former.
+## June 30 12
+I've finally found some spare time over the July 4th holiday weekend and am in the process of overhauling this entire project. You can find the WIP in the `overhaul` branch.
 
 ## Front End Highlights
 I'm pretty proud of the React Router that I built (`src/components/app/codex/routes`). It's a deeply nested switch/router structure that takes a large chunk of information from the database and procedurally generates the entire router, and it does so early enough in the app lifecycle that a URL with no associated back end route can be used and it will still work. For example, I can enter `pnw/oregon/portland/myhouse` into the address bar of my browser and the router will retrieve the data, build the router, and load all necessary components to display information about my house, each with their own information as well.
